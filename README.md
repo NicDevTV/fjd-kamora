@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Federal Justice Department (FJD)
 
-## Getting Started
+Website of the fictional Federal Justice Department for the **Kamora-V** roleplay server.
+The department, its emblem and the legal codex are invented for roleplay and have no connection
+to any real government, justice authority or institution.
 
-First, run the development server:
+## What's inside
+
+- **Home page** with a 3D glass emblem (WebGL), a scroll-driven walkthrough of the procedure path,
+  the department's offices and the hierarchy of norms.
+- **Rechtskodex** (`/rechtskodex`): the full legal codex of Kamora, rendered from
+  `content/rechtskodex-kamora-v1.md`, with instant search, cross-reference links, abbreviation
+  tooltips and a table of contents that follows your reading position.
+
+The codex is read at build time and served as a static page; changing it means editing the
+Markdown file and deploying again.
+
+## Development
+
+Requires [Bun](https://bun.sh).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
+bun run dev      # http://localhost:3000
+bun run lint
+bun run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js 16 (App Router), React 19, Tailwind CSS 4, React Three Fiber + drei, Motion, react-markdown.
+Deployed on Vercel.
