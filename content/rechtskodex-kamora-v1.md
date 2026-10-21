@@ -73,7 +73,7 @@ Gesetze mit Mehrheit, Verfassungsänderungen mit 2/3, außer bei Art. 14. Entwü
 
 ### Art. 7 Justizminister
 
-Leitet das FJD (→ FJDS), weist das KPD an (→ FJDS 4), bringt Gesetzentwürfe in den Senat ein und spricht dort mit (→ Art. 6), erlässt Verordnungen (→ FJDS 6), schlägt vor (Art. 5) und vertritt Kamora mit Diplomatenstatus (→ ImmG 1).
+Leitet das FJD (→ FJDS), weist das KPD an (→ FJDS 4), bringt Gesetzentwürfe in den Senat ein und spricht dort mit (→ Art. 6), erlässt Verordnungen (→ FJDS 6), schlägt vor (Art. 5) und vertritt Kamora nach außen mit Diplomatenpass (→ ImmG 1).
 
 ### Art. 8 Grenzen des JM
 
@@ -434,7 +434,7 @@ Kein Streik, keine kollektive Dienstverweigerung, keine Massenkrankmeldung, kein
 
 #### § 1 Geschützt
 
-Amtsimmunität haben Gouverneur, JM, Senatspräsident und Oberster Richter (→ KV 10). Diplomatenstatus haben der JM und akkreditierte Gesandte; den Ausweis stellt der Gouverneur aus.
+Amtsimmunität haben Gouverneur, JM, Senatspräsident und Oberster Richter (→ KV 10). Diplomatenstatus haben nur akkreditierte Gesandte fremder Staaten oder Organisationen (→ § 8). Eigene Amtsträger haben ihn im Inland nie. Vertritt der JM Kamora nach außen, erhält er einen Diplomatenpass (→ KV 7); in Kamora schützt der ihn nicht.
 
 #### § 2 Umfang
 
@@ -459,6 +459,16 @@ Durch den Justizmarschalldienst. Sein Schutzbereich wandert mit der Schutzperson
 #### § 7 Missbrauch
 
 Wer Immunität vortäuscht, wird nach KStGB 41 bestraft. Wer seinen Status für Straftaten nutzt, begeht Amtsmissbrauch (→ KStGB 47); das ist immer ein Grund zur Aufhebung.
+
+#### § 8 Diplomatenstatus
+
+Er schützt die Beziehungen zu anderen Staaten, nicht die Person. Der Gouverneur akkreditiert Gesandte, stellt den Ausweis aus und gibt jede Akkreditierung im Amtsblatt bekannt.
+
+- **Schutz:** Wie § 2 für Person, Fahrzeug und Gesandtschaft; § 3 gilt. Der OGH kann ihn nicht aufheben (§ 4 gilt nicht).
+- **Verzicht:** Verzichtet der Entsendestaat auf den Schutz, wird sofort normal verfolgt.
+- **Unerwünschte Person (persona non grata):** Bei einer Straftat oder Missbrauch erklärt der Gouverneur den Gesandten zur unerwünschten Person, auf eigene Initiative oder auf Antrag von Senat, JM oder Chief. Die Akkreditierung erlischt sofort, er muss Kamora binnen 24 h verlassen. Danach entfällt jeder Schutz, und alle Taten werden voll verfolgt.
+- **Ende:** Mit Abberufung, Ablauf oder Entzug der Akkreditierung.
+- **Vortäuschen:** Wer Diplomatenstatus vortäuscht, wird nach KStGB 41 bestraft.
 
 ## Teil 06 · FJD-Statut (FJDS)
 
