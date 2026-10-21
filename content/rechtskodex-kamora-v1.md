@@ -377,7 +377,7 @@ Für KPD, FJD, Regierung und Verwaltung. Für Richter gelten nur §§ 2, 5 und 6
 
 #### § 2 Ernennung und Eid
 
-Die Behördenleitung ernennt nach 14 Tagen Probezeit. Der Eid wird feierlich vor der Flagge abgelegt:
+Die Behördenleitung ernennt frühestens nach 14 Tagen Probezeit; wirksam wird die Ernennung erst mit dem Eid. Vereidigt wird einmal im Monat an einem festen Termin, den das FJD im Amtsblatt bekannt gibt. Sondertermine setzt der JM an, etwa bei dringendem Personalbedarf. Bis zur Vereidigung bleibt der Beamte Anwärter. Der Eid wird feierlich vor der Flagge abgelegt:
 
 1. Die Flagge von Kamora steht. Auf Befehl treten alle Anwärter in einer Reihe vor die Flagge.
 2. Der Justizminister tritt vor die Reihe. Die Anwärter stehen still und erheben die rechte Hand zur Flagge.

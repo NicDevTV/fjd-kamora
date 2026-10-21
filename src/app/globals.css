@@ -253,10 +253,142 @@ body {
   grid-template-rows: 1fr;
 }
 
-/* On narrow screens the table scrolls sideways. The definition stays pinned to the visible
-   width of the scroll box (the table wrapper is the size container), so it never runs off screen. */
+/* If a table is wider than its card, the definition stays pinned to the visible width of the
+   scroll box (the table wrapper is the size container), so it never runs off screen. */
 .rk-table {
   container-type: inline-size;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(22 38 58 / 0.25) transparent;
+}
+
+.rk-table::-webkit-scrollbar {
+  height: 12px;
+}
+
+.rk-table::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 0 1.25rem;
+}
+
+.rk-table::-webkit-scrollbar-thumb {
+  background: rgb(22 38 58 / 0.2);
+  border: 4px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+
+.rk-table::-webkit-scrollbar-thumb:hover {
+  background: rgb(22 38 58 / 0.35);
+  border: 4px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Phones: tables become stacked rows instead of scrolling sideways. Each cell shows its
+   column name (data-label, rehype-table-labels.ts). In tables keyed by § or Kürzel the
+   code and the name share the first line and the remaining values follow inline. */
+@media (max-width: 639px) {
+  .rk-table {
+    overflow-x: visible;
+  }
+
+  .rk-table table {
+    min-width: 0;
+  }
+
+  .rk-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .rk-table table,
+  .rk-table tbody,
+  .rk-table tr,
+  .rk-table td {
+    display: block;
+  }
+
+  .rk-table tbody tr {
+    padding: 0.9rem 1.15rem;
+    border-top: 1px solid rgb(23 32 43 / 0.1);
+  }
+
+  .rk-table tbody tr:first-child {
+    border-top: 0;
+  }
+
+  .rk-table td {
+    border: 0;
+    padding: 0;
+  }
+
+  .rk-table td + td {
+    margin-top: 0.5rem;
+  }
+
+  .rk-table td:first-child {
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .rk-table td[data-label]:not(:first-child)::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.1rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .rk-table [data-keyed] td:nth-child(-n + 2) {
+    display: inline;
+    margin: 0;
+  }
+
+  .rk-table [data-keyed] td:nth-child(2)::before {
+    content: none;
+  }
+
+  /* Line break after the name, before the inline values. */
+  .rk-table [data-keyed] td:nth-child(2)::after {
+    content: "";
+    display: block;
+  }
+
+  .rk-table [data-keyed] td:first-child {
+    margin-right: 0.6rem;
+  }
+
+  .rk-table [data-keyed] td:nth-child(n + 3) {
+    display: inline-block;
+    margin: 0.45rem 1.25rem 0 0;
+  }
+
+  .rk-table [data-keyed] td:nth-child(n + 3)::before {
+    display: inline;
+    margin-right: 0.4rem;
+  }
+
+  /* The unfolded definition belongs to the row above, without a divider. */
+  .rk-table tbody tr.rk-offense-detail {
+    padding: 0;
+    border-top: 0;
+  }
+
+  .rk-table [data-keyed] tr.rk-offense-detail td {
+    display: block;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .rk-table .rk-offense-text {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
 }
 
 .rk-offense-text {

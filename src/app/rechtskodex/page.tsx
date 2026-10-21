@@ -14,6 +14,7 @@ import { ScrollReveal } from "@/components/scroll-reveal";
 import { SiteHeader } from "@/components/site-header";
 import { TargetFlash } from "@/components/target-flash";
 import { rehypeArticles } from "@/lib/rehype-articles";
+import { rehypeTableLabels } from "@/lib/rehype-table-labels";
 import type { Element as HastElement } from "hast";
 import {
   getRechtskodex,
@@ -151,9 +152,14 @@ function markdownComponents(
         {children}
       </blockquote>
     ),
-    table: ({ children }) => (
+    table: ({ node, children }) => (
       <div className="rk-table glass-inset mt-6 overflow-x-auto rounded-[1.5rem]">
-        <table className="w-full min-w-[30rem] border-collapse text-left text-sm">{children}</table>
+        <table
+          data-keyed={node?.properties.dataKeyed ? "true" : undefined}
+          className="w-full min-w-[30rem] border-collapse text-left text-sm"
+        >
+          {children}
+        </table>
       </div>
     ),
     thead: ({ children }) => <thead className="bg-navy/90 text-white">{children}</thead>,
@@ -184,8 +190,13 @@ function markdownComponents(
         </OffenseRow>
       );
     },
-    td: ({ children }) => (
-      <td className="border-t border-ink/10 px-4 py-3.5 align-top tabular-nums">{withRefs(children)}</td>
+    td: ({ node, children }) => (
+      <td
+        data-label={typeof node?.properties.dataLabel === "string" ? node.properties.dataLabel : undefined}
+        className="border-t border-ink/10 px-4 py-3.5 align-top tabular-nums"
+      >
+        {withRefs(children)}
+      </td>
     ),
   };
 }
@@ -290,7 +301,7 @@ export default function RechtskodexPage() {
                       <div className="mt-6 space-y-4">
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
-                          rehypePlugins={[rehypeArticles]}
+                          rehypePlugins={[rehypeArticles, rehypeTableLabels]}
                           components={markdownComponents(section, refs, definitions)}
                         >
                           {section.body}
