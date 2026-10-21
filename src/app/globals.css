@@ -696,23 +696,21 @@ h2.is-flash {
 
 /* Abbreviations (abbr.tsx): dotted underline, full form in a dark glass tooltip on hover */
 .fjd-abbr {
-  position: relative;
   text-decoration: underline dotted rgb(23 32 43 / 0.45);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   cursor: help;
 }
 
-.fjd-abbr::after {
-  content: attr(data-full);
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  z-index: 30;
-  translate: -50% 4px;
+/* The full form floats in one shared, fixed tooltip (abbr-tooltip.tsx), so no scroll box
+   or clipped card can cut it off. */
+.fjd-abbr-tip {
+  position: fixed;
+  z-index: 100;
+  max-width: calc(100vw - 16px);
   padding: 0.35rem 0.7rem;
   border-radius: 0.75rem;
-  background: rgb(22 38 58 / 0.9);
+  background: rgb(22 38 58 / 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgb(255 255 255 / 0.14);
@@ -727,14 +725,29 @@ h2.is-flash {
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
+  translate: 0 calc(-100% + 4px);
   transition:
     opacity 0.2s ease,
     translate 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.fjd-abbr:hover::after {
+.fjd-abbr-tip[data-below="true"] {
+  translate: 0 -4px;
+}
+
+.fjd-abbr-tip[data-visible="true"] {
   opacity: 1;
-  translate: -50% 0;
+  translate: 0 -100%;
+}
+
+.fjd-abbr-tip[data-visible="true"][data-below="true"] {
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fjd-abbr-tip {
+    transition: opacity 0.2s ease;
+  }
 }
 
 /* Inside a cross-reference the link underline is enough */

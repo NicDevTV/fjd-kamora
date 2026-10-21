@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Serif } from "next/font/google";
+import { AbbrTooltip } from "@/components/abbr-tooltip";
 import { GlassPointer } from "@/components/glass-pointer";
 import { IntroScreen } from "@/components/intro-screen";
 import "./globals.css";
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* The curtain lives in the layout so it only runs on a real page load, not on in-app navigation. */}
         <IntroScreen />
         <GlassPointer />
+        <AbbrTooltip />
         {children}
       </body>
     </html>

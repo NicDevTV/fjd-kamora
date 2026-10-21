@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { ABBREVIATION_PATTERN, ABBREVIATIONS } from "@/lib/abbreviations";
 
-// An abbreviation with its full form in a glass tooltip on hover (globals.css, .fjd-abbr).
+// An abbreviation with its full form in a glass tooltip on hover (abbr-tooltip.tsx).
 // Screen readers get the full form as visually hidden text instead of the tooltip.
 export function Abbr({ short }: { short: string }) {
   const full = ABBREVIATIONS[short];
