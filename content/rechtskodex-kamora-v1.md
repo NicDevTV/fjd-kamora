@@ -120,6 +120,15 @@ Nicht erreichbar ist, wer nicht im Dienst ist und auch binnen 15 Min. nicht per 
 - **Niemand aus der Justiz online:** Das KPD handelt im Rahmen seiner eigenen Befugnisse (→ JO 5), der Rest wird vertagt.
 - **Vertreter:** Sie entscheiden nur, was nicht warten kann, und tragen alles ins MDT ein. Der Amtsinhaber kann es binnen 24 h ändern, Urteile aber nur per Rechtsmittel (→ JO 11).
 - **Inaktivität:** Wer 14 Tage ohne Abmeldung inaktiv ist, kann abgelöst werden. Bis dahin führt der erste Vertreter das Amt kommissarisch.
+- **Unbesetzte Ämter:** Ein Amt ohne Inhaber gilt als dauerhaft nicht erreichbar; die Kette oben vertritt, bis es besetzt ist. Für Behörden ohne eigenes Personal gilt die Tabelle unten.
+- **Doppeldienst:** Bei Personalmangel darf jemand zugleich im KPD und im FJD dienen, wenn Chief und JM zustimmen. Er handelt immer nur in der Rolle, die er bei Dienstantritt im MDT einträgt, und nie in einem Fall, den er in der anderen Rolle bearbeitet hat. Ausgeschlossen sind AIR, Richteramt und Sonderermittler.
+
+| Behörde unbesetzt | Aufgaben übernimmt | Grenze |
+| --- | --- | --- |
+| Justizmarschalldienst | KPD: Schutz von FJD, Gerichten und Schutzpersonen, Transport, Gefängnis | Endet mit dem ersten vereidigten Marshal (→ BeamtG 2) |
+| Staatsanwaltschaft | Ersatzanklage (→ JO 5) | Anklage gegen das FJD nur durch den Sonderermittler |
+| Innere Revision (AIR) | Justizausschuss des Senats, ohne Senat der OGH (→ Art. 6) | Nie jemand aus KPD oder FJD |
+| KPD (niemand im Dienst) | Niemand; der Marshaldienst bleibt auf seinen Schutzbereich beschränkt (→ FJDS 10) | Notwehr und Nothilfe gelten für jeden (→ KStGB 4) |
 
 ### Art. 14 Ewigkeitsklausel
 
@@ -294,7 +303,7 @@ Einspruch binnen 24 h zum Bezirksgericht, Berufung binnen 48 h zum OGH. Der OGH 
 
 ### § 12 Öffentlichkeit
 
-Verhandlungen sind öffentlich, außer bei Zeugen- oder Staatsschutz. Die Ordnung halten die Justizmarschalle (→ FJDS 2).
+Verhandlungen sind öffentlich, außer bei Zeugen- oder Staatsschutz. Die Ordnung halten die Justizmarschalle (→ FJDS 10).
 
 ### § 13 Gnade
 
@@ -305,6 +314,8 @@ Das Gesuch geht an den JM, er schlägt vor, der Gouverneur entscheidet (→ KV 5
 ### § 1 Aufgaben
 
 Gefahrenabwehr, Strafverfolgung, Verkehr, Schutz von Personen und Eigentum.
+
+Polizeiliche Befugnisse (§§ 5–10) hat allein das KPD. FJD und StA leiten Ermittlungen und erlassen Anordnungen; Festnahme, Durchsuchung und anderen Zwang führt das KPD aus (→ JO 4). Einzige Ausnahme ist der Justizmarschalldienst in seinem Schutzbereich (→ FJDS 10).
 
 ### § 2 Organisation
 
@@ -328,7 +339,7 @@ Person und Fahrzeug bei Verdacht, nach Festnahme oder zur Eigensicherung. Wohnun
 
 ### § 7 Festnahme
 
-Bei dringendem Verdacht oder auf Haftbefehl. Die Belehrung (Miranda-Warnung) folgt sofort und vollständig (→ KV 3). Fehlt sie, ist eine Aussage unverwertbar (→ JO 8):
+Bei dringendem Verdacht oder auf Haftbefehl; Haftbefehle vollstreckt das KPD. Die Belehrung (Miranda-Warnung) folgt sofort und vollständig (→ KV 3). Fehlt sie, ist eine Aussage unverwertbar (→ JO 8):
 
 > „Sie sind festgenommen wegen [Tatvorwurf].\
 > Sie haben das Recht zu schweigen.\
@@ -443,7 +454,7 @@ Mit dem Amt. Danach und nach einer Aufhebung wird alles voll verfolgt, mit +50 %
 
 #### § 6 Personenschutz
 
-Durch den Justizmarschalldienst (→ FJDS 2). Ein Angriff auf eine geschützte Person gilt als Angriff auf einen Amtsträger (→ KStGB 15).
+Durch den Justizmarschalldienst. Sein Schutzbereich wandert mit der Schutzperson, wo immer sie sich aufhält (→ FJDS 10). Ein Angriff auf eine geschützte Person gilt als Angriff auf einen Amtsträger (→ KStGB 15).
 
 #### § 7 Missbrauch
 
@@ -458,7 +469,7 @@ Das FJD ist die oberste Justizbehörde und wird vom JM geleitet (→ KV 7). Den 
 ### § 2 Ämter
 
 - **Staatsanwaltschaft (GStA):** Anklage und Ermittlungen, auch organisierte Kriminalität, Korruption und Staatsschutz (→ JO 4–5).
-- **Justizmarschalldienst:** Personen- und Gerichtsschutz, Haftbefehle, Transport, Gefängnis (→ ImmG 6, JO 12).
+- **Justizmarschalldienst:** Schutz von FJD, Gerichten und Schutzpersonen, Ordnung im Gericht, Gefangenentransport und Gefängnis. Keine Polizeibefugnisse (→ FJDS 10, ImmG 6, JO 12).
 - **Innere Revision (AIR):** Kontrolle von KPD und FJD, Beschwerden, Schusswaffengebrauch (→ PolG 8, 12). Sie berichtet direkt an den Senat; ihre Leitung ist nur mit Zustimmung des Senats abberufbar.
 
 ### § 3 Ränge
@@ -497,3 +508,16 @@ Monatsbericht an den Justizausschuss mit Weisungen, Fällen, Beschwerden, Lösch
 ### § 9 Amtsverlust
 
 Der JM durch Entlassung oder Amtsenthebung (→ KV 6), alle anderen nach BeamtG 6.
+
+### § 10 Justizmarschalldienst
+
+Der Dienst schützt, er ermittelt nicht. Er hat keine Polizeibefugnisse (→ PolG 1), nur die Befugnisse aus diesem Paragraphen und nur in seinem Schutzbereich.
+
+- **Schutzbereich:** Gebäude und Gelände von FJD und Gerichten, das Gefängnis, Gefangenentransporte und der unmittelbare Umkreis einer Schutzperson (→ ImmG 6).
+- **Erlaubt:** Einlasskontrolle mit Durchsuchung von Person und Taschen, Hausverbot und Platzverweis, Gefahrenabwehr mit den Mitteln aus PolG 8. Die Schusswaffe nur bei gegenwärtiger Gefahr für Leib oder Leben. Gegenüber Gefangenen gilt dasselbe im Gefängnis und beim Transport.
+- **Festhalten:** Wer im Schutzbereich eine Straftat begeht, darf festgehalten und gefesselt werden. Der Marshal ruft sofort das KPD, belehrt nach PolG 7 und stellt keine Fragen zur Tat. Festnahme, Durchsuchung und Akte übernimmt das KPD.
+- **Kein KPD binnen 15 Min.:** Bei Gewalt, Waffen oder einem Angriff auf eine Schutzperson kommt die Person bis zu 24 h in Sicherungsgewahrsam. Anordnen darf das die StA, ein KPD-Beamter ab Captain oder, wenn beide nicht erreichbar sind, ein Marshal (nicht Deputy oder Anwärter); der nächste Richter entscheidet (→ JO 10). Bei allen anderen Taten nimmt der Marshal die Identität auf, meldet im MDT und lässt die Person gehen.
+- **Flucht:** Außerhalb des Schutzbereichs darf er nur einen geflohenen Gefangenen festhalten. Alle anderen verfolgt er nicht, sondern hält Sichtkontakt und lotst das KPD.
+- **Verboten:** Ermittlungen, Vernehmungen, Verkehrskontrollen, Tickets und Strafbefehle, Durchsuchung von Wohnungen und Fahrzeugen, Vollstreckung von Haftbefehlen (→ PolG 7).
+- **Amtshilfe:** Fehlt dem KPD Personal, kann der Ranghöchste im KPD-Dienst ab Lieutenant Marshals für einen bestimmten Einsatz anfordern. Für diesen Einsatz haben sie die Befugnisse des PolG unter KPD-Führung. Anforderung und Ende kommen ins MDT. Das FJD kann sich nicht selbst einsetzen; eine Weisung nach § 4 ersetzt die Anforderung nicht.
+- **Kontrolle:** Bodycam beim Festhalten, Bericht im MDT vor Schichtende (→ PolG 11). Beschwerden gehen an die AIR (→ PolG 12); Überschreiten der Befugnisse ist Amtsmissbrauch (→ KStGB 47).

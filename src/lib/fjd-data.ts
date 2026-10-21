@@ -44,9 +44,10 @@ export const aemter = [
   {
     id: "justizmarschalldienst",
     name: "Justizmarschalldienst",
-    summary: "Personen- und Gerichtsschutz, Haftbefehle, Transport und Gefängnis.",
-    norm: "FJDS § 2 · ImmG 6",
-    href: codex(FJDS, "§ 2 Ämter"),
+    summary:
+      "Schutz von FJD, Gerichten und Schutzpersonen, Gefangenentransport und Gefängnis. Keine Polizeibefugnisse außerhalb des Schutzbereichs.",
+    norm: "FJDS § 2, 10 · ImmG 6",
+    href: codex(FJDS, "§ 10 Justizmarschalldienst"),
   },
   {
     id: "innere-revision",
