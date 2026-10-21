@@ -5,6 +5,7 @@ import { Environment, Float, Lightformer, MeshTransmissionMaterial } from "@reac
 import type { MotionValue } from "motion/react";
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import * as THREE from "three";
+import { toCreasedNormals } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 // The emblem from fjd-logo.tsx as a 3D object: a glass shield with a solid F inside.
 // Coordinates come from the SVG (viewBox 96 × 112); the y axis is flipped.
@@ -60,7 +61,12 @@ function useEmblemGeometry() {
     letter.boundingBox!.getCenter(letterCenter);
     letter.translate(-center.x, -center.y, -letterCenter.z);
 
-    return { shield, letter };
+    // ExtrudeGeometry ships flat per-face normals, so the bevel and the curved walls show as
+    // bands at steep angles. Creased normals smooth those while keeping real corners sharp.
+    return {
+      shield: toCreasedNormals(shield, Math.PI / 5),
+      letter: toCreasedNormals(letter, Math.PI / 5),
+    };
   }, []);
 
   useEffect(
@@ -79,19 +85,22 @@ function useEmblemGeometry() {
 function useBackdropTexture() {
   const texture = useMemo(() => {
     const canvas = document.createElement("canvas");
-    canvas.width = 1600;
-    canvas.height = 1000;
+    const width = 1600;
+    const height = 1000;
+    canvas.width = width * 2;
+    canvas.height = height * 2;
     const context = canvas.getContext("2d")!;
+    context.scale(2, 2);
 
     context.fillStyle = "#16263a";
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillRect(0, 0, width, height);
 
     const blob = (x: number, y: number, radius: number, color: string) => {
       const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
       gradient.addColorStop(0, color);
       gradient.addColorStop(1, "rgba(22, 38, 58, 0)");
       context.fillStyle = gradient;
-      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.fillRect(0, 0, width, height);
     };
     blob(1180, 220, 640, "rgba(150, 40, 62, 0.9)");
     blob(1400, 820, 560, "rgba(59, 110, 165, 0.8)");
@@ -100,10 +109,10 @@ function useBackdropTexture() {
 
     context.strokeStyle = "rgba(255, 255, 255, 0.07)";
     context.lineWidth = 1.5;
-    for (let y = 24; y < canvas.height; y += 36) {
+    for (let y = 24; y < height; y += 36) {
       context.beginPath();
       context.moveTo(0, y);
-      context.lineTo(canvas.width, y);
+      context.lineTo(width, y);
       context.stroke();
     }
 
@@ -185,23 +194,20 @@ function Shield({ progress, pointer, reduced, compact }: ShieldProps) {
   return (
     <group ref={group}>
       <mesh geometry={shield}>
-        {/* The F is seen through this glass, so the transmission buffer renders at full canvas
-            resolution and blur, roughness and colour fringing stay low to keep the letter crisp. */}
+        {/* Three's transmission sampler uses a full-resolution multisampled target.
+            Canvas antialiasing alone cannot smooth the F inside drei's default offscreen buffers. */}
         <MeshTransmissionMaterial
-          backside
-          backsideThickness={0.35}
+          transmissionSampler
+          side={THREE.DoubleSide}
           thickness={0.9}
-          samples={compact ? 6 : 10}
-          resolution={compact ? 1024 : undefined}
+          samples={8}
           transmission={1}
-          roughness={0.02}
+          roughness={0}
           ior={1.45}
-          chromaticAberration={0.035}
+          chromaticAberration={0.008}
           anisotropicBlur={0}
-          anisotropy={0.1}
-          distortion={0.12}
-          distortionScale={0.3}
-          temporalDistortion={reduced ? 0 : 0.06}
+          distortion={0}
+          temporalDistortion={0}
           color="#ffffff"
         />
       </mesh>
@@ -232,7 +238,7 @@ export default function HeroScene({ progress, pointer, active, reduced, onReady 
   return (
     <Canvas
       frameloop={active ? "always" : "never"}
-      dpr={[1, compact ? 1.75 : 2]}
+      dpr={[2, 3]}
       camera={{ position: [0, 0, 10], fov: 32 }}
       gl={{ antialias: true, powerPreference: "high-performance" }}
       onCreated={onReady}
@@ -247,7 +253,7 @@ export default function HeroScene({ progress, pointer, active, reduced, onReady 
       </Float>
 
       {/* Studio lighting without an external HDR file: light formers create the reflections in the glass. */}
-      <Environment resolution={256}>
+      <Environment resolution={512}>
         <Lightformer form="rect" intensity={3} position={[0, 4, 6]} scale={[10, 1.2, 1]} />
         <Lightformer form="rect" intensity={1.6} position={[-6, 0, 2]} rotation-y={Math.PI / 2} scale={[8, 2, 1]} />
         <Lightformer form="circle" color="#c0435c" intensity={6} position={[5, 2, -2]} scale={3} />

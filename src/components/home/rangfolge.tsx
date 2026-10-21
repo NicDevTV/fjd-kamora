@@ -28,15 +28,16 @@ type PlateProps = {
 
 // One glass plate in the stack. The top level sits highest; scrolling fans the stack out.
 function Plate({ level, index, count, spread, highlighted }: PlateProps) {
-  const z = useTransform(spread, (value) => (count - 1 - index) * value);
+  // Fan out around the stage centre, so the top plate stays below the heading.
+  const z = useTransform(spread, (value) => ((count - 1) / 2 - index) * value);
   const top = index === 0;
 
   return (
     <motion.div style={{ z }} className="absolute inset-0 [transform-style:preserve-3d]">
       <div
-        className={`plate absolute inset-0 flex flex-col justify-end rounded-[1.75rem] p-6 transition-[translate,box-shadow] duration-500 ${
+        className={`plate absolute inset-0 flex flex-col justify-end rounded-[1.75rem] p-6 transition-[border-color,box-shadow] duration-300 ${
           top ? "plate-top text-white" : "text-ink"
-        } ${highlighted ? "[translate:0_0_36px]" : ""}`}
+        } ${highlighted ? "plate-highlighted" : ""}`}
       >
         <span className="font-serif text-sm opacity-70 tabular-nums">
           {String(index + 1).padStart(2, "0")}
@@ -91,7 +92,7 @@ export function Rangfolge({ levels }: { levels: Level[] }) {
               onPointerLeave={() => setHovered(null)}
               onFocus={() => setHovered(index)}
               onBlur={() => setHovered(null)}
-              className="group grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-3 rounded-[1.5rem] p-5 transition-colors hover:bg-white/55"
+              className="group grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-3 rounded-[1.5rem] p-5 transition-colors hover:bg-white/70 focus-visible:bg-white/70"
             >
               <span className="font-serif text-xl text-accent/70 tabular-nums">
                 {String(index + 1).padStart(2, "0")}

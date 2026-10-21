@@ -5,9 +5,11 @@ import { useRef, useState } from "react";
 import {
   motion,
   useMotionValueEvent,
+  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
+  type MotionValue,
 } from "motion/react";
 import { withAbbreviations } from "@/components/abbr";
 
@@ -23,16 +25,10 @@ type Step = {
 // Distance from card to card in the track; must match h-[17rem] plus gap-8 (2rem).
 const STEP_PX = 304;
 
-function StepCard({ step, index, active }: { step: Step; index: number; active?: boolean }) {
+function StepCard({ step, index, active, desktop = false }: { step: Step; index: number; active?: boolean; desktop?: boolean }) {
   return (
     <article
-      className={`glass-panel flex flex-col p-7 transition-[opacity,transform,filter] duration-500 ${
-        active === undefined
-          ? ""
-          : active
-            ? "h-[17rem] opacity-100"
-            : "h-[17rem] scale-[0.94] opacity-40 blur-[1.5px]"
-      }`}
+      className={`glass-panel flex flex-col p-7 ${desktop ? "procedure-card h-[17rem]" : ""}`}
       aria-current={active ? "step" : undefined}
     >
       <div className="flex items-baseline justify-between gap-4">
@@ -57,6 +53,20 @@ function StepCard({ step, index, active }: { step: Step; index: number; active?:
   );
 }
 
+// Use the track's actual position for emphasis, so both cards blend continuously
+// even when scrolling quickly or reversing across the active-step boundary.
+function TrackCard({ step, index, trackY, active }: { step: Step; index: number; trackY: MotionValue<number>; active: boolean }) {
+  const distance = useTransform(trackY, (y) => Math.min(1, Math.abs(y + index * STEP_PX) / STEP_PX));
+  const scale = useTransform(distance, [0, 1], [1, 0.94]);
+  const opacity = useTransform(distance, [0, 1], [1, 0.6]);
+
+  return (
+    <motion.li style={{ scale, opacity }}>
+      <StepCard step={step} index={index} active={active} desktop />
+    </motion.li>
+  );
+}
+
 function Intro() {
   return (
     <>
@@ -74,16 +84,16 @@ function Intro() {
 export function Verfahrensweg({ steps }: { steps: Step[] }) {
   const stage = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const reduced = useReducedMotion() ?? false;
 
   const { scrollYProgress } = useScroll({ target: stage, offset: ["start start", "end end"] });
   const smooth = useSpring(scrollYProgress, { stiffness: 140, damping: 26, mass: 0.4 });
 
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    setActive(Math.min(steps.length - 1, Math.max(0, Math.floor(value * steps.length))));
-  });
-
   const half = 0.5 / steps.length;
-  const trackY = useTransform(smooth, [half, 1 - half], [0, -(steps.length - 1) * STEP_PX]);
+  const trackY = useTransform(reduced ? scrollYProgress : smooth, [half, 1 - half], [0, -(steps.length - 1) * STEP_PX]);
+  useMotionValueEvent(trackY, "change", (value) => {
+    setActive(Math.min(steps.length - 1, Math.max(0, Math.round(-value / STEP_PX))));
+  });
   const railFill = useTransform(smooth, [0, 1], ["0%", "100%"]);
 
   return (
@@ -146,15 +156,13 @@ export function Verfahrensweg({ steps }: { steps: Step[] }) {
               </ol>
             </div>
 
-            <div className="relative h-[min(30rem,70svh)] overflow-hidden [mask-image:linear-gradient(transparent,black_16%,black_84%,transparent)]">
+            <div className="relative -mx-6 h-[min(34rem,78svh)] overflow-hidden px-6 [mask-image:linear-gradient(transparent,black_12%,black_88%,transparent)]">
               <motion.ol
                 style={{ y: trackY }}
-                className="flex flex-col gap-8 pt-[calc((min(30rem,70svh)-17rem)/2)]"
+                className="flex flex-col gap-8 pt-[calc((min(34rem,78svh)-17rem)/2)]"
               >
                 {steps.map((step, index) => (
-                  <li key={step.id}>
-                    <StepCard step={step} index={index} active={index === active} />
-                  </li>
+                  <TrackCard key={step.id} step={step} index={index} trackY={trackY} active={index === active} />
                 ))}
               </motion.ol>
             </div>

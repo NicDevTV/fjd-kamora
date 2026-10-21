@@ -617,6 +617,31 @@ h2.is-flash {
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
 }
 
+/* Keep the procedural cards' shadows inside the padded scroll window. Blur on
+   the whole card would rasterize its text and compound its backdrop filter. */
+.procedure-card {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    inset 0 -1px 0 rgb(22 38 58 / 0.05),
+    0 18px 32px -20px rgb(22 38 58 / 0.3);
+}
+
+/* Selection changes light, never the plate's position or overlap order. */
+.plate-highlighted {
+  border-color: rgb(122 34 50 / 0.65);
+  box-shadow:
+    inset 0 0 0 2px rgb(122 34 50 / 0.35),
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    0 30px 50px -30px rgb(22 38 58 / 0.55);
+}
+
+.plate-top.plate-highlighted {
+  border-color: rgb(255 255 255 / 0.85);
+  box-shadow:
+    inset 0 0 0 2px rgb(255 255 255 / 0.5),
+    0 40px 60px -30px rgb(80 22 36 / 0.7);
+}
+
 /* Abbreviations (abbr.tsx): dotted underline, full form in a dark glass tooltip on hover */
 .fjd-abbr {
   position: relative;
