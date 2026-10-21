@@ -28,7 +28,11 @@ function plain(line: string): string {
     .trim();
 }
 
-export function buildSearchIndex(doc: RechtskodexDocument): SearchEntry[] {
+// Definitions of the catalogue offences are searchable too, so „Putsch“ finds Hochverrat.
+export function buildSearchIndex(
+  doc: RechtskodexDocument,
+  definitions: Map<string, string> = new Map(),
+): SearchEntry[] {
   const drafts: Draft[] = [];
 
   for (const section of doc.sections) {
@@ -91,7 +95,7 @@ export function buildSearchIndex(doc: RechtskodexDocument): SearchEntry[] {
           heading: crime.trim(),
           kind: "row",
           num,
-          lines: [parts.join(" · ")],
+          lines: [parts.join(" · "), definitions.get(num) ?? ""],
         });
         continue;
       }

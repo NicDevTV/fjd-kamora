@@ -232,6 +232,58 @@ body {
   background-color: rgb(22 38 58 / 0.04);
 }
 
+/* Penalty catalogue: a row unfolds its definition (offense-row.tsx). The definition row
+   shares the hover and open tint with its offence, so both read as one unit. */
+.rk-table tbody tr.rk-offense-detail:hover {
+  background-color: transparent;
+}
+
+.rk-table tbody tr.rk-offense[data-open="true"],
+.rk-table tbody tr.rk-offense[data-open="true"] + .rk-offense-detail {
+  background-color: rgb(122 34 50 / 0.05);
+}
+
+.rk-offense-fold {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-open="true"] > td > .rk-offense-fold {
+  grid-template-rows: 1fr;
+}
+
+/* On narrow screens the table scrolls sideways. The definition stays pinned to the visible
+   width of the scroll box (the table wrapper is the size container), so it never runs off screen. */
+.rk-table {
+  container-type: inline-size;
+}
+
+.rk-offense-text {
+  position: sticky;
+  left: 0;
+  width: min(100%, 100cqw);
+}
+
+.rk-offense-toggle {
+  border-radius: 0.375rem;
+}
+
+.rk-offense-toggle svg {
+  transition: rotate 0.25s ease;
+}
+
+.rk-offense-toggle[aria-expanded="true"] svg {
+  rotate: 90deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rk-offense-fold,
+  .rk-offense-toggle svg {
+    transition: none;
+  }
+}
+
 /* Jump target from search, table of contents or a reference (flash-target.ts):
    the card gets an oxblood ring with a glow, a table row is tinted briefly.
    It starts once scrolling has settled, holds, then fades out. */

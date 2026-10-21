@@ -61,7 +61,7 @@ Keine Strafe ohne Gesetz (→ KStGB 1). Recht auf Schweigen, Anwalt und Grund de
 
 ### Art. 4 Schranken
 
-Einschränkungen nur per Gesetz und verhältnismäßig. Würde, Leben und faires Verfahren sind unantastbar.
+Einschränkungen nur per Gesetz und verhältnismäßig. Würde, Leben und faires Verfahren sind unantastbar. Einzige Ausnahme ist die Todesstrafe für Hochverrat, eingeführt durch die höhere Ordnung (→ Art. 12); ihr Verfahren regelt KStGB 9.
 
 ### Art. 5 Gouverneur
 
@@ -101,7 +101,7 @@ Der Gouverneur ruft ihn für bis zu 48 h aus, der Senat verlängert. Der JM darf
 
 ### Art. 12 Höhere Ordnung
 
-Über diesem Kodex steht das Regelwerk von Kamora-V. Character-Kill, Haft über 180 HE und dauerhafte Enteignung brauchen seine Freigabe.
+Über diesem Kodex steht das Regelwerk von Kamora-V. Character-Kill, Todesstrafe (→ Art. 4), Haft über 180 HE und dauerhafte Enteignung brauchen seine Freigabe.
 
 ### Art. 13 Handlungsfähigkeit
 
@@ -126,7 +126,7 @@ Nicht erreichbar ist, wer nicht im Dienst ist und auch binnen 15 Min. nicht per 
 Kein Staatsorgan kann diese Artikel ändern oder aufheben, auch nicht einstimmig:
 
 - Art. 1 (Gewaltenteilung, niemand über dem Gesetz)
-- Art. 2 bis 4 (Grund- und Justizrechte und ihr unantastbarer Kern)
+- Art. 2 bis 4 (Grund- und Justizrechte und ihr unantastbarer Kern; die Ausnahme der Todesstrafe in Art. 4 stammt von der höheren Ordnung)
 - Art. 8 (Grenzen des JM) und Art. 9 (unabhängige Gerichte)
 - Art. 12 (höhere Ordnung)
 - Art. 14 selbst
@@ -161,17 +161,30 @@ Die Strafen werden addiert, gedeckelt durch § 2.
 
 ### § 7 Verjährung
 
-Ordnungswidrigkeit 3 Tage · Vergehen 14 Tage · Verbrechen 30 Tage · Mord, Geiselnahme und Terror nie. Sie ruht während einer Immunität (→ ImmG 3).
+Ordnungswidrigkeit 3 Tage · Vergehen 14 Tage · Verbrechen 30 Tage · Mord, Geiselnahme, Terror und Hochverrat nie. Sie ruht während einer Immunität (→ ImmG 3).
 
 ### § 8 Einziehung
 
 Illegales, Tatwerkzeuge und Erlöse werden eingezogen; Opfer werden zuerst entschädigt.
 
+### § 9 Staatsschutz
+
+Hochverrat (§ 80) und Landesverrat (§ 81) werden nur mit Ermächtigung des JM verfolgt:
+
+- **Antrag:** KPD oder StA beantragen die Ermächtigung schriftlich mit Begründung und Beweisen im MDT.
+- **Entscheidung:** Der JM erteilt oder versagt sie binnen 24 h schriftlich in der Akte; eine Versagung ist zu begründen. Beides kommt ins Weisungsregister, das Senat und OGH jederzeit sehen (→ FJDS 8).
+- **Bis dahin:** Gefahrenabwehr, Festnahme, Gewahrsam und Beweissicherung bleiben erlaubt (→ JO 10). Andere Taten wie Terror (§ 46) oder Mord (§ 10) werden ohne Ermächtigung verfolgt.
+- **Befangenheit:** Richtet sich der Verdacht gegen den JM, das FJD, Angehörige oder ist der JM befangen, entscheidet der OGH auf Antrag des Sonderermittlers (→ JO 6).
+- **Verfahren:** Anklage erhebt der GStA, verhandelt wird immer vor dem OGH (→ JO 1).
+- **Todesstrafe:** Nur bei Hochverrat, nur durch einstimmiges Urteil des OGH mit 3 Richtern und nur mit Freigabe der höheren Ordnung (→ KV 4, KV 12). Im Spiel ist sie ein Character-Kill. Gnade bleibt möglich (→ JO 13).
+
 ### Nummernkreise
 
-10er Leib · 20er Freiheit · 30er Eigentum · 40er Staat · 50er Waffen und BtM · 60er Verkehr · 70er Ordnung. Freie Nummern sind Reserve.
+10er Leib · 20er Freiheit · 30er Eigentum · 40er Staat · 50er Waffen und BtM · 60er Verkehr · 70er Ordnung · 80er Staatsschutz. Freie Nummern sind Reserve.
 
 ### Strafkatalog
+
+Ein Klick auf eine Tat zeigt ihre Definition.
 
 | § | Tat | HE | $ |
 | --- | --- | --- | --- |
@@ -218,6 +231,11 @@ Illegales, Tatwerkzeuge und Erlöse werden eingezogen; Opfer werden zuerst entsc
 | 72 | Vermummung bei Straftat | – | 2.500 |
 | 73 | Beleidigung von Amtsträgern | – | 1.000–5.000 |
 | 74 | Notrufmissbrauch | – | 2.500 |
+| 80 | Hochverrat, Todesstrafe möglich (→ KStGB 9) | 180 | Einziehung |
+| 81 | Landesverrat (→ KStGB 9) | 90–180 | Einziehung |
+| 82 | Spionage | 60–120 | 50.000 |
+| 83 | Sabotage an Staatseinrichtungen | 45–90 | 40.000 |
+| 84 | Verrat von Dienstgeheimnissen (+ Amtsverlust) | 30–60 | 25.000 |
 
 ## Teil 03 · Justizordnung (JO)
 
@@ -240,7 +258,7 @@ Ernennung nach KV 5. Sie sind weisungsfrei (→ KV 8); wer befangen ist, tritt z
 
 ### § 3 Anwälte
 
-Zugelassen durch die Anwaltskammer am OGH, nicht durch das FJD. Gespräche mit Mandanten werden nicht überwacht. Ab 60 HE gibt es auf Wunsch einen Pflichtverteidiger.
+Zugelassen durch die Anwaltskammer am OGH, nicht durch das FJD. Gespräche mit Mandanten werden nicht überwacht. Wer sich keinen Anwalt leisten kann, bekommt auf Wunsch einen Pflichtverteidiger; ab 60 HE gilt das für jeden Beschuldigten (→ PolG 7).
 
 ### § 4 Staatsanwaltschaft
 
@@ -260,7 +278,7 @@ Anklage → Zulassung → Belehrung → Beweise → Plädoyers → letztes Wort 
 
 ### § 8 Beweise
 
-Bodycam, Dashcam, Zeugen, Spuren, Dokumente, Geständnis. Unverwertbar ist, was durch Zwang, durch rechtswidrige Durchsuchung (→ PolG 6), ohne Dokumentation (→ PolG 11) oder aus Wissen stammt, das der Charakter nicht haben kann.
+Bodycam, Dashcam, Zeugen, Spuren, Dokumente, Geständnis. Unverwertbar ist, was durch Zwang, ohne Belehrung (→ PolG 7), durch rechtswidrige Durchsuchung (→ PolG 6), ohne Dokumentation (→ PolG 11) oder aus Wissen stammt, das der Charakter nicht haben kann.
 
 ### § 9 Beschlüsse
 
@@ -310,9 +328,15 @@ Person und Fahrzeug bei Verdacht, nach Festnahme oder zur Eigensicherung. Wohnun
 
 ### § 7 Festnahme
 
-Bei dringendem Verdacht oder auf Haftbefehl. Die Belehrung folgt sofort (→ KV 3):
+Bei dringendem Verdacht oder auf Haftbefehl. Die Belehrung (Miranda-Warnung) folgt sofort und vollständig (→ KV 3). Fehlt sie, ist eine Aussage unverwertbar (→ JO 8):
 
-> „Sie sind festgenommen wegen [Tatvorwurf]. Sie dürfen schweigen; was Sie sagen, kann verwendet werden. Sie haben das Recht auf einen Anwalt.“
+> „Sie sind festgenommen wegen [Tatvorwurf].\
+> Sie haben das Recht zu schweigen.\
+> Alles, was Sie sagen, kann und wird vor Gericht gegen Sie verwendet werden.\
+> Sie haben das Recht auf einen Anwalt und darauf, dass er bei jeder Vernehmung anwesend ist.\
+> Wenn Sie sich keinen Anwalt leisten können, wird Ihnen einer gestellt.\
+> Haben Sie Ihre Rechte verstanden?\
+> Wollen Sie mit diesen Rechten im Hinterkopf mit mir sprechen?“
 
 ### § 8 Zwang
 

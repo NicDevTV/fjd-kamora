@@ -1,10 +1,11 @@
 import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Fragment, ViewTransition, type ReactNode } from "react";
+import { Children, Fragment, ViewTransition, cloneElement, isValidElement, type ReactElement, type ReactNode } from "react";
 import { withAbbreviations } from "@/components/abbr";
 import { FjdLogo } from "@/components/fjd-logo";
 import { GlassBackdrop } from "@/components/glass-backdrop";
+import { OffenseRow, OffenseToggle } from "@/components/offense-row";
 import { SiteFooter } from "@/components/site-footer";
 import { ReadingProgress } from "@/components/reading-progress";
 import { RechtskodexSearch } from "@/components/rechtskodex-search";
@@ -20,6 +21,7 @@ import {
   type RechtskodexSection,
 } from "@/lib/rechtskodex";
 import { buildSearchIndex, type SearchEntry } from "@/lib/rechtskodex-index";
+import { getTatbestaende } from "@/lib/tatbestaende";
 import { pageTransition } from "@/lib/view-transitions";
 
 export const metadata = {
@@ -79,7 +81,11 @@ function splitNumber(text: string) {
   return match ? { number: match[1], title: match[2] } : null;
 }
 
-function markdownComponents(section: RechtskodexSection, refs: Map<string, string>): Components {
+function markdownComponents(
+  section: RechtskodexSection,
+  refs: Map<string, string>,
+  definitions: Map<string, string>,
+): Components {
   const withRefs = (children: ReactNode) => linkRefs(children, refs);
 
   return {
@@ -158,10 +164,24 @@ function markdownComponents(section: RechtskodexSection, refs: Map<string, strin
         (child): child is HastElement => child.type === "element" && child.tagName === "td",
       );
       const number = firstCell ? hastText(firstCell).trim() : "";
+      const id = /^\d+$/.test(number) ? `${section.id}--row-${number}` : undefined;
+      const definition = id ? definitions.get(number) : undefined;
+      if (!id || !definition) {
+        return (
+          <tr id={id} className="scroll-mt-32">
+            {children}
+          </tr>
+        );
+      }
+
+      // Offences with a definition unfold on click; the § number becomes the toggle button.
+      const cells = Children.toArray(children).filter(isValidElement) as ReactElement<{ children?: ReactNode }>[];
       return (
-        <tr id={/^\d+$/.test(number) ? `${section.id}--row-${number}` : undefined} className="scroll-mt-32">
-          {children}
-        </tr>
+        <OffenseRow id={id} columns={cells.length} definition={withRefs(definition)}>
+          {cells.map((cell, index) =>
+            index === 0 ? cloneElement(cell, { children: <OffenseToggle>{cell.props.children}</OffenseToggle> }) : cell,
+          )}
+        </OffenseRow>
       );
     },
     td: ({ children }) => (
@@ -172,7 +192,8 @@ function markdownComponents(section: RechtskodexSection, refs: Map<string, strin
 
 export default function RechtskodexPage() {
   const doc = getRechtskodex();
-  const searchIndex: SearchEntry[] = buildSearchIndex(doc);
+  const definitions = getTatbestaende();
+  const searchIndex: SearchEntry[] = buildSearchIndex(doc, definitions);
 
   // Keys such as „JO 5“ or „KStGB 10“ point to the first matching passage.
   const refs = new Map<string, string>();
@@ -270,7 +291,7 @@ export default function RechtskodexPage() {
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
                           rehypePlugins={[rehypeArticles]}
-                          components={markdownComponents(section, refs)}
+                          components={markdownComponents(section, refs, definitions)}
                         >
                           {section.body}
                         </ReactMarkdown>

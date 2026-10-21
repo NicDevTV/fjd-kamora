@@ -35,6 +35,8 @@ function highlightHost(target: HTMLElement) {
 export function flashTarget(id: string, { scroll = true, instant = false } = {}) {
   const target = document.getElementById(decodeURIComponent(id));
   if (!target) return;
+  // Lets a catalogue row unfold its definition before the scroll distance is measured.
+  window.dispatchEvent(new Event("rk:target"));
   const host = highlightHost(target);
 
   if (scroll) {
