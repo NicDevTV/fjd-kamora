@@ -104,7 +104,6 @@ body {
     rgb(255 255 255 / 0.12)
   );
   backdrop-filter: blur(16px) saturate(170%);
-  -webkit-backdrop-filter: blur(16px) saturate(170%);
   border: 1px solid rgb(255 255 255 / 0.24);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.45),
@@ -302,8 +301,9 @@ body {
    column name (data-label, rehype-table-labels.ts). In tables keyed by § or Kürzel the
    code and the name share the first line and the remaining values follow inline. */
 @media (max-width: 639px) {
+  /* Nothing scrolls sideways here; clipping keeps tinted rows inside the rounded card. */
   .rk-table {
-    overflow-x: visible;
+    overflow: hidden;
   }
 
   .rk-table table {
@@ -633,7 +633,6 @@ h2.is-flash {
     rgb(22 38 58 / 0.48)
   );
   backdrop-filter: blur(22px) saturate(180%);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid rgb(255 255 255 / 0.14);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.18),
@@ -644,11 +643,12 @@ h2.is-flash {
     box-shadow 0.35s ease;
 }
 
+/* Once the page scrolls, text passes under the header: nearly opaque so it never shows through. */
 .glass-dark.is-solid {
   background: linear-gradient(
     150deg,
-    rgb(30 50 76 / 0.86),
-    rgb(22 38 58 / 0.78)
+    rgb(30 50 76 / 0.98),
+    rgb(22 38 58 / 0.97)
   );
 }
 
@@ -773,7 +773,6 @@ h2.is-flash {
     rgb(255 255 255 / 0.6)
   );
   backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
   border: 1px solid rgb(255 255 255 / 0.85);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.95),
@@ -799,7 +798,6 @@ h2.is-flash {
     rgb(255 255 255 / 0.42)
   );
   backdrop-filter: blur(24px) saturate(170%);
-  -webkit-backdrop-filter: blur(24px) saturate(170%);
   border: 1px solid rgb(255 255 255 / 0.75);
   border-radius: 2rem;
   box-shadow:
@@ -811,7 +809,6 @@ h2.is-flash {
 .glass-inset {
   background: rgb(255 255 255 / 0.5);
   backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
   border: 1px solid rgb(255 255 255 / 0.8);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
 }
@@ -859,7 +856,6 @@ h2.is-flash {
   border-radius: 0.75rem;
   background: rgb(22 38 58 / 0.92);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgb(255 255 255 / 0.14);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.18),
@@ -908,6 +904,15 @@ h2.is-flash {
   outline-offset: 2px;
 }
 
+/* Oxblood barely shows on navy: dark surfaces get a white focus ring. */
+.glass-dark :focus-visible,
+.bg-navy :focus-visible,
+.liquid:focus-visible,
+.liquid-solid:focus-visible,
+.sb-node-dark:focus-visible {
+  outline-color: #fff;
+}
+
 /* Text fields show focus through their border, not an outline */
 input:focus-visible,
 textarea:focus-visible {
@@ -953,18 +958,15 @@ textarea:focus-visible {
   .glass-panel {
     background: linear-gradient(160deg, rgb(255 255 255 / 0.82), rgb(255 255 255 / 0.62));
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
   }
 
   .glass-inset {
     background: rgb(255 255 255 / 0.62);
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
   }
 
   .plate {
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
   }
 }
 
@@ -1014,5 +1016,49 @@ textarea:focus-visible {
 
   .sb-node:hover {
     transform: none;
+  }
+}
+
+/* Staatsaufbau: each side of the split carries its own edge, so the grouping survives stacking on phones. */
+.sb-group {
+  border-left: 2px solid rgb(22 38 58 / 0.25);
+  padding-left: 1rem;
+}
+
+.sb-group-justiz {
+  border-left-color: rgb(122 34 50 / 0.55);
+}
+
+/* Election cycle: on one column the steps hang on a timeline. */
+@media (max-width: 639px) {
+  .sb-cycle {
+    position: relative;
+    padding-left: 1.25rem;
+  }
+
+  .sb-cycle::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    bottom: 1rem;
+    left: 0.3rem;
+    width: 1px;
+    background: rgb(122 34 50 / 0.45);
+  }
+
+  .sb-cycle > li {
+    position: relative;
+  }
+
+  .sb-cycle > li::before {
+    content: "";
+    position: absolute;
+    top: 1.35rem;
+    left: -1.2rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 9999px;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-paper);
   }
 }

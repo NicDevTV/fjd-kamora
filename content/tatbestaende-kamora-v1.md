@@ -42,7 +42,7 @@ Verweise wie (→ KStGB 9) werden auf der Seite zu Links.
 § 63: Wer ein Fahrzeug unter Einfluss von Alkohol oder Betäubungsmitteln führt. Der Führerschein wird entzogen.
 § 64: Wer sich nach einem Unfall entfernt, ohne Feststellungen zu ermöglichen oder Verletzten zu helfen.
 § 70: Gewalt aus einer Menschenmenge heraus oder bewaffnete Auseinandersetzungen zwischen Gruppen, etwa Gangs.
-§ 71: Wer eine ausgewiesene Sperrzone ohne Befugnis betritt oder sie trotz Aufforderung nicht verlässt (→ PolG 9).
+§ 71: Wer eine ausgewiesene Sperrzone ohne Befugnis betritt oder trotz Aufforderung nicht verlässt (→ PolG 9), ein Hausverbot oder einen Platzverweis der Justizmarschalle missachtet (→ FJDS 10) oder gegen eine Notstandsanordnung verstößt (→ KV 11).
 § 72: Wer sein Gesicht verdeckt, um bei einer Straftat nicht erkannt zu werden. Wird zusätzlich zur Tat bestraft.
 § 73: Wer Amtsträger im Dienst durch Worte oder Gesten herabwürdigt.
 § 74: Wer den Notruf ohne Notlage wählt oder einen erfundenen Notfall meldet.

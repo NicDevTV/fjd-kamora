@@ -59,7 +59,7 @@ function Staatsaufbau({ refs }: { refs: Refs }) {
       </Node>
 
       <div className="mt-2 grid gap-x-6 gap-y-8 md:grid-cols-2">
-        <section aria-label="Politik">
+        <section aria-label="Politik" className="sb-group sb-group-politik">
           <p className="mb-3 mt-4 text-sm font-medium text-ink">Politik: gewählt</p>
           <Node title="Volk" norm="KV 15" refs={refs}>
             Jeder Bürger mit Ausweis hat eine Stimme.
@@ -78,7 +78,7 @@ function Staatsaufbau({ refs }: { refs: Refs }) {
           </Node>
         </section>
 
-        <section aria-label="Justiz">
+        <section aria-label="Justiz" className="sb-group sb-group-justiz">
           <p className="mb-3 mt-4 text-sm font-medium text-ink">Justiz: ernannt und unabhängig</p>
           <Edge>von der höheren Ordnung ernannt</Edge>
           <Node title="Justizminister" norm="KV 7" refs={refs}>
@@ -97,7 +97,7 @@ function Staatsaufbau({ refs }: { refs: Refs }) {
 
       <figcaption className="mt-6 max-w-prose text-sm leading-relaxed text-muted">
         Die gewählte Politik und die ernannte Justiz sind getrennt, damit eine Wahlmehrheit nie die
-        Strafverfolgung übernehmen kann. Ein Klick auf einen Kasten führt zur Norm.
+        Strafverfolgung übernehmen kann. Jeder Kasten führt zur Norm.
       </figcaption>
     </figure>
   );
@@ -105,9 +105,9 @@ function Staatsaufbau({ refs }: { refs: Refs }) {
 
 const CYCLE = [
   { when: "Tag −14", what: "Der JM als Wahlleiter verkündet den Wahltag im Amtsblatt.", norm: "KV 15" },
-  { when: "Bis zur Wahl", what: "Parteien werden zugelassen, Kandidaten und ihre Akten der letzten 90 Tage geprüft.", norm: "KV 16" },
+  { when: "Tag −7", what: "Parteilisten sind eingereicht, Kandidaten und ihre Akten der letzten 90 Tage geprüft.", norm: "KV 15" },
   { when: "Wahltag", what: "Geheime Wahl, öffentliche Auszählung, 7 Sitze nach Stimmenanteil.", norm: "KV 15" },
-  { when: "+48 h", what: "Einspruch gegen das Ergebnis beim OGH.", norm: "JO 1" },
+  { when: "+48 h", what: "Einspruch gegen das Ergebnis beim OGH, der binnen 72 h entscheidet.", norm: "JO 1" },
   { when: "+7 Tage", what: "Der Senat wählt seinen Präsidenten, dann den Gouverneur.", norm: "KV 5" },
   { when: "Tag 180", what: "Nächste Wahl. Im Notstand höchstens 48 h später.", norm: "KV 11" },
 ];

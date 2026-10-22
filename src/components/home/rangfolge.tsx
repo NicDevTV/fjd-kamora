@@ -42,7 +42,8 @@ function Plate({ level, index, count, spread, highlighted }: PlateProps) {
         <span className="font-serif text-sm opacity-70 tabular-nums">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <p className="mt-1 font-serif text-2xl font-medium leading-tight">{level.title}</p>
+        {/* On phones the tilted labels overlap; the numbered list next to the stack names every level. */}
+        <p className="mt-1 font-serif text-2xl font-medium leading-tight max-sm:hidden">{level.title}</p>
       </div>
     </motion.div>
   );

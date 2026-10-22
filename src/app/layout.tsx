@@ -18,9 +18,9 @@ const plexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Dashboard | Federal Justice Department (FJD)",
+  title: "Federal Justice Department (FJD) | Kamora",
   description:
-    "Fiktives Rollenspiel-Dashboard des Federal Justice Department. Keine Verbindung zu einer realen Behörde.",
+    "Fiktives Federal Justice Department des Rollenspielstaats Kamora. Keine Verbindung zu einer realen Behörde.",
 };
 
 // Runs before the first paint: the intro plays once per tab session, later full loads skip it.
@@ -41,6 +41,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="flex min-h-full flex-col">
         {/* The curtain lives in the layout so it only runs on a real page load, not on in-app navigation. */}
+        <a
+          href="#inhalt"
+          className="sr-only z-[60] rounded-full bg-navy px-5 py-3 text-sm font-medium text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Zum Inhalt springen
+        </a>
         <IntroScreen />
         <GlassPointer />
         <AbbrTooltip />

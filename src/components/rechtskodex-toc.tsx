@@ -76,7 +76,8 @@ export function RechtskodexToc({ items }: { items: TocItem[] }) {
               <a
                 href={item.href}
                 aria-current={isActive ? "location" : undefined}
-                className={`relative block border-l py-1 pr-2 transition-colors ${
+                onClick={(event) => event.currentTarget.closest("details")?.removeAttribute("open")}
+                className={`relative block border-l py-2.5 pr-2 transition-colors lg:py-1 ${
                   item.level === 2 ? "mt-4 pl-4 font-medium first:mt-0" : item.level === 3 ? "pl-4 text-[0.8125rem]" : "pl-8 text-xs"
                 } ${
                   isActive

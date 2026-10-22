@@ -173,7 +173,7 @@ function markdownComponents(
       </div>
     ),
     thead: ({ children }) => <thead className="bg-navy/90 text-white">{children}</thead>,
-    th: ({ children }) => <th className="px-4 py-3.5 text-xs font-medium tracking-wide">{children}</th>,
+    th: ({ children }) => <th className="px-4 py-3.5 text-xs font-medium tracking-wide">{withRefs(children)}</th>,
     // Penalty catalogue rows get an anchor so search and references land exactly there.
     tr: ({ node, children }) => {
       const firstCell = node?.children.find(
@@ -250,7 +250,7 @@ export default function RechtskodexPage() {
         <div className="relative isolate min-h-screen overflow-clip bg-paper">
           <GlassBackdrop />
 
-          <div className="mx-auto max-w-6xl px-4 pb-16 pt-24 sm:px-8 sm:pt-28">
+          <main id="inhalt" className="mx-auto block max-w-6xl px-4 pb-16 pt-24 sm:px-8 sm:pt-28">
             <header className="glass-panel grid grid-cols-[minmax(0,1fr)] gap-12 p-8 sm:p-12 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
               <div>
                 <FjdLogo className="mb-8 h-14 w-auto text-navy" />
@@ -273,7 +273,7 @@ export default function RechtskodexPage() {
             </header>
 
             <details className="glass-panel mt-8 p-6 lg:hidden">
-              <summary className="cursor-pointer font-medium">Inhalt</summary>
+              <summary className="-my-3 cursor-pointer py-3 font-medium">Inhalt</summary>
               <div className="rk-scroll mt-4 max-h-[60vh] overflow-y-auto pr-2">
                 <RechtskodexToc items={toc} />
               </div>
@@ -322,7 +322,7 @@ export default function RechtskodexPage() {
                 })}
               </article>
             </div>
-          </div>
+          </main>
 
           <SiteFooter />
         </div>

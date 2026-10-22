@@ -39,6 +39,27 @@ const ALIAS: Record<string, string> = {
 
 type Indexed = { entry: SearchEntry; haystack: string; body: string };
 
+// Filler words of natural questions such as "Strafe für Diebstahl" or "wer entscheidet über Gnade".
+const STOPWORDS = new Set([
+  "strafe", "strafen", "bestraft", "wer", "was", "wie", "wann", "wo", "darf", "kann", "muss", "entscheidet",
+  "fur", "uber", "der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "und", "oder", "bei",
+  "im", "in", "zu", "zum", "zur", "ist", "von", "mit", "auf", "gibt", "es", "man",
+]);
+
+// Spellings people type that the codex writes differently.
+const SYNONYMS: Record<string, string[]> = {
+  marshal: ["marschall"],
+  marshals: ["marschall"],
+  polizei: ["kpd"],
+  minister: ["jm"],
+  justizminister: ["jm"],
+  todesstrafe: ["hinrichtung"],
+};
+
+function variants(token: string): string[] {
+  return [token, ...(SYNONYMS[token] ?? [])];
+}
+
 type Ref = { code: string | null; num: string };
 
 function parseRef(query: string): Ref | null {
@@ -53,14 +74,22 @@ function isWordStart(text: string, index: number) {
   return index === 0 || !/[a-z0-9]/.test(text[index - 1]);
 }
 
-function scoreEntry(item: Indexed, tokens: string[], phrase: string): number {
+// Scores one entry. With requireAll, every token must match; otherwise any token is enough.
+function scoreEntry(item: Indexed, tokens: string[], phrase: string, requireAll: boolean): number {
   let score = 0;
   for (const token of tokens) {
-    const inHead = item.haystack.indexOf(token);
-    const inBody = item.body.indexOf(token);
-    if (inHead < 0 && inBody < 0) return 0;
-    if (inHead >= 0) score += isWordStart(item.haystack, inHead) ? 12 : 7;
-    if (inBody >= 0) score += 3;
+    let best = 0;
+    for (const variant of variants(token)) {
+      const inHead = item.haystack.indexOf(variant);
+      const inBody = item.body.indexOf(variant);
+      let value = 0;
+      // A hit in the title outweighs any number of hits in the text.
+      if (inHead >= 0) value += isWordStart(item.haystack, inHead) ? 20 : 12;
+      if (inBody >= 0) value += 3;
+      best = Math.max(best, value);
+    }
+    if (best === 0 && requireAll) return 0;
+    score += best;
   }
   if (phrase && item.haystack.includes(phrase)) score += 15;
   if (phrase && item.body.includes(phrase)) score += 6;
@@ -86,13 +115,18 @@ function search(items: Indexed[], rawQuery: string, code: string | null): Search
     if (exact.length) return exact.slice(0, 30).map((item) => item.entry);
   }
 
-  const tokens = query.split(/[^a-z0-9]+/).filter(Boolean);
+  const tokens = meaningfulTokens(query);
   const phrase = tokens.join(" ");
   const scores = new Map<string, number>();
 
-  for (const item of items) {
-    const score = scoreEntry(item, tokens, phrase);
-    if (score > 0) scores.set(item.entry.id, score);
+  // First every word must match; if nothing does, any matching word counts.
+  for (const requireAll of [true, false]) {
+    for (const item of items) {
+      if (code && item.entry.code !== code) continue;
+      const score = scoreEntry(item, tokens, phrase, requireAll);
+      if (score > 0) scores.set(item.entry.id, score);
+    }
+    if (scores.size) break;
   }
 
   return items
@@ -106,11 +140,16 @@ function search(items: Indexed[], rawQuery: string, code: string | null): Search
     .map((item) => item.entry);
 }
 
+// Tokens without filler words; a query made only of filler words keeps them.
+function meaningfulTokens(query: string): string[] {
+  const all = query.split(/[^a-z0-9]+/).filter(Boolean);
+  const kept = all.filter((token) => !STOPWORDS.has(token));
+  return kept.length ? kept : all;
+}
+
 function queryTokens(rawQuery: string): string[] {
-  return fold(rawQuery)
-    .replace(/[§.]/g, " ")
-    .split(/[^a-z0-9]+/)
-    .filter(Boolean);
+  const query = fold(rawQuery).replace(/[§.]/g, " ");
+  return meaningfulTokens(query).flatMap(variants);
 }
 
 // Marks every occurrence of the search terms. Returns React nodes, never HTML.
@@ -139,7 +178,7 @@ function highlight(text: string, tokens: string[]): ReactNode[] {
   merged.forEach(([start, end], index) => {
     if (start > position) nodes.push(text.slice(position, start));
     nodes.push(
-      <mark key={index} className="rounded-sm bg-accent/15 px-0.5 text-inherit">
+      <mark key={index} className="rounded-sm bg-accent/15 text-inherit [@media(pointer:fine)]:group-data-[active=true]:bg-white/25">
         {text.slice(start, end)}
       </mark>,
     );
@@ -167,6 +206,12 @@ function snippet(text: string, tokens: string[]): ReactNode[] {
     end < text.length ? " …" : "",
   ];
 }
+
+// The keyboard selection is styled only for fine pointers. On touch screens the first result
+// would otherwise look pre-selected although nothing was chosen. Written out in full so
+// Tailwind finds every class.
+const ACTIVE_RESULT =
+  "[@media(pointer:fine)]:bg-navy [@media(pointer:fine)]:text-white [@media(pointer:fine)]:hover:bg-navy [@media(pointer:fine)]:shadow-[inset_0_1px_0_rgb(255_255_255/0.22),0_14px_30px_-16px_rgb(22_38_58/0.9)]";
 
 function SearchIcon() {
   return (
@@ -210,6 +255,9 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
       const typing = target?.matches("input, textarea, [contenteditable='true']");
       if ((event.key === "/" && !typing) || (event.key.toLowerCase() === "k" && (event.ctrlKey || event.metaKey))) {
         event.preventDefault();
+        // Open natively right away: after Esc, React may not have seen the close event yet.
+        const dialog = dialogRef.current;
+        if (dialog && !dialog.open) dialog.showModal();
         setOpen(true);
       }
     }
@@ -255,7 +303,7 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
   }
 
   const chipClass = (selected: boolean) =>
-    `rounded-full px-3.5 py-1.5 text-sm transition-all duration-200 ${
+    `rounded-full px-3.5 py-1.5 text-sm transition-all duration-200 [@media(pointer:coarse)]:min-h-11 ${
       selected
         ? "bg-navy text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_6px_16px_-8px_rgb(22_38_58/0.8)]"
         : "text-ink/70 hover:bg-white/70 hover:text-ink"
@@ -270,6 +318,19 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
       >
         Im Kodex suchen
         <kbd className="rounded-md border border-white/40 px-1.5 py-0.5 font-mono text-xs [@media(pointer:coarse)]:hidden">/</kbd>
+      </button>
+
+      {/* The codex is very long on phones: the search stays one tap away. */}
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label="Im Kodex suchen"
+        className="liquid-solid fixed bottom-5 right-5 z-30 flex size-14 items-center justify-center rounded-full text-white lg:hidden"
+      >
+        <svg aria-hidden="true" viewBox="0 0 20 20" className="size-6">
+          <circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
       </button>
 
       <dialog
@@ -304,6 +365,16 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
                 className="w-full min-w-0 bg-transparent font-serif text-xl outline-none placeholder:font-sans placeholder:text-base placeholder:text-ink/40"
                 aria-controls="rk-results"
               />
+              <button
+                type="button"
+                onClick={close}
+                aria-label="Suche schließen"
+                className="-mr-2 flex size-11 shrink-0 items-center justify-center rounded-full text-ink/60 transition-colors hover:bg-ink/5 hover:text-ink"
+              >
+                <svg aria-hidden="true" viewBox="0 0 16 16" className="size-4">
+                  <path d="M3.5 3.5L12.5 12.5M12.5 3.5L3.5 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                </svg>
+              </button>
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
@@ -367,29 +438,27 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
                           data-active={isActive}
                           onClick={(event) => openResult(event, entry)}
                           onMouseEnter={() => setActive(index)}
-                          className={`block rounded-2xl px-4 py-3.5 transition-all duration-200 sm:px-5 ${
-                            isActive
-                              ? "bg-navy text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.22),0_14px_30px_-16px_rgb(22_38_58/0.9)]"
-                              : "text-ink hover:bg-white/60"
+                          className={`group block rounded-2xl px-4 py-3.5 text-ink transition-all duration-200 hover:bg-white/60 sm:px-5 ${
+                            isActive ? ACTIVE_RESULT : ""
                           }`}
                         >
                           <div className="flex items-center gap-2 text-xs">
                             <span
-                              className={`rounded-md border px-1.5 py-0.5 font-mono ${
-                                isActive ? "border-white/35 text-white/90" : "border-ink/15 text-ink/60"
+                              className={`rounded-md border border-ink/15 px-1.5 py-0.5 font-mono text-ink/60 ${
+                                isActive ? "[@media(pointer:fine)]:border-white/35 [@media(pointer:fine)]:text-white/90" : ""
                               }`}
                             >
                               {entry.code || "Übersicht"}
                             </span>
                             {entry.label && (
-                              <span className={isActive ? "text-white/70" : "text-ink/60"}>{entry.label}</span>
+                              <span className={`text-ink/60 ${isActive ? "[@media(pointer:fine)]:text-white/70" : ""}`}>{entry.label}</span>
                             )}
                           </div>
                           <p className="mt-2 font-serif text-lg font-medium leading-snug">
                             {highlight(entry.heading, tokens)}
                           </p>
                           {entry.text && (
-                            <p className={`mt-1 text-sm leading-relaxed ${isActive ? "text-white/75" : "text-ink/65"}`}>
+                            <p className={`mt-1 text-sm leading-relaxed text-ink/65 ${isActive ? "[@media(pointer:fine)]:text-white/75" : ""}`}>
                               {snippet(entry.text, tokens)}
                             </p>
                           )}

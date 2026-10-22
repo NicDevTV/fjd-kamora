@@ -52,7 +52,7 @@ export default async function HomePage() {
       <SiteHeader />
 
       <ViewTransition enter={pageTransition.enter} exit={pageTransition.exit} default="none">
-        <main className="relative flex-1">
+        <main id="inhalt" className="relative flex-1">
           <Hero />
 
           {/* The glass sheet slides over the pinned hero while scrolling. */}
@@ -82,7 +82,7 @@ export default async function HomePage() {
             >
               <SectionHeading id="rangfolge-titel" title="Was über allem steht.">
                 Jede Regel in Kamora gilt nur im Rahmen der Ebene darüber. Ganz oben steht die
-                Verfassung.
+                Charta der Föderation, darunter die Verfassung.
               </SectionHeading>
               <div className="mt-12">
                 <Rangfolge levels={rangfolge} />
