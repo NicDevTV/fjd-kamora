@@ -51,6 +51,27 @@ export function Hero() {
   }, []);
   const [ready, setReady] = useState(false);
   const [covered, setCovered] = useState(false);
+  const [mountScene, setMountScene] = useState(false);
+
+  // The 3D scene loads only once the page is idle, so it never competes with the first paint and
+  // the intro. With data saver or very little memory the flat emblem stays.
+  useEffect(() => {
+    const device = navigator as Navigator & { connection?: { saveData?: boolean }; deviceMemory?: number };
+    if (device.connection?.saveData || (device.deviceMemory ?? 8) <= 2) return;
+
+    const intro = !document.documentElement.classList.contains("fjd-intro-skip");
+    let idle = 0;
+    const timer = window.setTimeout(() => {
+      const start = () => setMountScene(true);
+      if ("requestIdleCallback" in window) idle = window.requestIdleCallback(start, { timeout: 1500 });
+      else start();
+    }, intro ? Math.max(0, 900 - performance.now()) : 0);
+
+    return () => {
+      window.clearTimeout(timer);
+      if (idle) window.cancelIdleCallback(idle);
+    };
+  }, []);
 
   // The hero is sticky, so its own position is useless as a measure.
   // Progress = page scroll divided by hero height: 0 at the top, 1 once the glass sheet covers it.
@@ -74,6 +95,7 @@ export function Hero() {
       <div className="hero-light absolute inset-0">
         {!ready && <StaticEmblem />}
         <div className={`absolute inset-0 transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"}`}>
+          {mountScene && (
           <SceneBoundary>
             <HeroScene
               progress={scrollYProgress}
@@ -83,6 +105,7 @@ export function Hero() {
               onReady={() => setReady(true)}
             />
           </SceneBoundary>
+          )}
         </div>
       </div>
 

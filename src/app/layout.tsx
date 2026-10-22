@@ -23,13 +23,22 @@ export const metadata: Metadata = {
     "Fiktives Rollenspiel-Dashboard des Federal Justice Department. Keine Verbindung zu einer realen Behörde.",
 };
 
+// Runs before the first paint: the intro plays once per tab session, later full loads skip it.
+// Storage can be blocked (private mode), then the intro simply plays again.
+const introOnce = `try{if(sessionStorage.getItem("fjd-intro"))document.documentElement.classList.add("fjd-intro-skip");else sessionStorage.setItem("fjd-intro","1")}catch(e){}`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="de"
       data-scroll-behavior="smooth"
       className={`${plexSerif.variable} ${plexSans.variable} h-full antialiased`}
+      // The inline script below may add a class before React hydrates.
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: introOnce }} />
+      </head>
       <body className="flex min-h-full flex-col">
         {/* The curtain lives in the layout so it only runs on a real page load, not on in-app navigation. */}
         <IntroScreen />

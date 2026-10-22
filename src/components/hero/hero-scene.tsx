@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Environment, Float, Lightformer, MeshTransmissionMaterial } from "@react-three/drei";
+import { Environment, Float, Lightformer, MeshTransmissionMaterial, PerformanceMonitor } from "@react-three/drei";
 import type { MotionValue } from "motion/react";
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import * as THREE from "three";
@@ -82,15 +82,15 @@ function useEmblemGeometry() {
 
 // Backdrop inside the scene: the same light blobs as the CSS, plus fine ruled lines.
 // The glass refracts the lines, which is what makes the refraction visible at all.
-function useBackdropTexture() {
+function useBackdropTexture(scale: number) {
   const texture = useMemo(() => {
     const canvas = document.createElement("canvas");
     const width = 1600;
     const height = 1000;
-    canvas.width = width * 2;
-    canvas.height = height * 2;
+    canvas.width = width * scale;
+    canvas.height = height * scale;
     const context = canvas.getContext("2d")!;
-    context.scale(2, 2);
+    context.scale(scale, scale);
 
     context.fillStyle = "#16263a";
     context.fillRect(0, 0, width, height);
@@ -119,14 +119,15 @@ function useBackdropTexture() {
     const result = new THREE.CanvasTexture(canvas);
     result.colorSpace = THREE.SRGBColorSpace;
     return result;
-  }, []);
+  }, [scale]);
 
   useEffect(() => () => texture.dispose(), [texture]);
   return texture;
 }
 
-function Backdrop() {
-  const texture = useBackdropTexture();
+function Backdrop({ compact }: { compact: boolean }) {
+  // Phones show the backdrop small, so a half-size texture looks the same and saves memory.
+  const texture = useBackdropTexture(compact ? 1 : 2);
   const { viewport, camera } = useThree();
   const area = viewport.getCurrentViewport(camera, [0, 0, -6]);
   return (
@@ -167,7 +168,8 @@ function Shield({ progress, pointer, reduced, compact }: ShieldProps) {
     if (!node) return;
     if (startedAt.current === null) {
       startedAt.current = state.clock.elapsedTime;
-      appearDelay.current = Math.max(0, 2.2 - performance.now() / 1000);
+      const intro = !document.documentElement.classList.contains("fjd-intro-skip");
+      appearDelay.current = intro ? Math.max(0, 1.3 - performance.now() / 1000) : 0;
     }
 
     const elapsed = state.clock.elapsedTime - startedAt.current - appearDelay.current;
@@ -200,7 +202,7 @@ function Shield({ progress, pointer, reduced, compact }: ShieldProps) {
           transmissionSampler
           side={THREE.DoubleSide}
           thickness={0.9}
-          samples={8}
+          samples={compact ? 4 : 8}
           transmission={1}
           roughness={0}
           ior={1.45}
@@ -232,19 +234,32 @@ type HeroSceneProps = {
   onReady: () => void;
 };
 
+// Pixel density of the canvas. The glass renders the scene twice per frame, so this is the main cost.
+// Desktop keeps at least 2 for a crisp edge; phones stop at 2, a third more pixels is not visible there.
+function startDpr(compact: boolean) {
+  const device = window.devicePixelRatio || 1;
+  return compact ? Math.min(device, 2) : Math.min(Math.max(device, 2), 3);
+}
+
 export default function HeroScene({ progress, pointer, active, reduced, onReady }: HeroSceneProps) {
   const [compact] = useState(() => window.innerWidth < 768);
+  const [dpr, setDpr] = useState(() => startDpr(compact));
 
   return (
     <Canvas
       frameloop={active ? "always" : "never"}
-      dpr={[2, 3]}
+      dpr={dpr}
       camera={{ position: [0, 0, 10], fov: 32 }}
       gl={{ antialias: true, powerPreference: "high-performance" }}
       onCreated={onReady}
       aria-hidden="true"
     >
-      <Backdrop />
+      {/* Weak devices step the pixel density down until the frame rate holds. */}
+      <PerformanceMonitor
+        onDecline={() => setDpr((value) => Math.max(1, value - 0.5))}
+        onFallback={() => setDpr(1)}
+      />
+      <Backdrop compact={compact} />
       <ambientLight intensity={0.35} />
       <directionalLight position={[4, 6, 8]} intensity={1.4} />
 
@@ -253,7 +268,7 @@ export default function HeroScene({ progress, pointer, active, reduced, onReady 
       </Float>
 
       {/* Studio lighting without an external HDR file: light formers create the reflections in the glass. */}
-      <Environment resolution={512}>
+      <Environment resolution={compact ? 256 : 512}>
         <Lightformer form="rect" intensity={3} position={[0, 4, 6]} scale={[10, 1.2, 1]} />
         <Lightformer form="rect" intensity={1.6} position={[-6, 0, 2]} rotation-y={Math.PI / 2} scale={[8, 2, 1]} />
         <Lightformer form="circle" color="#c0435c" intensity={6} position={[5, 2, -2]} scale={3} />

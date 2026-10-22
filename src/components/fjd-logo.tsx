@@ -8,7 +8,7 @@ type FjdLogoProps = {
 export function FjdLogo({ className, animated = false }: FjdLogoProps) {
   const outline = animated ? "fjd-draw" : undefined;
   const innerLine = animated ? "fjd-draw fjd-step-1" : undefined;
-  const letter = animated ? "fjd-fill fjd-step-1" : undefined;
+  const letter = animated ? "fjd-fill fjd-step-2" : undefined;
 
   return (
     <svg
