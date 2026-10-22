@@ -11,6 +11,10 @@ autor: Justizministerium
 
 Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 
+### Staatsaufbau
+
+::schaubild staatsaufbau::
+
 ### Kürzel
 
 | Kürzel | Bedeutung |
@@ -37,12 +41,12 @@ Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 | Vorschläge für Richter, GStA, Gnade | Der Gouverneur entscheidet, der Senat bestätigt | KV 5 · JO 13 |
 | Immunität | Gilt bis zur Aufhebung; Eilaufhebung binnen 30 Min. möglich | ImmG 2–4 |
 | Notstands-Sofortmaßnahmen bis 48 h | Erlöschen ohne Zustimmung des Gouverneurs binnen 2 h; Verlängerung nur durch den Senat; OGH prüft danach jede Anordnung | KV 11 |
-| Das Amt selbst | Entlassung durch den Gouverneur oder Amtsenthebung | KV 6 |
+| Das Amt selbst | Ernennung und Entlassung nur durch die höhere Ordnung; Amtsenthebung durch Senat und OGH | KV 6 · KV 12 |
 | Alleiniges Initiativrecht für Justizgesetze, Rederecht im Senat | Der Senat verabschiedet oder lehnt ab; Gesetze über den JM und Entwürfe nach 7 Tagen Untätigkeit bringt er selbst ein; der JM hat keine Stimme | KV 6 |
 | Antrag auf Parteiverbot | Nur der OGH entscheidet, einstimmig; nie in den 14 Tagen vor einer Wahl; der JM selbst ist parteilos | KV 16 |
 | Beschlüsse und vorläufige U-Haft | Ein Richter prüft binnen 24 h und kann aufheben; nie in eigener Sache, gegen Senat oder Immune | JO 9–10 |
 
-**Rangfolge:** Verfassung, ihr Kern unabänderlich (→ KV 14) > Gesetze > FJD-Statut, Verordnungen > Dienstanweisungen
+**Rangfolge:** Charta der höheren Ordnung (→ KV 12) > Verfassung, ihr Kern unabänderlich (→ KV 14) > Gesetze > FJD-Statut, Verordnungen > Dienstanweisungen
 
 **Verfahrensweg:** KPD (Ticket, Strafbefehl bis 30 HE) → StA (31–60 HE) → Bezirksgericht (über 60 HE) → OGH (→ JO 1)
 
@@ -66,15 +70,15 @@ Einschränkungen nur per Gesetz und verhältnismäßig. Würde, Leben und faires
 
 ### Art. 5 Gouverneur
 
-Staatsoberhaupt, gewählt vom Senat (→ Art. 15). Er ernennt die Minister, außerdem Richter und GStA auf Vorschlag des JM mit Bestätigung des Senats. Er hat das Gnadenrecht (→ JO 13) und ruft den Notstand aus (Art. 11).
+Staatsoberhaupt, gewählt vom Senat (→ Art. 15). Er ernennt die Minister außer dem JM (→ Art. 7), außerdem Richter und GStA auf Vorschlag des JM mit Bestätigung des Senats. Er hat das Gnadenrecht (→ JO 13) und ruft den Notstand aus (Art. 11).
 
 ### Art. 6 Senat
 
-Vom Volk gewählt (→ Art. 15). Gesetze mit Mehrheit, Verfassungsänderungen mit 2/3, außer bei Art. 14. Entwürfe für Justizgesetze (KStGB, JO, PolG, BeamtG, FJDS) bringt nur der JM ein; alle anderen Gesetze auch jedes Senatsmitglied. Gesetze über Immunität, Kontrolle oder Amtsenthebung des JM darf der Senat selbst einbringen. Legt der JM einen vom Senat mit Mehrheit angeforderten Entwurf nicht binnen 7 Tagen vor, darf der Senat selbst einbringen. Der Senat verabschiedet oder lehnt ab. Der JM darf in jeder Sitzung sprechen, stimmt aber nicht mit. Der Senat kontrolliert über den Justizausschuss (→ FJDS 8), den der JM nicht leiten darf. Amtsenthebung: Antrag 1/3, Beschluss 2/3, Bestätigung durch den OGH. Ohne Senat übernimmt der OGH die Kontrolle.
+Vom Volk gewählt (→ Art. 15). Gesetze mit Mehrheit, Verfassungsänderungen mit 2/3, außer bei Art. 14. Entwürfe für Justizgesetze (KStGB, JO, PolG, BeamtG, FJDS) bringt nur der JM ein; alle anderen Gesetze auch jedes Senatsmitglied. Gesetze über Immunität, Kontrolle oder Amtsenthebung des JM darf der Senat selbst einbringen. Legt der JM einen vom Senat mit Mehrheit angeforderten Entwurf nicht binnen 7 Tagen vor, darf der Senat selbst einbringen. Der Senat verabschiedet oder lehnt ab. Der JM darf in jeder Sitzung sprechen, stimmt aber nicht mit. Der Senat kontrolliert über den Justizausschuss (→ FJDS 8), den der JM nicht leiten darf. Amtsenthebung: Antrag 1/3, Beschluss 2/3, Bestätigung durch den OGH; ist der JM enthoben, ernennt die höhere Ordnung den Nachfolger. Ohne Senat übernimmt der OGH die Kontrolle.
 
 ### Art. 7 Justizminister
 
-Leitet das FJD (→ FJDS), weist das KPD an (→ FJDS 4), bringt Gesetzentwürfe in den Senat ein und spricht dort mit (→ Art. 6), erlässt Verordnungen (→ FJDS 6), schlägt vor (Art. 5) und vertritt Kamora nach außen mit Diplomatenpass (→ ImmG 1).
+Wird von der höheren Ordnung ernannt und entlassen, nicht gewählt (→ Art. 12); so bleibt die Justiz unabhängig von Wahlen und Mehrheiten. Er ist parteilos (→ Art. 16). Er leitet das FJD (→ FJDS), weist das KPD an (→ FJDS 4), bringt Gesetzentwürfe in den Senat ein und spricht dort mit (→ Art. 6), erlässt Verordnungen (→ FJDS 6), schlägt vor (Art. 5) und vertritt Kamora nach außen mit Diplomatenpass (→ ImmG 1).
 
 ### Art. 8 Grenzen des JM
 
@@ -102,11 +106,18 @@ Der Gouverneur ruft ihn für bis zu 48 h aus, der Senat verlängert. Der JM darf
 
 ### Art. 12 Höhere Ordnung
 
-Über diesem Kodex steht das Regelwerk von Kamora-V. Character-Kill, Todesstrafe (→ Art. 4), Haft über 180 HE und dauerhafte Enteignung brauchen seine Freigabe.
+Kamora gehört der Föderation an. Ihre Charta steht über diesem Kodex; für sie handelt der Föderationsrat, die höhere Ordnung.
+
+- **Ernennt und entlässt** den Justizminister (→ Art. 7).
+- **Gibt frei:** Hinrichtung (→ Art. 4), Haft über 180 HE und dauerhafte Enteignung.
+- **Greift ein,** wenn ein Amtsträger oder eine Wahl gegen die Charta verstößt: Sie kann Amtsträger abberufen und eine Wahl wiederholen lassen. Jeder Eingriff wird im Amtsblatt begründet.
+- **Setzt ein,** solange es keine gewählten Organe gibt (→ Art. 15).
+
+> **OOC-Hinweis:** Die höhere Ordnung ist die Serverleitung von Kamora-V, die Charta ist das Serverregelwerk. Eine Hinrichtung ist ein Character-Kill. Bei Wahlen zählt pro Spieler eine Stimme, egal mit wie vielen Charakteren. Wissen aus OOC-Quellen ist in keinem Verfahren verwertbar (→ JO 8). Das Amtsblatt ist der Discord-Kanal #amtsblatt.
 
 ### Art. 13 Handlungsfähigkeit
 
-Nicht erreichbar ist, wer nicht im Dienst ist und auch binnen 15 Min. nicht per Funk oder Discord antwortet. Dann vertritt die Kette:
+Nicht erreichbar ist, wer nicht im Dienst ist und auch binnen 15 Min. nicht per Funk oder Telefon antwortet. Dann vertritt die Kette:
 
 | Amt offline | Vertretung | Nie durch Vertreter |
 | --- | --- | --- |
@@ -148,9 +159,11 @@ Wer versucht, sie zu umgehen, begeht Amtsmissbrauch (→ KStGB 47). Änderungen 
 
 Das Volk wählt den Senat, der Senat wählt den Gouverneur. Wahlen sind frei, gleich und geheim.
 
+::schaubild wahlzyklus::
+
 - **Zyklus:** Der Senat wird alle 180 Tage gewählt. Den Wahltag setzt der Wahlleiter spätestens 14 Tage vorher im Amtsblatt fest.
 - **Sitze:** 7, verteilt nach dem Stimmenanteil der Parteien (D'Hondt-Verfahren). Mit 2/3 kann der Senat eine andere ungerade Zahl festlegen; sie gilt ab der nächsten Wahl.
-- **Stimme:** Jeder Bürger mit Ausweis hat eine Stimme. Gewählt wird im Spiel im Wahllokal oder über das offizielle Wahlsystem des Servers. Ob mehrere Charaktere eines Spielers wählen dürfen, regelt die höhere Ordnung (→ Art. 12); ohne Regel zählt eine Stimme pro Spieler.
+- **Stimme:** Jeder Bürger mit Ausweis hat genau eine Stimme und gibt sie im Wahllokal oder über das amtliche Wahlsystem ab. Wer mehrfach abstimmt, fälscht die Wahl (→ KStGB 85).
 - **Wählbar für den Senat:** Bürger seit mindestens 30 Tagen, auf der Liste einer zugelassenen Partei (→ Art. 16), in den letzten 90 Tagen nicht verurteilt wegen einer Tat gegen den Staat oder die Staatssicherheit (→ KStGB 40–48, 80–86).
 - **Wählbar als Gouverneur:** Bürger seit mindestens 30 Tagen, vorgeschlagen von mindestens einem Senatsmitglied, in den letzten 90 Tagen gar nicht verurteilt. Verurteilt heißt Strafbefehl oder Urteil; Tickets zählen nicht.
 - **Prüfung der Akte:** Der Wahlleiter prüft das Strafregister samt Archiv. Löschungen innerhalb der 90 Tage zählen nicht (→ FJDS 7). Ein laufendes Verfahren hindert nicht, bis zum Urteil gilt die Unschuldsvermutung.
@@ -213,7 +226,7 @@ Hochverrat (§ 80) und Landesverrat (§ 81) werden nur mit Ermächtigung des JM 
 - **Bis dahin:** Gefahrenabwehr, Festnahme, Gewahrsam und Beweissicherung bleiben erlaubt (→ JO 10). Andere Taten wie Terror (§ 46) oder Mord (§ 10) werden ohne Ermächtigung verfolgt.
 - **Befangenheit:** Richtet sich der Verdacht gegen den JM, das FJD, Angehörige oder ist der JM befangen, entscheidet der OGH auf Antrag des Sonderermittlers (→ JO 6).
 - **Verfahren:** Anklage erhebt der GStA, verhandelt wird immer vor dem OGH (→ JO 1).
-- **Todesstrafe:** Nur bei Hochverrat, nur durch einstimmiges Urteil des OGH mit 3 Richtern und nur mit Freigabe der höheren Ordnung (→ KV 4, KV 12). Im Spiel ist sie ein Character-Kill. Gnade bleibt möglich (→ JO 13).
+- **Todesstrafe:** Nur bei Hochverrat, nur durch einstimmiges Urteil des OGH mit 3 Richtern und nur mit Freigabe der höheren Ordnung (→ KV 4, KV 12). Die Hinrichtung ist endgültig. Gnade bleibt möglich (→ JO 13).
 
 ### Nummernkreise
 
@@ -317,7 +330,7 @@ Anklage → Zulassung → Belehrung → Beweise → Plädoyers → letztes Wort 
 
 ### § 8 Beweise
 
-Bodycam, Dashcam, Zeugen, Spuren, Dokumente, Geständnis. Unverwertbar ist, was durch Zwang, ohne Belehrung (→ PolG 7), durch rechtswidrige Durchsuchung (→ PolG 6), ohne Dokumentation (→ PolG 11) oder aus Wissen stammt, das der Charakter nicht haben kann.
+Bodycam, Dashcam, Zeugen, Spuren, Dokumente, Geständnis. Unverwertbar ist, was durch Zwang, ohne Belehrung (→ PolG 7), durch rechtswidrige Durchsuchung (→ PolG 6), ohne Dokumentation (→ PolG 11) oder aus Wissen stammt, für das es keine rechtmäßige Quelle gibt.
 
 ### § 9 Beschlüsse
 
@@ -530,7 +543,7 @@ Die StA kann Fälle des KPD übernehmen; das KPD übergibt Akten und Asservate. 
 
 ### § 6 Verordnungen
 
-Regeln zu Verfahren, Dienstvorschriften und Geldstrafen ±25 % (→ KStGB). Sie erscheinen im Amtsblatt (#amtsblatt) und gelten nach 24 h. Auf Antrag von Senat, Chief, Anwaltskammer oder Betroffenen prüft der OGH (→ KV 8).
+Regeln zu Verfahren, Dienstvorschriften und Geldstrafen ±25 % (→ KStGB). Sie erscheinen im Amtsblatt und gelten nach 24 h. Auf Antrag von Senat, Chief, Anwaltskammer oder Betroffenen prüft der OGH (→ KV 8).
 
 ### § 7 Akten und Löschung
 
@@ -547,7 +560,7 @@ Monatsbericht an den Justizausschuss mit Weisungen, Fällen, Beschwerden, Lösch
 
 ### § 9 Amtsverlust
 
-Der JM durch Entlassung oder Amtsenthebung (→ KV 6), alle anderen nach BeamtG 6.
+Der JM durch Entlassung durch die höhere Ordnung (→ KV 12) oder Amtsenthebung (→ KV 6), alle anderen nach BeamtG 6.
 
 ### § 10 Justizmarschalldienst
 

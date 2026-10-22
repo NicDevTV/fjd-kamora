@@ -6,6 +6,7 @@ import { withAbbreviations } from "@/components/abbr";
 import { FjdLogo } from "@/components/fjd-logo";
 import { GlassBackdrop } from "@/components/glass-backdrop";
 import { OffenseRow, OffenseToggle } from "@/components/offense-row";
+import { SCHAUBILD_PATTERN, Schaubild } from "@/components/schaubild";
 import { SiteFooter } from "@/components/site-footer";
 import { ReadingProgress } from "@/components/reading-progress";
 import { RechtskodexSearch } from "@/components/rechtskodex-search";
@@ -132,9 +133,12 @@ function markdownComponents(
         {children}
       </section>
     ),
-    p: ({ children }) => (
-      <p className="mt-4 max-w-prose text-[1.0625rem] leading-[1.75] text-ink/90">{withRefs(children)}</p>
-    ),
+    p: ({ children }) => {
+      // A line like "::schaubild staatsaufbau::" places a diagram (schaubild.tsx).
+      const diagram = SCHAUBILD_PATTERN.exec(textOf(children).trim());
+      if (diagram) return <Schaubild name={diagram[1]} refs={refs} />;
+      return <p className="mt-4 max-w-prose text-[1.0625rem] leading-[1.75] text-ink/90">{withRefs(children)}</p>;
+    },
     ul: ({ children }) => (
       <ul className="mt-5 max-w-prose space-y-3 text-[1.0625rem] leading-[1.7] text-ink/90 [&>li]:relative [&>li]:pl-6 [&>li]:before:absolute [&>li]:before:left-0 [&>li]:before:top-[0.7em] [&>li]:before:h-px [&>li]:before:w-3 [&>li]:before:bg-accent">
         {children}
@@ -147,11 +151,17 @@ function markdownComponents(
     ),
     li: ({ children }) => <li className="pl-1">{withRefs(children)}</li>,
     strong: ({ children }) => <strong className="font-medium text-ink">{children}</strong>,
-    blockquote: ({ children }) => (
+    blockquote: ({ children }) =>
+      // The one out-of-character note gets a plain dashed frame, so it never reads as law.
+      textOf(children).trim().startsWith("OOC") ? (
+        <aside className="mt-6 max-w-prose rounded-[1.25rem] border border-dashed border-ink/30 px-5 py-4 [&_p]:mt-0 [&_p]:text-[0.9375rem] [&_p]:leading-relaxed [&_p]:text-ink/75">
+          {children}
+        </aside>
+      ) : (
       <blockquote className="glass-inset relative mt-6 max-w-prose rounded-[1.25rem] py-4 pl-6 pr-6 font-serif [&>p:first-child]:mt-0 text-[1.1875rem] leading-[1.7] text-ink shadow-[inset_3px_0_0_#7a2232,inset_0_1px_0_rgb(255_255_255/0.9)]">
         {children}
       </blockquote>
-    ),
+      ),
     table: ({ node, children }) => (
       <div className="rk-table glass-inset mt-6 overflow-x-auto rounded-[1.5rem]">
         <table

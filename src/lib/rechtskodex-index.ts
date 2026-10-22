@@ -114,6 +114,8 @@ export function buildSearchIndex(
         continue;
       }
 
+      // Diagram placeholders (schaubild.tsx) carry no searchable text.
+      if (line.startsWith("::schaubild")) continue;
       if (line.trim()) current.lines.push(plain(line));
     }
   }
