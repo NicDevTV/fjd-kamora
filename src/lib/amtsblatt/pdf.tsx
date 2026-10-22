@@ -49,7 +49,6 @@ function registerFonts() {
 const PAGE = { width: 595.28, height: 841.89 };
 const INK = "#2b2116";
 const SEPIA = "#6b5032";
-const STAMP = "#9b1d30";
 const PAPER = "#efe3c6";
 
 function Paper({ seed }: { seed: number }) {
@@ -140,50 +139,132 @@ const SEAL_TEXT: Record<SealKind, string> = {
   fjd: "FÖDERALES JUSTIZDEPARTEMENT · KAMORA · ",
 };
 
-// Rubber stamp: two rings, the issuer around the edge, an emblem in the middle. Paper-coloured
-// specks knock holes into the ink the way an unevenly inked stamp does.
+const WAX = { light: "#c8404f", base: "#9a1e2e", deep: "#5c0c18", rim: "#4a0712", shine: "#ffd9dc" };
+const RIBBON = { light: "#2f4a72", base: "#1d3152", deep: "#101d33" };
+
+// Outline of poured wax: a circle whose radius wobbles a little, with a few drops that ran out
+// before the stamp came down. Smoothed with quadratic curves through the midpoints.
+function waxOutline(c: number, radius: number, random: () => number) {
+  const steps = 36;
+  const drops = Array.from({ length: 3 }, () => ({ at: random() * Math.PI * 2, size: 4 + random() * 7 }));
+  const points = Array.from({ length: steps }, (_, index) => {
+    const angle = (index / steps) * Math.PI * 2;
+    let r = radius + (random() - 0.5) * 3.2;
+    for (const drop of drops) {
+      const distance = Math.abs(Math.atan2(Math.sin(angle - drop.at), Math.cos(angle - drop.at)));
+      if (distance < 0.28) r += drop.size * Math.cos((distance / 0.28) * (Math.PI / 2));
+    }
+    return [c + Math.cos(angle) * r, c + Math.sin(angle) * r] as const;
+  });
+  const mid = (a: readonly [number, number], b: readonly [number, number]) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+  const start = mid(points[steps - 1], points[0]);
+  let d = `M ${start[0].toFixed(2)} ${start[1].toFixed(2)}`;
+  points.forEach((point, index) => {
+    const next = mid(point, points[(index + 1) % steps]);
+    d += ` Q ${point[0].toFixed(2)} ${point[1].toFixed(2)} ${next[0].toFixed(2)} ${next[1].toFixed(2)}`;
+  });
+  return `${d} Z`;
+}
+
+// Two ribbon tails under the seal, each with a swallowtail notch.
+function ribbon(c: number, angle: number, length: number, width: number) {
+  const rad = (angle * Math.PI) / 180;
+  const along = [Math.sin(rad), Math.cos(rad)];
+  const across = [Math.cos(rad), -Math.sin(rad)];
+  const p = (s: number, t: number) => `${(c + along[0] * s + across[0] * t).toFixed(2)} ${(c + along[1] * s + across[1] * t).toFixed(2)}`;
+  return `M ${p(0, -width / 2)} L ${p(length, -width / 2)} L ${p(length - width * 0.55, 0)} L ${p(length, width / 2)} L ${p(0, width / 2)} Z`;
+}
+
+function Emblem({ kind, c, fill, dx = 0, dy = 0 }: { kind: SealKind; c: number; fill: string; dx?: number; dy?: number }) {
+  return kind === "foederation" ? (
+    <G transform={`translate(${dx}, ${dy})`}>
+      <Path d={star(c, c, 19, 8, 8)} fill={fill} />
+      <Circle cx={c} cy={c} r={4.6} fill="none" stroke={fill} strokeWidth={1.4} />
+    </G>
+  ) : (
+    <G transform={`translate(${c - 15 + dx}, ${c - 18 + dy}) scale(0.32)`}>
+      <Path d="M48 4L90 17V58C90 84 72 100 48 109C24 100 6 84 6 58V17Z" fill="none" stroke={fill} strokeWidth={7} />
+      <Path d="M33 34H63V45H44V58H57V68H44V84H33Z" fill={fill} />
+    </G>
+  );
+}
+
+// A wax seal pressed onto two ribbons. Everything raised by the stamp (rim, letters, emblem) is
+// drawn three times: a dark copy shifted down-right as shadow, a pale copy up-left as the light
+// catching the edge, and the wax colour on top. That reads as relief even on flat paper.
 function Seal({ kind, seed }: { kind: SealKind; seed: number }) {
   const random = seededRandom(seed ^ 0x5ea1);
-  const size = 128;
+  const size = 168;
   const c = size / 2;
-  const text = SEAL_TEXT[kind];
-  const letters = Array.from(text);
-  const rotation = -14 + random() * 28;
-  const specks = Array.from({ length: 90 }, () => {
-    const angle = random() * Math.PI * 2;
-    const distance = Math.sqrt(random()) * (c - 2);
-    return { cx: c + Math.cos(angle) * distance, cy: c + Math.sin(angle) * distance, r: 0.4 + random() * 1.6 };
-  });
+  const letters = Array.from(SEAL_TEXT[kind]);
+  const rotation = -18 + random() * 36;
+  const outline = waxOutline(c, 50, random);
+  const ribbonAngle = 18 + random() * 10;
+
+  const ring = (dx: number, dy: number, color: string, opacity: number) => (
+    <G transform={`translate(${dx}, ${dy})`}>
+      <Circle cx={c} cy={c} r={39} fill="none" stroke={color} strokeWidth={1.6} strokeOpacity={opacity} />
+      <Circle cx={c} cy={c} r={26} fill="none" stroke={color} strokeWidth={0.9} strokeOpacity={opacity} />
+      {letters.map((letter, index) => (
+        <G key={index} transform={`rotate(${((360 / letters.length) * index).toFixed(2)}, ${c}, ${c})`}>
+          <Text x={c} y={c - 29} fill={color} fillOpacity={opacity} textAnchor="middle" style={{ fontFamily: "FellSC", fontSize: 7.4 }}>
+            {letter}
+          </Text>
+        </G>
+      ))}
+    </G>
+  );
 
   return (
-    <Svg width={size} height={size}>
+    // Drawn on a 168 grid, shown larger so the relief reads at print size.
+    <Svg width={204} height={204} viewBox={`0 0 ${size} ${size}`}>
+      <Defs>
+        <RadialGradient id="wax" cx="38%" cy="32%" r="72%">
+          <Stop offset="0%" stopColor={WAX.light} />
+          <Stop offset="55%" stopColor={WAX.base} />
+          <Stop offset="100%" stopColor={WAX.deep} />
+        </RadialGradient>
+        <RadialGradient id="press" cx="56%" cy="60%" r="60%">
+          <Stop offset="0%" stopColor={WAX.base} />
+          <Stop offset="85%" stopColor={WAX.deep} />
+          <Stop offset="100%" stopColor={WAX.rim} />
+        </RadialGradient>
+        <RadialGradient id="ribbon" cx="50%" cy="20%" r="90%">
+          <Stop offset="0%" stopColor={RIBBON.light} />
+          <Stop offset="70%" stopColor={RIBBON.base} />
+          <Stop offset="100%" stopColor={RIBBON.deep} />
+        </RadialGradient>
+      </Defs>
+
+      {/* Ribbons first, so the wax lies on top of them. */}
+      <Path d={ribbon(c, ribbonAngle, 74, 17)} fill="url(#ribbon)" />
+      <Path d={ribbon(c, -ribbonAngle - 4, 70, 17)} fill="url(#ribbon)" />
+      <Path d={ribbon(c, ribbonAngle, 74, 17)} fill="none" stroke={RIBBON.light} strokeWidth={0.6} strokeOpacity={0.6} />
+      <Path d={ribbon(c, -ribbonAngle - 4, 70, 17)} fill="none" stroke={RIBBON.light} strokeWidth={0.6} strokeOpacity={0.6} />
+
       <G transform={`rotate(${rotation.toFixed(1)}, ${c}, ${c})`}>
-        <Circle cx={c} cy={c} r={c - 3} fill="none" stroke={STAMP} strokeWidth={2.6} />
-        <Circle cx={c} cy={c} r={c - 8} fill="none" stroke={STAMP} strokeWidth={0.8} />
-        <Circle cx={c} cy={c} r={c - 24} fill="none" stroke={STAMP} strokeWidth={1} />
-        {letters.map((letter, index) => (
-          <G key={index} transform={`rotate(${((360 / letters.length) * index).toFixed(2)}, ${c}, ${c})`}>
-            <Text x={c} y={19} fill={STAMP} textAnchor="middle" style={{ fontFamily: "FellSC", fontSize: 9.5 }}>
-              {letter}
-            </Text>
-          </G>
-        ))}
-        {kind === "foederation" ? (
-          <G>
-            <Path d={star(c, c, 24, 10, 8)} fill={STAMP} />
-            <Circle cx={c} cy={c} r={6} fill={PAPER} />
-            <Circle cx={c} cy={c} r={3.4} fill={STAMP} />
-          </G>
-        ) : (
-          <G transform={`translate(${c - 17}, ${c - 20}) scale(0.36)`}>
-            <Path d="M48 4L90 17V58C90 84 72 100 48 109C24 100 6 84 6 58V17Z" fill="none" stroke={STAMP} strokeWidth={6} />
-            <Path d="M33 34H63V45H44V58H57V68H44V84H33Z" fill={STAMP} />
-          </G>
-        )}
-        {specks.map((speck, index) => (
-          <Circle key={index} cx={speck.cx} cy={speck.cy} r={speck.r} fill={PAPER} fillOpacity={0.75} />
-        ))}
+        {/* Cast shadow on the paper, then the poured wax. */}
+        <Path d={outline} fill="#2a0a0e" fillOpacity={0.28} transform="translate(2.2, 3)" />
+        <Path d={outline} fill="url(#wax)" />
+        <Path d={outline} fill="none" stroke={WAX.shine} strokeWidth={0.8} strokeOpacity={0.35} transform="translate(-0.6, -0.8)" />
+
+        {/* The pressed face: slightly sunk, with a dark inner rim. */}
+        <Circle cx={c} cy={c} r={43.5} fill="url(#press)" />
+        <Circle cx={c + 0.9} cy={c + 1.1} r={43.5} fill="none" stroke={WAX.rim} strokeWidth={1.6} strokeOpacity={0.8} />
+        <Circle cx={c - 0.7} cy={c - 0.8} r={44.6} fill="none" stroke={WAX.shine} strokeWidth={0.9} strokeOpacity={0.4} />
+
+        {ring(0.8, 0.9, WAX.rim, 0.85)}
+        {ring(-0.55, -0.6, WAX.shine, 0.45)}
+        {ring(0, 0, WAX.light, 1)}
+
+        <Emblem kind={kind} c={c} fill={WAX.rim} dx={0.9} dy={1} />
+        <Emblem kind={kind} c={c} fill={WAX.shine} dx={-0.6} dy={-0.7} />
+        <Emblem kind={kind} c={c} fill={WAX.light} />
       </G>
+
+      {/* Gloss on the curved wax, independent of the seal's rotation: light comes from top left. */}
+      <Path d={`M ${c - 36} ${c - 14} Q ${c - 30} ${c - 36} ${c - 8} ${c - 41}`} fill="none" stroke={WAX.shine} strokeWidth={2.6} strokeOpacity={0.28} strokeLinecap="round" />
+      <Circle cx={c - 27} cy={c - 30} r={2.4} fill={WAX.shine} fillOpacity={0.35} />
     </Svg>
   );
 }
@@ -270,7 +351,7 @@ function Certificate({ document, template }: { document: DocumentRecord; templat
           <Text style={{ fontSize: 10, fontStyle: "italic", color: SEPIA, marginTop: 1 }}>{document.signerTitle}</Text>
         </View>
       </View>
-      <View style={{ position: "absolute", left: 186, bottom: 82, opacity: 0.86 }}>
+      <View style={{ position: "absolute", left: 150, bottom: 44 }}>
         <Seal kind={template.seal} seed={document.signatureSeed} />
       </View>
 
