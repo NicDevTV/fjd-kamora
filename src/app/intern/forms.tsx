@@ -1,11 +1,21 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { toast } from "@/lib/toast";
 import type { TemplateField } from "@/lib/amtsblatt/templates";
 import { issueDocument, saveServiceName, type FormState } from "./actions";
 
 const input =
   "mt-2 w-full rounded-2xl border border-ink/15 bg-white/80 px-4 py-3 text-[1.0625rem] outline-none transition-shadow focus:border-accent/50 focus:ring-2 focus:ring-accent/25";
+
+// Every result of a form also appears as a toast; the inline message stays next to the form.
+function useResultToast(state: FormState, success: string, failure: string) {
+  useEffect(() => {
+    if (!state.at) return;
+    if (state.error) toast.error(failure, { description: state.error });
+    else if (state.saved) toast.success(success);
+  }, [state, success, failure]);
+}
 
 function Message({ state }: { state: FormState }) {
   if (state.error) {
@@ -27,6 +37,7 @@ function Message({ state }: { state: FormState }) {
 
 export function ServiceNameForm({ current }: { current: string }) {
   const [state, action, pending] = useActionState(saveServiceName, {});
+  useResultToast(state, "Dienstname gespeichert", "Nicht gespeichert");
   return (
     <form action={action} className="mt-6 max-w-md space-y-4">
       <label className="block">
@@ -54,6 +65,7 @@ export function IssueForm({
   signerName: string;
 }) {
   const [state, action, pending] = useActionState(issueDocument, {});
+  useResultToast(state, "Urkunde ausgefertigt", "Nicht ausgefertigt");
   return (
     <form action={action} className="mt-6 space-y-5">
       <input type="hidden" name="template" value={template} />

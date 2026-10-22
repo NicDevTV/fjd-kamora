@@ -8,6 +8,7 @@ import {
 } from "@/lib/server/auth/config";
 import { fetchDiscordUser, sameState } from "@/lib/server/auth/discord";
 import { startSession } from "@/lib/server/auth/session";
+import { setFlash } from "@/lib/server/flash";
 import { getStore } from "@/lib/server/db";
 
 function fail(reason: string) {
@@ -51,5 +52,6 @@ export async function GET(request: NextRequest) {
   const response = NextResponse.redirect(`${appUrl()}/intern`);
   response.cookies.set(OAUTH_COOKIE, "", { httpOnly: true, secure: SECURE_COOKIES, path: "/", maxAge: 0 });
   await startSession(response, user.id);
+  setFlash(response.cookies, { tone: "success", title: "Angemeldet", description: `Willkommen, ${user.serviceName ?? user.discordName}.` });
   return response;
 }

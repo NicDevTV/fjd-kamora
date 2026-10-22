@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { formatDate, getTemplate } from "@/lib/amtsblatt/templates";
 import { requireUser } from "@/lib/server/auth/dal";
 import { getStore } from "@/lib/server/db";
+import { DownloadLink } from "../../download-link";
 
 const ISSUED = new Intl.DateTimeFormat("de-DE", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Berlin" });
 
@@ -44,9 +45,7 @@ export default async function DokumentPage({ params }: PageProps<"/intern/amtsbl
           </div>
         </dl>
         <div className="mt-7 flex flex-col gap-2">
-          <a href={`${pdf}?download=1`} className="liquid-solid rounded-full px-6 py-3 text-center text-sm font-medium text-white">
-            PDF herunterladen
-          </a>
+          <DownloadLink href={`${pdf}?download=1`} number={document.number} />
           <Link href="/intern/amtsblatt" className="rounded-full px-6 py-3 text-center text-sm font-medium text-ink/75 hover:bg-white/70">
             Zurück zum Amtsblatt
           </Link>

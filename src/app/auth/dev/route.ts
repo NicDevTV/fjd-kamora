@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { appUrl, devLoginEnabled } from "@/lib/server/auth/config";
 import { startSession } from "@/lib/server/auth/session";
+import { setFlash } from "@/lib/server/flash";
 import { getStore } from "@/lib/server/db";
 
 // Development only: signs in a test Justizminister without a Discord app, so the internal area
@@ -14,5 +15,6 @@ export async function POST() {
 
   const response = NextResponse.redirect(`${appUrl()}/intern`, { status: 303 });
   await startSession(response, user.id);
+  setFlash(response.cookies, { tone: "success", title: "Angemeldet", description: "Lokaler Testzugang als Justizminister." });
   return response;
 }

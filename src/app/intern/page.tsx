@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ToastOnLoad } from "@/components/toast-on-load";
 import { getTemplate } from "@/lib/amtsblatt/templates";
 import { requireUser } from "@/lib/server/auth/dal";
 import { getStore } from "@/lib/server/db";
@@ -20,9 +21,7 @@ export default async function InternPage({ searchParams }: PageProps<"/intern">)
           Willkommen, {user.serviceName ?? user.discordName}.
         </h1>
         {params.fehler === "keine-berechtigung" && (
-          <p role="alert" className="mt-5 rounded-2xl border border-accent/30 bg-accent/5 px-4 py-3 text-sm text-accent">
-            Für diesen Bereich fehlt dir die Rolle.
-          </p>
+          <ToastOnLoad tone="error" param="fehler" title="Kein Zugriff" description="Für diesen Bereich fehlt dir die Rolle." />
         )}
         {!user.serviceName && (
           <p className="mt-5 max-w-prose rounded-2xl bg-white/70 px-4 py-3 text-[0.9375rem] leading-relaxed">

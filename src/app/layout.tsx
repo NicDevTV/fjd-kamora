@@ -3,6 +3,7 @@ import { IBM_Plex_Sans, IBM_Plex_Serif } from "next/font/google";
 import { AbbrTooltip } from "@/components/abbr-tooltip";
 import { GlassPointer } from "@/components/glass-pointer";
 import { IntroScreen } from "@/components/intro-screen";
+import { Toaster } from "@/components/toaster";
 import "./globals.css";
 
 const plexSerif = IBM_Plex_Serif({
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <IntroScreen />
         <GlassPointer />
         <AbbrTooltip />
+        <Toaster />
         {children}
       </body>
     </html>

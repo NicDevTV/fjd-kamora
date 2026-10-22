@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FjdLogo } from "@/components/fjd-logo";
 import { GlassBackdrop } from "@/components/glass-backdrop";
+import { ToastOnLoad } from "@/components/toast-on-load";
 import { devLoginEnabled } from "@/lib/server/auth/config";
 
 export const metadata: Metadata = {
@@ -11,18 +12,21 @@ export const metadata: Metadata = {
 // The page reads the URL for error messages, so it renders per request.
 export const instant = false;
 
-const MESSAGES: Record<string, string> = {
-  "keine-rolle": "Dein Discord-Konto ist bekannt, hat aber noch keine Rolle. Der Justizminister muss dich freischalten.",
-  abgebrochen: "Die Anmeldung bei Discord wurde abgebrochen.",
-  ungueltig: "Die Anmeldung ist abgelaufen oder ungültig. Bitte versuch es noch einmal.",
-  discord: "Discord hat die Anmeldung nicht bestätigt. Bitte versuch es gleich noch einmal.",
-  "nicht-eingerichtet": "Der Discord-Login ist auf diesem Server noch nicht eingerichtet.",
+const MESSAGES: Record<string, { title: string; description: string; persistent?: boolean }> = {
+  "keine-rolle": {
+    title: "Noch keine Rolle",
+    description: "Dein Discord-Konto ist bekannt, hat aber noch keine Rolle. Der Justizminister muss dich freischalten.",
+    persistent: true,
+  },
+  abgebrochen: { title: "Anmeldung abgebrochen", description: "Du hast die Anmeldung bei Discord nicht bestätigt." },
+  ungueltig: { title: "Anmeldung abgelaufen", description: "Der Anmeldeversuch war zu alt oder ungültig. Bitte versuch es noch einmal." },
+  discord: { title: "Discord antwortet nicht", description: "Discord hat die Anmeldung nicht bestätigt. Bitte versuch es gleich noch einmal." },
+  "nicht-eingerichtet": { title: "Discord-Login fehlt", description: "Der Discord-Login ist auf diesem Server noch nicht eingerichtet." },
 };
 
 export default async function LoginPage({ searchParams }: PageProps<"/login">) {
   const params = await searchParams;
   const error = typeof params.fehler === "string" ? MESSAGES[params.fehler] : undefined;
-  const signedOut = params.abgemeldet === "1";
 
   return (
     <main id="inhalt" className="relative isolate flex min-h-screen items-center justify-center overflow-clip bg-paper px-4 py-16">
@@ -34,16 +38,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
           Für Amtsträger des Föderalen Justizdepartements. Du meldest dich mit deinem Discord-Konto an.
         </p>
 
-        {error && (
-          <p role="alert" className="mt-6 rounded-2xl border border-accent/30 bg-accent/5 px-4 py-3 text-sm leading-relaxed text-accent">
-            {error}
-          </p>
-        )}
-        {signedOut && !error && (
-          <p role="status" className="mt-6 rounded-2xl bg-white/60 px-4 py-3 text-sm text-ink/75">
-            Du bist abgemeldet.
-          </p>
-        )}
+        {error && <ToastOnLoad tone="error" param="fehler" {...error} />}
 
         {/* A plain link, not next/link: the login must never be prefetched. */}
         <a

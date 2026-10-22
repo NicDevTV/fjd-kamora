@@ -1062,3 +1062,238 @@ textarea:focus-visible {
     box-shadow: 0 0 0 3px var(--color-paper);
   }
 }
+
+/* Toasts (toaster.tsx): a 3D stack of dark glass cards in the lower right corner.
+   Collapsed, card i sits i steps back, up and smaller, tilted away; open, they line up. */
+.fjd-toaster {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 70;
+  width: min(25rem, calc(100vw - 2rem));
+  perspective: 1100px;
+  perspective-origin: 50% 120%;
+  transition: height 0.45s cubic-bezier(0.21, 1.02, 0.43, 1);
+}
+
+.fjd-toaster[data-empty="true"] {
+  pointer-events: none;
+}
+
+.fjd-toaster ol {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.fjd-toast {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  touch-action: none;
+  user-select: none;
+  /* Lengths and angles stay in separate variables: px times deg is invalid and would drop the
+     whole transform. */
+  transform: translate3d(var(--dx), calc(var(--i) * -20px + var(--dy)), calc(var(--i) * -60px))
+    rotateX(calc(var(--i) * 6deg + var(--tilt-x))) rotateY(var(--tilt-y)) rotateZ(var(--rz))
+    scale(calc(1 - var(--i) * 0.04));
+  transition:
+    transform 0.6s cubic-bezier(0.21, 1.02, 0.43, 1),
+    opacity 0.35s ease;
+}
+
+.fjd-toaster[data-expanded="true"] .fjd-toast {
+  transform: translate3d(var(--dx), calc(var(--offset) * -1 + var(--dy)), 0) rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y)) rotateZ(var(--rz));
+}
+
+.fjd-toast[data-mounted="false"] {
+  opacity: 0;
+  transform: translate3d(0, 115%, -180px) rotateX(-58deg) scale(0.92);
+}
+
+.fjd-toast[data-dragging="true"] {
+  transition: none;
+}
+
+.fjd-toast[data-leaving="down"] {
+  opacity: 0;
+  transform: translate3d(var(--dx), 120%, -140px) rotateX(-45deg) scale(0.9);
+}
+
+.fjd-toast[data-leaving="left"],
+.fjd-toast[data-leaving="right"] {
+  opacity: 0;
+  transform: translate3d(calc(var(--dx) * 3), var(--dy), 0) rotateZ(calc(var(--rz) * 3));
+}
+
+.fjd-toast[data-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fjd-toast-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  overflow: hidden;
+  border-radius: 1.35rem;
+  padding: 0.95rem 1rem 1.05rem;
+  font-size: 0.9375rem;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.2),
+    inset 0 -1px 0 rgb(0 0 0 / 0.2),
+    0 26px 50px -22px rgb(5 10 20 / 0.75),
+    0 8px 18px -10px rgb(5 10 20 / 0.5);
+  transition:
+    height 0.4s cubic-bezier(0.21, 1.02, 0.43, 1),
+    box-shadow 0.3s ease;
+}
+
+/* A soft glow in the tone's colour from the icon's corner. */
+.fjd-toast-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(70% 140% at 0% 0%, var(--tone-glow), transparent 60%);
+}
+
+/* Cards behind the front one take its height, so only their top edge peeks out. */
+.fjd-toaster:not([data-expanded="true"]) .fjd-toast:not([data-front="true"]) .fjd-toast-card {
+  height: var(--front-h);
+}
+
+.fjd-toaster:not([data-expanded="true"]) .fjd-toast:not([data-front="true"]) .fjd-toast-card > * {
+  opacity: 0;
+}
+
+.fjd-toast-card > * {
+  transition: opacity 0.25s ease;
+}
+
+.fjd-toast[data-tone="success"] {
+  --tone: #7fd8c8;
+  --tone-glow: rgb(47 143 138 / 0.42);
+}
+
+.fjd-toast[data-tone="error"] {
+  --tone: #ff93a4;
+  --tone-glow: rgb(122 34 50 / 0.7);
+}
+
+.fjd-toast[data-tone="info"] {
+  --tone: #aac8f0;
+  --tone-glow: rgb(59 110 165 / 0.45);
+}
+
+.fjd-toast-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: -0.1rem;
+  border-radius: 9999px;
+  color: var(--tone);
+  background: rgb(255 255 255 / 0.08);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18);
+}
+
+.fjd-toast-card > div {
+  position: relative;
+  z-index: 1;
+}
+
+.fjd-toast-close {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin: -0.3rem -0.35rem 0 0;
+  border-radius: 9999px;
+  color: rgb(255 255 255 / 0.6);
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.fjd-toast:hover .fjd-toast-close,
+.fjd-toast-close:focus-visible {
+  opacity: 1;
+}
+
+.fjd-toast-close:hover {
+  background: rgb(255 255 255 / 0.12);
+  color: white;
+}
+
+.fjd-toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  height: 2px;
+  width: 100%;
+  transform-origin: left;
+  background: var(--tone);
+  opacity: 0.75;
+  animation: fjd-toast-progress var(--duration) linear forwards;
+}
+
+.fjd-toast-progress[data-paused="true"] {
+  animation-play-state: paused;
+}
+
+@keyframes fjd-toast-progress {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* Phones: full width at the bottom, clear of the home indicator; the close button is always
+   there because there is no hover. */
+@media (max-width: 639px) {
+  .fjd-toaster {
+    right: 0.75rem;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    left: 0.75rem;
+    width: auto;
+  }
+}
+
+@media (hover: none) {
+  .fjd-toast-close {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fjd-toast,
+  .fjd-toaster[data-expanded="true"] .fjd-toast {
+    transform: translate3d(0, calc(var(--offset) * -1), 0);
+    transition: opacity 0.2s ease;
+  }
+
+  .fjd-toaster:not([data-expanded="true"]) .fjd-toast {
+    transform: translate3d(0, calc(var(--i) * -10px), 0);
+  }
+
+  .fjd-toast[data-mounted="false"],
+  .fjd-toast[data-leaving] {
+    transform: none;
+  }
+}
