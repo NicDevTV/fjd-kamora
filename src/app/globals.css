@@ -1297,3 +1297,222 @@ textarea:focus-visible {
     transform: none;
   }
 }
+
+/* Certificate preview (certificate-preview.tsx): the PDF's A4 page in HTML. All sizes are in
+   points times --u, one point of the page at the preview's current width. */
+.cert {
+  container-type: inline-size;
+  position: relative;
+  aspect-ratio: 595.28 / 841.89;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.35rem;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.6) inset,
+    0 30px 60px -30px rgb(40 25 10 / 0.55),
+    0 10px 20px -12px rgb(40 25 10 / 0.35);
+}
+
+.cert-page {
+  --u: calc(100cqw / 595.28);
+  position: absolute;
+  inset: 0;
+  color: #2b2116;
+  font-family: var(--font-cert-garamond), Georgia, serif;
+  background:
+    linear-gradient(180deg, transparent calc(33.33% - 1px), rgb(255 255 255 / 0.18) calc(33.33% - 1px), rgb(255 255 255 / 0.18) 33.33%, rgb(90 64 32 / 0.06) 33.33%, rgb(90 64 32 / 0.06) calc(33.33% + 1px), transparent calc(33.33% + 1px)),
+    linear-gradient(180deg, transparent calc(66.66% - 1px), rgb(255 255 255 / 0.18) calc(66.66% - 1px), rgb(255 255 255 / 0.18) 66.66%, rgb(90 64 32 / 0.06) 66.66%, rgb(90 64 32 / 0.06) calc(66.66% + 1px), transparent calc(66.66% + 1px)),
+    radial-gradient(75% 75% at 50% 48%, transparent 55%, rgb(138 98 51 / 0.42)),
+    radial-gradient(22% 14% at 78% 22%, rgb(160 119 63 / 0.12), transparent 70%),
+    radial-gradient(18% 12% at 18% 70%, rgb(160 119 63 / 0.1), transparent 70%),
+    #efe3c6;
+}
+
+.cert-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cert-content {
+  position: absolute;
+  top: calc(var(--u) * 70);
+  right: calc(var(--u) * 80);
+  left: calc(var(--u) * 80);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cert-content p {
+  margin: 0;
+}
+
+.cert-formula {
+  margin-top: calc(var(--u) * 12) !important;
+  color: #6b5032;
+  font-family: var(--font-cert-fell), serif;
+  font-size: calc(var(--u) * 11);
+  letter-spacing: calc(var(--u) * 3);
+}
+
+.cert-issuer {
+  margin-top: calc(var(--u) * 3) !important;
+  color: #6b5032;
+  font-size: calc(var(--u) * 13);
+  font-style: italic;
+}
+
+.cert-rule {
+  display: block;
+  width: calc(var(--u) * 120);
+  margin-top: calc(var(--u) * 12);
+  border-bottom: calc(var(--u) * 0.8) solid #6b5032;
+}
+
+.cert-title {
+  margin-top: calc(var(--u) * 14) !important;
+  font-family: var(--font-cert-fraktur), serif;
+  font-size: calc(var(--u) * 40);
+  line-height: 1.15;
+}
+
+.cert-number {
+  margin-top: calc(var(--u) * 4) !important;
+  color: #6b5032;
+  font-size: calc(var(--u) * 9);
+  letter-spacing: calc(var(--u) * 1.2);
+}
+
+.cert-body {
+  align-self: stretch;
+  margin-top: calc(var(--u) * 14);
+}
+
+.cert-text {
+  margin-top: calc(var(--u) * 16) !important;
+  font-size: calc(var(--u) * 13.5);
+  line-height: 1.55;
+}
+
+.cert-name {
+  margin-top: calc(var(--u) * 16) !important;
+  font-size: calc(var(--u) * 26);
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.cert-office {
+  margin-top: calc(var(--u) * 14) !important;
+  font-family: var(--font-cert-fell), serif;
+  font-size: calc(var(--u) * 17);
+  letter-spacing: calc(var(--u) * 1.5);
+}
+
+.cert-closing {
+  display: flex;
+  align-self: stretch;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: calc(var(--u) * 52);
+}
+
+.cert-seal {
+  width: calc(var(--u) * 150);
+  height: calc(var(--u) * 150);
+}
+
+.cert-signing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(var(--u) * 240);
+}
+
+.cert-date {
+  font-size: calc(var(--u) * 12.5);
+  font-style: italic;
+}
+
+.cert-signature {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--u) * 54);
+  color: #1d2b66;
+  font-family: var(--font-cert-hand), cursive;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cert-signature span {
+  display: inline-block;
+}
+
+.cert-line {
+  display: block;
+  width: calc(var(--u) * 210);
+  margin-top: calc(var(--u) * 2);
+  border-top: calc(var(--u) * 0.7) solid #2b2116;
+}
+
+.cert-signer {
+  margin-top: calc(var(--u) * 5) !important;
+  font-size: calc(var(--u) * 12);
+}
+
+.cert-signer-title {
+  margin-top: calc(var(--u) * 1) !important;
+  color: #6b5032;
+  font-size: calc(var(--u) * 10);
+  font-style: italic;
+}
+
+.cert-legal {
+  position: absolute;
+  right: calc(var(--u) * 80);
+  bottom: calc(var(--u) * 54);
+  left: calc(var(--u) * 80);
+  margin: 0;
+  color: #6b5032;
+  font-size: calc(var(--u) * 7.5);
+  text-align: center;
+}
+
+/* Template gallery (amtsblatt/neu): the miniature certificate lifts and tilts towards you. */
+.tpl-card {
+  transition:
+    transform 0.4s cubic-bezier(0.21, 1.02, 0.43, 1),
+    box-shadow 0.4s ease;
+}
+
+.tpl-thumb {
+  perspective: 900px;
+}
+
+.tpl-thumb .cert {
+  transform: rotateX(8deg) scale(0.96);
+  transform-origin: 50% 100%;
+  transition: transform 0.6s cubic-bezier(0.21, 1.02, 0.43, 1);
+}
+
+.tpl-card:hover,
+.tpl-card:focus-visible {
+  transform: translateY(-4px);
+}
+
+.tpl-card:hover .tpl-thumb .cert,
+.tpl-card:focus-visible .tpl-thumb .cert {
+  transform: rotateX(0deg) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tpl-card,
+  .tpl-thumb .cert {
+    transition: none;
+    transform: none !important;
+  }
+}

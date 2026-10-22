@@ -54,7 +54,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
         {devLoginEnabled() && (
           <form action="/auth/dev" method="post" className="mt-3">
             <button type="submit" className="w-full rounded-full border border-dashed border-ink/30 px-6 py-3 text-sm text-ink/70 transition-colors hover:bg-white/60">
-              Lokaler Testzugang als Justizminister
+              Lokaler Testzugang (alle Rollen)
             </button>
           </form>
         )}

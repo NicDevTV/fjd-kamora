@@ -71,9 +71,15 @@ export function getServerToasts() {
 export const FLASH_COOKIE = "fjd_flash";
 export type Flash = { tone: ToastTone; title: string; description?: string };
 
+function decodeBase64Url(raw: string) {
+  const base64 = decodeURIComponent(raw).replace(/-/g, "+").replace(/_/g, "/");
+  const bytes = Uint8Array.from(atob(base64.padEnd(Math.ceil(base64.length / 4) * 4, "=")), (char) => char.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
 export function parseFlash(raw: string): Flash | null {
   try {
-    const value = JSON.parse(decodeURIComponent(raw)) as Partial<Flash>;
+    const value = JSON.parse(decodeBase64Url(raw)) as Partial<Flash>;
     if (value.tone !== "success" && value.tone !== "error" && value.tone !== "info") return null;
     if (typeof value.title !== "string" || !value.title || value.title.length > 120) return null;
     const description =

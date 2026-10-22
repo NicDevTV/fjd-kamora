@@ -12,9 +12,10 @@ export async function POST() {
   const store = await getStore();
   const user = await store.upsertDiscordUser({ discordId: "0000000000000001", discordName: "Testzugang", avatarUrl: null });
   await store.grantRole(user.id, "justizminister", null);
+  await store.grantRole(user.id, "foederationsrat", null);
 
   const response = NextResponse.redirect(`${appUrl()}/intern`, { status: 303 });
   await startSession(response, user.id);
-  setFlash(response.cookies, { tone: "success", title: "Angemeldet", description: "Lokaler Testzugang als Justizminister." });
+  setFlash(response.cookies, { tone: "success", title: "Angemeldet", description: "Lokaler Testzugang mit allen Rollen." });
   return response;
 }

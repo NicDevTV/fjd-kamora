@@ -1,4 +1,5 @@
 import "server-only";
+import type { Role } from "@/lib/server/db/types";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -12,7 +13,9 @@ export const SECURE_COOKIES = isProduction;
 // The public base URL, used for the OAuth redirect. Never derived from request headers,
 // so a forged Host header cannot redirect the login elsewhere.
 export function appUrl() {
-  const url = process.env.FJD_APP_URL;
+  // Preview deployments of other branches fall back to their branch URL, which Vercel sets.
+  const branchUrl = process.env.VERCEL_BRANCH_URL ? `https://${process.env.VERCEL_BRANCH_URL}` : undefined;
+  const url = process.env.FJD_APP_URL ?? branchUrl;
   if (!url) throw new Error("FJD_APP_URL fehlt (z. B. http://localhost:3000).");
   return url.replace(/\/$/, "");
 }
@@ -24,19 +27,26 @@ export function discordConfig() {
   return { clientId, clientSecret, redirectUri: `${appUrl()}/auth/discord/callback` };
 }
 
-// Local shortcut that signs in a test Justizminister without Discord. Only in development and
+// Local shortcut that signs in a test official with all roles, without Discord. Only in development and
 // only when explicitly switched on; a production build can never enable it.
 export function devLoginEnabled() {
   return !isProduction && process.env.FJD_DEV_LOGIN === "1";
 }
 
-// Discord IDs that receive the Justizminister role on their first sign-in. Lets the first
-// minister in without database access; later grants happen inside the app.
-export function bootstrapMinisterIds(): Set<string> {
+// Discord IDs that receive a role on sign-in (comma separated env vars). Lets the first
+// officials in without database access; later grants happen inside the app.
+function idList(value: string | undefined): Set<string> {
   return new Set(
-    (process.env.FJD_BOOTSTRAP_JM ?? "")
+    (value ?? "")
       .split(",")
       .map((id) => id.trim())
       .filter((id) => /^\d{5,25}$/.test(id)),
   );
+}
+
+export function bootstrapRoles(discordId: string): Role[] {
+  const roles: Role[] = [];
+  if (idList(process.env.FJD_BOOTSTRAP_JM).has(discordId)) roles.push("justizminister");
+  if (idList(process.env.FJD_BOOTSTRAP_FR).has(discordId)) roles.push("foederationsrat");
+  return roles;
 }

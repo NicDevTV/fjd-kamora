@@ -5,7 +5,7 @@
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 
-const ROLES = ["justizminister"];
+const ROLES = ["justizminister", "foederationsrat"];
 const [discordId, role = "justizminister"] = process.argv.slice(2);
 
 if (!/^\d{5,25}$/.test(discordId ?? "") || !ROLES.includes(role)) {

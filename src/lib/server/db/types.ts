@@ -1,12 +1,14 @@
-// Storage contract of the internal area. Local development runs on SQLite (sqlite.ts);
-// staging and production will get a Supabase implementation of the same interface.
+// Storage contract of the internal area. Local development runs on SQLite (sqlite.ts),
+// staging and production on Supabase Postgres (postgres.ts), behind the same interface.
 // Every method is async so both backends fit behind it unchanged.
 
-export const ROLES = ["justizminister"] as const;
+// "foederationsrat" is the higher order (KV Art. 12): it appoints and dismisses the Justizminister.
+export const ROLES = ["justizminister", "foederationsrat"] as const;
 export type Role = (typeof ROLES)[number];
 
 export const ROLE_LABEL: Record<Role, string> = {
   justizminister: "Justizminister",
+  foederationsrat: "Föderationsrat",
 };
 
 export type User = {

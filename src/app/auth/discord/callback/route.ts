@@ -3,7 +3,7 @@ import {
   OAUTH_COOKIE,
   SECURE_COOKIES,
   appUrl,
-  bootstrapMinisterIds,
+  bootstrapRoles,
   discordConfig,
 } from "@/lib/server/auth/config";
 import { fetchDiscordUser, sameState } from "@/lib/server/auth/discord";
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
 
   const store = await getStore();
   const user = await store.upsertDiscordUser(profile);
-  if (bootstrapMinisterIds().has(user.discordId)) await store.grantRole(user.id, "justizminister", null);
+  for (const role of bootstrapRoles(user.discordId)) await store.grantRole(user.id, role, null);
 
   // Without a role there is no session at all: the account exists, but cannot enter.
   if ((await store.listRoles(user.id)).length === 0) return fail("keine-rolle");
