@@ -21,7 +21,6 @@ export function authorizeUrl(input: { clientId: string; redirectUri: string; sta
     state: input.state,
     code_challenge: input.challenge,
     code_challenge_method: "S256",
-    prompt: "none",
   }).toString();
   return url.toString();
 }
