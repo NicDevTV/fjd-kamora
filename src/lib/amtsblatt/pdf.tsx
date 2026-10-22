@@ -20,7 +20,6 @@ import {
 } from "@react-pdf/renderer";
 import type { DocumentRecord } from "@/lib/server/db/types";
 import { seededRandom } from "./random";
-import { signaturePath } from "./signature";
 import { formatDate, type SealKind, type Template } from "./templates";
 
 // The certificate as a PDF: aged paper, a printed frame, a fraktur title, a rubber-stamp seal
@@ -41,6 +40,7 @@ function registerFonts() {
   });
   Font.register({ family: "Fraktur", src: path.join(FONTS, "UnifrakturMaguntia.ttf") });
   Font.register({ family: "FellSC", src: path.join(FONTS, "IMFellEnglishSC.ttf") });
+  Font.register({ family: "Signature", src: path.join(FONTS, "HerrVonMuellerhoff.ttf") });
   // German words must not be split with English hyphenation rules.
   Font.registerHyphenationCallback((word) => [word]);
   fontsReady = true;
@@ -216,8 +216,8 @@ function Seal({ kind, seed }: { kind: SealKind; seed: number }) {
   );
 
   return (
-    // Drawn on a 168 grid, shown larger so the relief reads at print size.
-    <Svg width={204} height={204} viewBox={`0 0 ${size} ${size}`}>
+    // Drawn on a 168 grid and scaled to the closing block.
+    <Svg width={150} height={150} viewBox={`0 0 ${size} ${size}`}>
       <Defs>
         <RadialGradient id="wax" cx="38%" cy="32%" r="72%">
           <Stop offset="0%" stopColor={WAX.light} />
@@ -269,16 +269,28 @@ function Seal({ kind, seed }: { kind: SealKind; seed: number }) {
   );
 }
 
+// The signature is set in a handwriting face. Angle, size, position and spacing vary a little
+// with every document, the way the same person never signs twice exactly alike.
 function Signature({ name, seed }: { name: string; seed: number }) {
-  const { d, scale, width, height } = signaturePath(name, seed);
+  const random = seededRandom(seed ^ 0x51a9);
+  const fit = Math.min(1, 20 / Math.max(name.length, 1));
+  const size = (32 + random() * 5) * Math.max(fit, 0.62);
   return (
-    <Svg width={width} height={height}>
-      <G transform={`scale(${scale.toFixed(3)})`}>
-        {/* A second, thinner pass a hair off the first imitates uneven pen pressure. */}
-        <Path d={d} fill="none" stroke="#1d2b66" strokeWidth={1.35} strokeOpacity={0.88} strokeLinecap="round" strokeLinejoin="round" />
-        <Path d={d} fill="none" stroke="#1d2b66" strokeWidth={0.5} strokeOpacity={0.35} transform="translate(0.6, 0.4)" />
-      </G>
-    </Svg>
+    <View style={{ width: 240, height: 54, justifyContent: "flex-end", alignItems: "center" }}>
+      <Text
+        style={{
+          fontFamily: "Signature",
+          fontSize: size,
+          color: "#1d2b66",
+          letterSpacing: -0.3 + random() * 0.6,
+          marginLeft: -14 + random() * 28,
+          marginBottom: -10 + random() * 4,
+          transform: `rotate(${(-7 + random() * 5).toFixed(1)}deg)`,
+        }}
+      >
+        {name}
+      </Text>
+    </View>
   );
 }
 
@@ -309,18 +321,6 @@ function Certificate({ document, template }: { document: DocumentRecord; templat
       <View style={styles.layer} fixed>
         <Frame />
       </View>
-      {/* Faint watermark of the issuing body's emblem, the way official paper carries one. */}
-      <View style={[styles.layer, { alignItems: "center", justifyContent: "center" }]} fixed>
-        <Svg width={300} height={300}>
-          {template.seal === "foederation" ? (
-            <Path d={star(150, 150, 140, 58, 8)} fill={SEPIA} fillOpacity={0.06} />
-          ) : (
-            <G transform="translate(42, 24) scale(2.25)">
-              <Path d="M48 4L90 17V58C90 84 72 100 48 109C24 100 6 84 6 58V17Z" fill={SEPIA} fillOpacity={0.06} />
-            </G>
-          )}
-        </Svg>
-      </View>
 
       <View style={styles.content}>
       <Text style={styles.realm}>{template.issuer.realm.toUpperCase()}</Text>
@@ -336,23 +336,20 @@ function Certificate({ document, template }: { document: DocumentRecord; templat
           </Text>
         ))}
       </View>
-      </View>
-
-      {/* Place and date on the left, signature on the right, the seal pressed half over both. */}
-      <View style={{ position: "absolute", left: 76, right: 76, bottom: 92, flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end" }}>
-        <View style={{ width: 150 }}>
-          <Text style={{ fontSize: 12.5, fontStyle: "italic" }}>Kamora,</Text>
-          <Text style={{ fontSize: 12.5, fontStyle: "italic" }}>den {issued}</Text>
+        {/* Closing block: the seal stands on its own on the left, nothing printed under it;
+            place, date and signature on the right, as on a real certificate. It follows the text, so the page never gapes. */}
+        <View style={{ marginTop: 64, flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <View style={{ width: 150, alignItems: "center" }}>
+            <Seal kind={template.seal} seed={document.signatureSeed} />
+          </View>
+          <View style={{ width: 240, alignItems: "center" }}>
+            <Text style={{ fontSize: 12.5, fontStyle: "italic" }}>Kamora, den {issued}</Text>
+            <Signature name={document.signerName} seed={document.signatureSeed} />
+            <View style={{ width: 210, borderTopWidth: 0.7, borderTopColor: INK, marginTop: 2 }} />
+            <Text style={{ fontSize: 12, marginTop: 5 }}>{document.signerName}</Text>
+            <Text style={{ fontSize: 10, fontStyle: "italic", color: SEPIA, marginTop: 1 }}>{document.signerTitle}</Text>
+          </View>
         </View>
-        <View style={{ width: 230, alignItems: "center" }}>
-          <Signature name={document.signerName} seed={document.signatureSeed} />
-          <View style={{ width: 210, borderTopWidth: 0.7, borderTopColor: INK, marginTop: -6 }} />
-          <Text style={{ fontSize: 12, marginTop: 4 }}>{document.signerName}</Text>
-          <Text style={{ fontSize: 10, fontStyle: "italic", color: SEPIA, marginTop: 1 }}>{document.signerTitle}</Text>
-        </View>
-      </View>
-      <View style={{ position: "absolute", left: 150, bottom: 44 }}>
-        <Seal kind={template.seal} seed={document.signatureSeed} />
       </View>
 
       <Text style={{ position: "absolute", left: 76, right: 76, bottom: 50, fontSize: 8, textAlign: "center", color: SEPIA }}>

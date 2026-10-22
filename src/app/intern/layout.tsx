@@ -55,7 +55,8 @@ export default async function InternLayout({ children }: LayoutProps<"/intern">)
           </div>
         </div>
       </header>
-      <main id="inhalt" className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-8">
+      {/* Headings break long German compounds at syllables rather than overflowing their card. */}
+      <main id="inhalt" className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-8 [&_h1]:hyphens-auto [&_h1]:[overflow-wrap:anywhere]">
         {children}
       </main>
     </div>

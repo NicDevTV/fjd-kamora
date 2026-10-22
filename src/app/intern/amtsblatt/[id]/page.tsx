@@ -19,13 +19,16 @@ export default async function DokumentPage({ params }: PageProps<"/intern/amtsbl
   const pdf = `/intern/amtsblatt/${document.id}/pdf`;
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
+    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
       <section className="glass-panel overflow-hidden p-3">
         <iframe src={pdf} title={`Urkunde ${document.number}`} className="h-[80vh] min-h-[32rem] w-full rounded-[1.5rem] bg-white" />
       </section>
       <aside className="glass-panel h-fit p-7">
         <p className="text-sm tabular-nums text-muted">{document.number}</p>
-        <h1 className="mt-1 font-serif text-3xl font-medium leading-tight">{template?.title ?? document.template}</h1>
+        {/* Long German compounds like "Ernennungsurkunde" break at syllables instead of overflowing. */}
+        <h1 className="mt-1 hyphens-auto font-serif text-[1.75rem] font-medium leading-tight [overflow-wrap:anywhere]">
+          {template?.title ?? document.template}
+        </h1>
         <dl className="mt-5 space-y-3 text-[0.9375rem]">
           {template?.fields.map((field) => (
             <div key={field.name}>
@@ -35,9 +38,8 @@ export default async function DokumentPage({ params }: PageProps<"/intern/amtsbl
           ))}
           <div>
             <dt className="text-xs text-muted">Unterzeichnet</dt>
-            <dd>
-              {document.signerName}, {document.signerTitle}
-            </dd>
+            <dd>{document.signerName}</dd>
+            <dd className="text-sm text-muted">{document.signerTitle}</dd>
           </div>
           <div>
             <dt className="text-xs text-muted">Ausgefertigt</dt>
