@@ -43,6 +43,7 @@ Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 | Notstands-Sofortmaßnahmen bis 48 h | Erlöschen ohne Zustimmung des Gouverneurs binnen 2 h; Verlängerung nur durch den Senat; OGH prüft danach jede Anordnung | KV 11 |
 | Das Amt selbst | Ernennung und Entlassung nur durch die höhere Ordnung; Amtsenthebung durch Senat und OGH | KV 6 · KV 12 |
 | Alleiniges Initiativrecht für Justizgesetze, Rederecht im Senat | Der Senat verabschiedet oder lehnt ab; Gesetze über den JM und Entwürfe nach 7 Tagen Untätigkeit bringt er selbst ein; der JM hat keine Stimme | KV 6 |
+| Wahlleitung | Öffentliche Auszählung mit Beobachtern der Parteien; der OGH prüft jeden Einspruch und kann die Wahl aufheben | KV 15 |
 | Antrag auf Parteiverbot | Nur der OGH entscheidet, einstimmig; nie in den 14 Tagen vor einer Wahl; der JM selbst ist parteilos | KV 16 |
 | Beschlüsse und vorläufige U-Haft | Ein Richter prüft binnen 24 h und kann aufheben; nie in eigener Sache, gegen Senat oder Immune | JO 9–10 |
 
@@ -171,7 +172,8 @@ Das Volk wählt den Senat, der Senat wählt den Gouverneur. Wahlen sind frei, gl
 - **Gouverneurswahl:** Binnen 7 Tagen nach der Wahl wählt der neue Senat erst seinen Präsidenten, dann den Gouverneur mit der Mehrheit seiner Sitze. Gelingt das in zwei Wahlgängen nicht, reichen im dritten die meisten Stimmen. Wer Gouverneur wird, gibt seinen Senatssitz ab. Niemand ist mehr als zwei Wahlperioden in Folge Gouverneur; jede angefangene Periode zählt.
 - **Amtszeit und Abwahl:** Der Gouverneur bleibt bis zur Wahl seines Nachfolgers im Amt. Der Senat kann ihn jederzeit abwählen, aber nur, indem er mit der Mehrheit seiner Sitze einen Nachfolger wählt. Die Amtsenthebung bei Verfehlungen (→ Art. 6) bleibt daneben möglich.
 - **Nachrücken:** Ein frei werdender Sitz, auch nach 14 Tagen Inaktivität (→ Art. 13), geht an den Nächsten auf der Liste derselben Partei. Ist die Liste leer, bleibt er bis zur nächsten Wahl frei.
-- **Wahlleitung:** Der Oberste Richter oder ein von ihm bestimmter OGH-Richter, nie das FJD oder eine Partei. Er lässt Parteien zu, prüft die Kandidaten und zählt öffentlich aus. Einspruch binnen 48 h zum OGH (→ JO 1).
+- **Wahlleitung:** Wahlleiter ist der JM, parteilos und von keiner Wahl abhängig (→ Art. 7). Er lässt Parteien zu, prüft die Kandidaten und zählt öffentlich aus; jede zugelassene Partei darf einen Beobachter stellen. Ist er befangen, etwa weil ein Angehöriger kandidiert, leitet der Staatssekretär (→ Art. 13).
+- **Kontrolle:** Einspruch gegen Zulassung, Prüfung oder Ergebnis binnen 48 h zum OGH (→ JO 1). Der OGH kann eine Wahl ganz oder teilweise für ungültig erklären und wiederholen lassen.
 - **Aufbau:** Bis zur ersten Wahl setzt die höhere Ordnung einen Übergangsgouverneur und einen Übergangssenat ein (→ Art. 12); die erste Wahl folgt binnen 30 Tagen. Gibt es weniger Kandidaten als Sitze, bleiben Sitze frei. Alle Mehrheiten im Senat zählen nach besetzten Sitzen. Sind weniger als 3 Sitze besetzt, übernimmt der OGH die Kontrolle (→ Art. 6).
 
 ### Art. 16 Parteien
@@ -180,7 +182,7 @@ In den Senat kommt man nur über eine Partei.
 
 - **Gründung:** Name, Programm, Vorsitz und Unterschriften von 30 Bürgern oder 5 % aller Bürger, je nachdem, was weniger ist, mindestens aber 5. Der Wahlleiter lässt die Partei binnen 48 h zu und gibt sie im Amtsblatt bekannt. Jeder Bürger ist Mitglied höchstens einer Partei und unterschreibt nur für eine.
 - **Neutralität:** JM, Staatssekretär, Richter, GStA, Chief of Police, AIR und Sonderermittler sind während ihres Amtes parteilos (→ BeamtG 3).
-- **Verbot:** Antrag durch den JM oder 1/3 des Senats; der OGH entscheidet mit allen 3 Richtern einstimmig. Verboten werden darf eine Partei nur, wenn sie Gewalt einsetzt oder plant oder die Artikel aus Art. 14 abschaffen will. Kritik an Regierung, JM oder Gesetzen ist nie ein Grund. Von 14 Tagen vor einer Wahl bis zum Ergebnis wird nicht verboten.
+- **Verbot:** Antrag durch den JM oder 1/3 des Senats; der JM nie vom Verkünden des Wahltags bis zum Ergebnis, weil er dann die Wahl leitet; der OGH entscheidet mit allen 3 Richtern einstimmig. Verboten werden darf eine Partei nur, wenn sie Gewalt einsetzt oder plant oder die Artikel aus Art. 14 abschaffen will. Kritik an Regierung, JM oder Gesetzen ist nie ein Grund. Von 14 Tagen vor einer Wahl bis zum Ergebnis wird nicht verboten.
 - **Folgen:** Die Partei wird aufgelöst, ihre Senatssitze bleiben bis zur nächsten Wahl frei. Wer sie weiterführt oder eine Ersatzpartei gründet, macht sich strafbar (→ KStGB 86). Ihre Mitglieder bleiben wählbar, solange sie nicht selbst verurteilt sind.
 
 ## Teil 02 · Strafgesetzbuch (KStGB)

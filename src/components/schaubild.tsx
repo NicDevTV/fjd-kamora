@@ -82,7 +82,7 @@ function Staatsaufbau({ refs }: { refs: Refs }) {
           <p className="mb-3 mt-4 text-sm font-medium text-ink">Justiz: ernannt und unabhängig</p>
           <Edge>von der höheren Ordnung ernannt</Edge>
           <Node title="Justizminister" norm="KV 7" refs={refs}>
-            Parteilos. Leitet das FJD, gibt dem KPD Weisungen, erlässt Verordnungen.
+            Parteilos. Leitet das FJD und die Wahlen, gibt dem KPD Weisungen, erlässt Verordnungen.
           </Node>
           <Edge>leitet</Edge>
           <Node title="FJD" norm="FJDS 2" refs={refs}>
@@ -104,7 +104,7 @@ function Staatsaufbau({ refs }: { refs: Refs }) {
 }
 
 const CYCLE = [
-  { when: "Tag −14", what: "Der Wahlleiter verkündet den Wahltag im Amtsblatt.", norm: "KV 15" },
+  { when: "Tag −14", what: "Der JM als Wahlleiter verkündet den Wahltag im Amtsblatt.", norm: "KV 15" },
   { when: "Bis zur Wahl", what: "Parteien werden zugelassen, Kandidaten und ihre Akten der letzten 90 Tage geprüft.", norm: "KV 16" },
   { when: "Wahltag", what: "Geheime Wahl, öffentliche Auszählung, 7 Sitze nach Stimmenanteil.", norm: "KV 15" },
   { when: "+48 h", what: "Einspruch gegen das Ergebnis beim OGH.", norm: "JO 1" },
