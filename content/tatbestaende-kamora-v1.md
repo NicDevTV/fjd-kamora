@@ -51,3 +51,5 @@ Verweise wie (→ KStGB 9) werden auf der Seite zu Links.
 § 82: Wer Behörden, Einsätze oder Amtsträger im Auftrag einer fremden Macht oder kriminellen Organisation ausspäht, auch ohne die Erkenntnisse schon weitergegeben zu haben.
 § 83: Wer Einrichtungen des Staates wie Wachen, Gerichte, Gefängnisse, Funk oder Stromversorgung zerstört oder lahmlegt.
 § 84: Ein Amtsträger gibt dienstliche Geheimnisse wie Ermittlungen, Akten oder Einsatzpläne unbefugt weiter. Führt zum Amtsverlust.
+§ 85: Wer Stimmen fälscht, mehrfach abstimmt, Stimmen kauft oder verkauft oder Wähler, Kandidaten oder den Wahlleiter bedroht oder besticht, um eine Wahl zu beeinflussen (→ KV 15).
+§ 86: Wer eine vom OGH verbotene Partei weiterführt, eine Ersatzpartei mit gleichem Ziel gründet oder für eine von beiden wirbt (→ KV 16).

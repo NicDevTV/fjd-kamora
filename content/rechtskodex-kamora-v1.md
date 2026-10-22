@@ -39,6 +39,7 @@ Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 | Notstands-Sofortmaßnahmen bis 48 h | Erlöschen ohne Zustimmung des Gouverneurs binnen 2 h; Verlängerung nur durch den Senat; OGH prüft danach jede Anordnung | KV 11 |
 | Das Amt selbst | Entlassung durch den Gouverneur oder Amtsenthebung | KV 6 |
 | Alleiniges Initiativrecht für Justizgesetze, Rederecht im Senat | Der Senat verabschiedet oder lehnt ab; Gesetze über den JM und Entwürfe nach 7 Tagen Untätigkeit bringt er selbst ein; der JM hat keine Stimme | KV 6 |
+| Antrag auf Parteiverbot | Nur der OGH entscheidet, einstimmig; nie in den 14 Tagen vor einer Wahl; der JM selbst ist parteilos | KV 16 |
 | Beschlüsse und vorläufige U-Haft | Ein Richter prüft binnen 24 h und kann aufheben; nie in eigener Sache, gegen Senat oder Immune | JO 9–10 |
 
 **Rangfolge:** Verfassung, ihr Kern unabänderlich (→ KV 14) > Gesetze > FJD-Statut, Verordnungen > Dienstanweisungen
@@ -65,11 +66,11 @@ Einschränkungen nur per Gesetz und verhältnismäßig. Würde, Leben und faires
 
 ### Art. 5 Gouverneur
 
-Staatsoberhaupt. Er ernennt die Minister, außerdem Richter und GStA auf Vorschlag des JM mit Bestätigung des Senats. Er hat das Gnadenrecht (→ JO 13) und ruft den Notstand aus (Art. 11).
+Staatsoberhaupt, gewählt vom Senat (→ Art. 15). Er ernennt die Minister, außerdem Richter und GStA auf Vorschlag des JM mit Bestätigung des Senats. Er hat das Gnadenrecht (→ JO 13) und ruft den Notstand aus (Art. 11).
 
 ### Art. 6 Senat
 
-Gesetze mit Mehrheit, Verfassungsänderungen mit 2/3, außer bei Art. 14. Entwürfe für Justizgesetze (KStGB, JO, PolG, BeamtG, FJDS) bringt nur der JM ein; alle anderen Gesetze auch jedes Senatsmitglied. Gesetze über Immunität, Kontrolle oder Amtsenthebung des JM darf der Senat selbst einbringen. Legt der JM einen vom Senat mit Mehrheit angeforderten Entwurf nicht binnen 7 Tagen vor, darf der Senat selbst einbringen. Der Senat verabschiedet oder lehnt ab. Der JM darf in jeder Sitzung sprechen, stimmt aber nicht mit. Der Senat kontrolliert über den Justizausschuss (→ FJDS 8), den der JM nicht leiten darf. Amtsenthebung: Antrag 1/3, Beschluss 2/3, Bestätigung durch den OGH. Ohne Senat übernimmt der OGH die Kontrolle.
+Vom Volk gewählt (→ Art. 15). Gesetze mit Mehrheit, Verfassungsänderungen mit 2/3, außer bei Art. 14. Entwürfe für Justizgesetze (KStGB, JO, PolG, BeamtG, FJDS) bringt nur der JM ein; alle anderen Gesetze auch jedes Senatsmitglied. Gesetze über Immunität, Kontrolle oder Amtsenthebung des JM darf der Senat selbst einbringen. Legt der JM einen vom Senat mit Mehrheit angeforderten Entwurf nicht binnen 7 Tagen vor, darf der Senat selbst einbringen. Der Senat verabschiedet oder lehnt ab. Der JM darf in jeder Sitzung sprechen, stimmt aber nicht mit. Der Senat kontrolliert über den Justizausschuss (→ FJDS 8), den der JM nicht leiten darf. Amtsenthebung: Antrag 1/3, Beschluss 2/3, Bestätigung durch den OGH. Ohne Senat übernimmt der OGH die Kontrolle.
 
 ### Art. 7 Justizminister
 
@@ -96,7 +97,7 @@ Der Gouverneur ruft ihn für bis zu 48 h aus, der Senat verlängert. Der JM darf
 - **Eingriffe:** Betriebe und Gebäude vorläufig schließen, Waffen und Fahrzeuge sicherstellen, in der Sperrzone Wohnungen ohne Beschluss durchsuchen (→ PolG 6).
 - **Haft:** Notstands-U-Haft bis 48 h bei Terror, Geiselnahme und Mord (→ JO 10).
 - **Behörden:** Einsatzstab mit Weisungsrecht an KPD und SWAT, Bereitschafts- und Urlaubssperre für KPD und FJD, Vorrang für Schnellverfahren (→ JO 5).
-- **Verboten bleibt:** Strafhaft ohne Urteil, Aussetzung von Gerichten, Senat oder Immunität, dauerhafte Enteignung, Maßnahmen gegen Senatsmitglieder wegen ihrer Politik.
+- **Verboten bleibt:** Strafhaft ohne Urteil, Aussetzung von Gerichten, Senat oder Immunität, Wahlen um mehr als 48 h verschieben, dauerhafte Enteignung, Maßnahmen gegen Senatsmitglieder wegen ihrer Politik.
 - **Gegengewicht:** Ohne mündliche Zustimmung des Gouverneurs erlöschen alle Maßnahmen nach 2 h. Nach dem Notstand prüft der OGH jede Anordnung; Missbrauch ist Amtsmissbrauch (→ KStGB 47). Art. 3 und 4 gelten immer.
 
 ### Art. 12 Höhere Ordnung
@@ -139,8 +140,35 @@ Kein Staatsorgan kann diese Artikel ändern oder aufheben, auch nicht einstimmig
 - Art. 8 (Grenzen des JM) und Art. 9 (unabhängige Gerichte)
 - Art. 12 (höhere Ordnung)
 - Art. 14 selbst
+- die Wahlgrundsätze aus Art. 15: frei, gleich, geheim und spätestens alle 180 Tage, im Notstand höchstens 48 h später (→ Art. 11)
 
 Wer versucht, sie zu umgehen, begeht Amtsmissbrauch (→ KStGB 47). Änderungen bleiben allein der höheren Ordnung vorbehalten (→ Art. 12).
+
+### Art. 15 Wahlen
+
+Das Volk wählt den Senat, der Senat wählt den Gouverneur. Wahlen sind frei, gleich und geheim.
+
+- **Zyklus:** Der Senat wird alle 180 Tage gewählt. Den Wahltag setzt der Wahlleiter spätestens 14 Tage vorher im Amtsblatt fest.
+- **Sitze:** 7, verteilt nach dem Stimmenanteil der Parteien (D'Hondt-Verfahren). Mit 2/3 kann der Senat eine andere ungerade Zahl festlegen; sie gilt ab der nächsten Wahl.
+- **Stimme:** Jeder Bürger mit Ausweis hat eine Stimme. Gewählt wird im Spiel im Wahllokal oder über das offizielle Wahlsystem des Servers. Ob mehrere Charaktere eines Spielers wählen dürfen, regelt die höhere Ordnung (→ Art. 12); ohne Regel zählt eine Stimme pro Spieler.
+- **Wählbar für den Senat:** Bürger seit mindestens 30 Tagen, auf der Liste einer zugelassenen Partei (→ Art. 16), in den letzten 90 Tagen nicht verurteilt wegen einer Tat gegen den Staat oder die Staatssicherheit (→ KStGB 40–48, 80–86).
+- **Wählbar als Gouverneur:** Bürger seit mindestens 30 Tagen, vorgeschlagen von mindestens einem Senatsmitglied, in den letzten 90 Tagen gar nicht verurteilt. Verurteilt heißt Strafbefehl oder Urteil; Tickets zählen nicht.
+- **Prüfung der Akte:** Der Wahlleiter prüft das Strafregister samt Archiv. Löschungen innerhalb der 90 Tage zählen nicht (→ FJDS 7). Ein laufendes Verfahren hindert nicht, bis zum Urteil gilt die Unschuldsvermutung.
+- **Nicht wählbar** sind während ihres Amtes JM, Staatssekretär, Richter, GStA, Chief of Police, AIR und Sonderermittler (→ Art. 16).
+- **Gouverneurswahl:** Binnen 7 Tagen nach der Wahl wählt der neue Senat erst seinen Präsidenten, dann den Gouverneur mit der Mehrheit seiner Sitze. Gelingt das in zwei Wahlgängen nicht, reichen im dritten die meisten Stimmen. Wer Gouverneur wird, gibt seinen Senatssitz ab. Niemand ist mehr als zwei Wahlperioden in Folge Gouverneur; jede angefangene Periode zählt.
+- **Amtszeit und Abwahl:** Der Gouverneur bleibt bis zur Wahl seines Nachfolgers im Amt. Der Senat kann ihn jederzeit abwählen, aber nur, indem er mit der Mehrheit seiner Sitze einen Nachfolger wählt. Die Amtsenthebung bei Verfehlungen (→ Art. 6) bleibt daneben möglich.
+- **Nachrücken:** Ein frei werdender Sitz, auch nach 14 Tagen Inaktivität (→ Art. 13), geht an den Nächsten auf der Liste derselben Partei. Ist die Liste leer, bleibt er bis zur nächsten Wahl frei.
+- **Wahlleitung:** Der Oberste Richter oder ein von ihm bestimmter OGH-Richter, nie das FJD oder eine Partei. Er lässt Parteien zu, prüft die Kandidaten und zählt öffentlich aus. Einspruch binnen 48 h zum OGH (→ JO 1).
+- **Aufbau:** Bis zur ersten Wahl setzt die höhere Ordnung einen Übergangsgouverneur und einen Übergangssenat ein (→ Art. 12); die erste Wahl folgt binnen 30 Tagen. Gibt es weniger Kandidaten als Sitze, bleiben Sitze frei. Alle Mehrheiten im Senat zählen nach besetzten Sitzen. Sind weniger als 3 Sitze besetzt, übernimmt der OGH die Kontrolle (→ Art. 6).
+
+### Art. 16 Parteien
+
+In den Senat kommt man nur über eine Partei.
+
+- **Gründung:** Name, Programm, Vorsitz und Unterschriften von 30 Bürgern oder 5 % aller Bürger, je nachdem, was weniger ist, mindestens aber 5. Der Wahlleiter lässt die Partei binnen 48 h zu und gibt sie im Amtsblatt bekannt. Jeder Bürger ist Mitglied höchstens einer Partei und unterschreibt nur für eine.
+- **Neutralität:** JM, Staatssekretär, Richter, GStA, Chief of Police, AIR und Sonderermittler sind während ihres Amtes parteilos (→ BeamtG 3).
+- **Verbot:** Antrag durch den JM oder 1/3 des Senats; der OGH entscheidet mit allen 3 Richtern einstimmig. Verboten werden darf eine Partei nur, wenn sie Gewalt einsetzt oder plant oder die Artikel aus Art. 14 abschaffen will. Kritik an Regierung, JM oder Gesetzen ist nie ein Grund. Von 14 Tagen vor einer Wahl bis zum Ergebnis wird nicht verboten.
+- **Folgen:** Die Partei wird aufgelöst, ihre Senatssitze bleiben bis zur nächsten Wahl frei. Wer sie weiterführt oder eine Ersatzpartei gründet, macht sich strafbar (→ KStGB 86). Ihre Mitglieder bleiben wählbar, solange sie nicht selbst verurteilt sind.
 
 ## Teil 02 · Strafgesetzbuch (KStGB)
 
@@ -189,7 +217,7 @@ Hochverrat (§ 80) und Landesverrat (§ 81) werden nur mit Ermächtigung des JM 
 
 ### Nummernkreise
 
-10er Leib · 20er Freiheit · 30er Eigentum · 40er Staat · 50er Waffen und BtM · 60er Verkehr · 70er Ordnung · 80er Staatsschutz. Freie Nummern sind Reserve.
+10er Leib · 20er Freiheit · 30er Eigentum · 40er Staat · 50er Waffen und BtM · 60er Verkehr · 70er Ordnung · 80er Staatsschutz und Wahlen. Freie Nummern sind Reserve.
 
 ### Strafkatalog
 
@@ -245,6 +273,8 @@ Ein Klick auf eine Tat zeigt ihre Definition.
 | 82 | Spionage | 60–120 | 50.000 |
 | 83 | Sabotage an Staatseinrichtungen | 45–90 | 40.000 |
 | 84 | Verrat von Dienstgeheimnissen (+ Amtsverlust) | 30–60 | 25.000 |
+| 85 | Wahlfälschung | 30–90 | 50.000 |
+| 86 | Fortführung einer verbotenen Partei | 30–60 | 25.000 |
 
 ## Teil 03 · Justizordnung (JO)
 
@@ -259,7 +289,7 @@ Ein Klick auf eine Tat zeigt ihre Definition.
 
 ### § 1 Gerichte
 
-Das Bezirksgericht ist die erste Instanz mit Einzelrichter. Der OGH entscheidet über Berufung, Verfassung, Immunität (→ ImmG 4), Amtsenthebung (→ KV 6) und Aktenlöschung (→ FJDS 7). Er tagt mit 3 Richtern, notfalls entscheidet der Oberste Richter allein.
+Das Bezirksgericht ist die erste Instanz mit Einzelrichter. Der OGH entscheidet über Berufung, Verfassung, Immunität (→ ImmG 4), Amtsenthebung (→ KV 6), Aktenlöschung (→ FJDS 7), Wahlen (→ KV 15) und Parteiverbote (→ KV 16). Er tagt mit 3 Richtern, notfalls entscheidet der Oberste Richter allein.
 
 ### § 2 Richter
 
@@ -405,7 +435,7 @@ Die Behördenleitung ernennt frühestens nach 14 Tagen Probezeit; wirksam wird d
 
 #### § 3 Pflichten
 
-Gesetzestreue, Neutralität, Verschwiegenheit, wahre Dokumentation (→ PolG 11), Dienstausweis, rechtmäßige Weisungen befolgen.
+Gesetzestreue, Neutralität (Parteien → KV 16), Verschwiegenheit, wahre Dokumentation (→ PolG 11), Dienstausweis, rechtmäßige Weisungen befolgen.
 
 #### § 4 Einspruch gegen Weisungen (Remonstration)
 
