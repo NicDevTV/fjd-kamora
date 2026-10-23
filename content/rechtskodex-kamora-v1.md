@@ -63,6 +63,22 @@ Gesetzgebung: Senat. Exekutive: Regierung, FJD, KPD. Rechtsprechung: Gerichte. N
 
 Würde, Unversehrtheit, Freiheit, Eigentum, Meinung, Presse, Versammlung, Gleichheit, Wohnung.
 
+**Schutz der Presse.** Die Presse ist frei und unzensiert. Geschützt ist, wer alle Kriterien erfüllt:
+
+- **Angemeldet:** Der Presseträger (Zeitung, Sender, Kanal) ist im Amtsblatt eingetragen. Die Anmeldung braucht keine Genehmigung und gilt sofort; es genügt Name, Titel und Redaktionsleitung. Entzogen wird sie nur von einem Richter.
+- **Erkennbar:** Der Journalist weist sich im Einsatz mit Presseausweis oder deutlich sichtbarer Kennzeichnung als Presse aus.
+- **Berichtend:** Er berichtet, beobachtet oder recherchiert und greift nicht in das Geschehen ein, weder durch Tat noch durch Behinderung von Einsatzkräften.
+- **Redlich:** Er begeht keine Straftat, um an Informationen zu kommen, und handelt nicht als Tarnung für eine Tat.
+
+Wer geschützt ist, darf:
+
+- **Berichten:** aus Einsatzlagen und öffentlichen Orten, hinter einer Absperrung in sichtbarer Entfernung und auch aus Sperrzonen, soweit der Einsatz dadurch nicht gefährdet wird. Jede Einschränkung begründet der Einsatzleiter und hält sie im MDT fest.
+- **Quellen schützen:** Niemand darf ihn zur Nennung von Quellen zwingen; Notizen, Aufnahmen und Geräte werden nicht durchsucht oder beschlagnahmt. Ausnahme nur mit Richterbeschluss und nur zur Aufklärung eines Kapitalverbrechens, wenn es kein milderes Mittel gibt (→ JO 7).
+- **Frei bleiben:** Festnahme und Strafe wegen einer Veröffentlichung gibt es nie. Wegen einer Tat bei der Arbeit ist sie nur bei frischer Tat oder mit Richterbeschluss zulässig, und der Journalist ist unverzüglich freizulassen, sobald die Tat geklärt ist.
+- **Veröffentlichen:** ohne Vorzensur. Löschung oder Sperre eines Beitrags ordnet allein ein Richter an, nach Anhörung, wenn er Leben oder laufende Einsätze unmittelbar gefährdet.
+
+Wer die Kriterien verletzt, verliert den Schutz nur für diese Handlung, nicht für die übrige Arbeit. Verstöße von Amtsträgern gegen den Schutz sind Amtsmissbrauch (→ KStGB 47). Der Schutz gilt auch im Notstand (→ Art. 11).
+
 ### Art. 3 Justizrechte
 
 Keine Strafe ohne Gesetz (→ KStGB 1). Recht auf Schweigen, Anwalt und Grund der Festnahme (→ PolG 7). Keine Doppelstrafe. Über mehr als 60 HE entscheidet ein Richter (→ JO 7).
@@ -119,7 +135,7 @@ Der Gouverneur ruft ihn für bis zu 48 h aus, der Senat verlängert. Der JM darf
 - **Eingriffe:** Betriebe und Gebäude vorläufig schließen, Waffen und Fahrzeuge sicherstellen, in der Sperrzone Wohnungen ohne Beschluss durchsuchen (→ PolG 6).
 - **Haft:** Notstands-U-Haft bis 120 HE bei Terror, Geiselnahme und Mord (→ JO 10).
 - **Behörden:** Einsatzstab mit Weisungsrecht an KPD und SWAT, Bereitschafts- und Urlaubssperre für KPD und FJD, Vorrang für Schnellverfahren (→ JO 5).
-- **Verboten bleibt:** Strafhaft ohne Urteil; Aussetzung von Gerichten, Senat oder Immunität; Wahlverschiebung über 48 h; Sperren, die Stimmabgabe oder Wahlkampf behindern; dauerhafte Enteignung; Maßnahmen gegen Senatsmitglieder wegen ihrer Politik.
+- **Verboten bleibt:** Strafhaft ohne Urteil; Aussetzung von Gerichten, Senat oder Immunität; Wahlverschiebung über 48 h; Sperren, die Stimmabgabe oder Wahlkampf behindern; Zensur, Durchsuchung oder Festnahme der Presse (→ Art. 2); dauerhafte Enteignung; Maßnahmen gegen Senatsmitglieder wegen ihrer Politik.
 - **Gegengewicht:** Ohne mündliche Zustimmung des Gouverneurs erlöschen alle Maßnahmen nach 2 h. Danach prüft der OGH jede Anordnung; Missbrauch ist Amtsmissbrauch (→ KStGB 47). Art. 3 und 4 gelten immer.
 
 ### Art. 12 Sicherheitsrat
@@ -165,7 +181,7 @@ Nicht erreichbar ist, wer nicht im Dienst ist und binnen 15 Min. nicht per Funk 
 Kein Staatsorgan kann diese Artikel ändern oder aufheben, auch nicht einstimmig:
 
 - Art. 1 (Gewaltenteilung, niemand über dem Gesetz)
-- Art. 2 bis 4 (Grund- und Justizrechte samt unantastbarem Kern; die Todesstrafe-Ausnahme stammt vom Sicherheitsrat)
+- Art. 2 bis 4 (Grund- und Justizrechte samt Schutz der Presse und unantastbarem Kern; die Todesstrafe-Ausnahme stammt vom Sicherheitsrat)
 - Art. 8 (Grenzen des JM), Art. 9 (unabhängige Gerichte), Art. 12 (Sicherheitsrat), Art. 14 selbst
 - die Wahlgrundsätze aus Art. 15: frei, gleich, geheim, spätestens alle 180 Tage, im Notstand höchstens 48 h später (→ Art. 11)
 

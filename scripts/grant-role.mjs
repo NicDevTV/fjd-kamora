@@ -1,7 +1,7 @@
 // Grants a role to a Discord user in the local SQLite database.
 // Usage: node scripts/grant-role.mjs <discord-id> [role]
 // The user must have signed in once, so the account exists. Local development only;
-// staging and production get roles inside the app or through the Supabase dashboard.
+// production gets roles inside the app or through the Supabase dashboard.
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 

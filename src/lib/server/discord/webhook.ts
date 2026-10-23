@@ -3,7 +3,7 @@ import { IS_COMPONENTS_V2, type DiscordComponent } from "./components";
 
 // One webhook per Discord channel. Each deployment environment has its own URL in its own
 // environment variable value (Vercel: production and preview are separate values; locally:
-// .env.local), so staging never posts into the production channel. A channel without a URL is
+// .env.local), so previews never post into the production channel. A channel without a URL is
 // silently skipped, which keeps local development quiet.
 export const CHANNELS = {
   amtsblatt: "FJD_WEBHOOK_AMTSBLATT",

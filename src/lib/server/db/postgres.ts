@@ -3,9 +3,9 @@ import postgres from "postgres";
 import { parseSignature } from "@/lib/amtsblatt/drawn-signature";
 import { ROLES, type DocumentRecord, type Role, type RoleMapEntry, type StampRecord, type Store, type User } from "./types";
 
-// Staging and production database: Supabase Postgres, reached through the transaction pooler.
-// The login role sees only its own schema (fjd_prod or fjd_staging, set as its search_path),
-// so the queries use plain table names and can never reach the other environment.
+// Production database: Supabase Postgres, reached through the transaction pooler.
+// The login role sees only its own schema (fjd_prod, set as its search_path),
+// so the queries use plain table names and can never reach another environment.
 
 type UserRow = {
   signature: unknown;

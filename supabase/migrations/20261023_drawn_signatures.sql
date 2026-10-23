@@ -4,7 +4,4 @@ begin;
 alter table fjd_prod.users add column signature jsonb;
 alter table fjd_prod.documents add column signer_signature jsonb;
 alter table fjd_prod.document_stamps add column signer_signature jsonb;
-alter table fjd_staging.users add column signature jsonb;
-alter table fjd_staging.documents add column signer_signature jsonb;
-alter table fjd_staging.document_stamps add column signer_signature jsonb;
 commit;

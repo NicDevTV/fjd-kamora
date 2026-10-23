@@ -4,7 +4,7 @@ begin;
 do $$
 declare app_schema text;
 begin
-  foreach app_schema in array array['fjd_prod', 'fjd_staging'] loop
+  foreach app_schema in array array['fjd_prod'] loop
     execute format('alter table %I.roles drop constraint roles_role_check', app_schema);
     execute format('alter table %I.roles add constraint roles_role_check check (role in
       (''sicherheitsrat'', ''gouverneur'', ''senatspraesident'', ''justizminister'', ''staatssekretaer'',

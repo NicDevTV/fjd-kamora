@@ -1,7 +1,7 @@
 import type { DrawnSignature } from "@/lib/amtsblatt/drawn-signature";
 
 // Storage contract of the internal area. Local development runs on SQLite (sqlite.ts),
-// staging and production on Supabase Postgres (postgres.ts), behind the same interface.
+// production on Supabase Postgres (postgres.ts), behind the same interface.
 // Every method is async so both backends fit behind it unchanged.
 
 // Every office that signs or countersigns has its own role. "sicherheitsrat" is the server leadership

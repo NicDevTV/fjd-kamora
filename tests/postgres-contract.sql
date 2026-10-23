@@ -1,4 +1,4 @@
--- psql variables: schema=fjd_staging, app_role=fjd_staging_app (or prod).
+-- psql variables: schema=fjd_prod, app_role=fjd_prod_app.
 -- All fixtures are rolled back. Run against an isolated test database only.
 begin;
 set local role :"app_role";

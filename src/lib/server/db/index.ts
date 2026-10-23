@@ -1,23 +1,21 @@
 import "server-only";
 import type { Store } from "./types";
 
-// Picks the storage backend. Local development uses SQLite; staging and production use
-// Supabase Postgres (FJD_DATABASE_URL, one isolated schema each). A deployment without a
+// Picks the storage backend. Local development uses SQLite; production uses
+// Supabase Postgres (FJD_DATABASE_URL, isolated schema fjd_prod). A deployment without a
 // database fails loudly instead of silently writing to a file that would vanish on Vercel.
 const globalStore = globalThis as typeof globalThis & { __fjdStore?: Store };
 
-// Hard separation of the three databases. Each environment may only use its own login role:
-// production the fjd_prod role, previews (staging) the fjd_staging role, and a local machine
-// never the production role. A mixed-up variable stops the app instead of touching the wrong data.
+// Hard separation of local and production data. Only production may use the fjd_prod role;
+// a local machine or preview deployment never touches the production database.
 function assertSeparation(url: string) {
   const role = decodeURIComponent(new URL(url).username).split(".")[0];
-  const environment = process.env.VERCEL_ENV;
-  const expected = environment === "production" ? "fjd_prod_app" : environment === "preview" ? "fjd_staging_app" : null;
-  if (expected && role !== expected) {
-    throw new Error(`Datenbank-Trennung verletzt: ${environment} darf nur ${expected} verwenden.`);
+  const production = process.env.VERCEL_ENV === "production";
+  if (production && role !== "fjd_prod_app") {
+    throw new Error("Datenbank-Trennung verletzt: Produktion darf nur fjd_prod_app verwenden.");
   }
-  if (!expected && role === "fjd_prod_app") {
-    throw new Error("Datenbank-Trennung verletzt: lokal ist die Produktionsdatenbank gesperrt.");
+  if (!production && role === "fjd_prod_app") {
+    throw new Error("Datenbank-Trennung verletzt: außerhalb der Produktion ist die Produktionsdatenbank gesperrt.");
   }
 }
 
