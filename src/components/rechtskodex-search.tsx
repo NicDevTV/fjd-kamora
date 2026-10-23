@@ -5,10 +5,12 @@ import {
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
   type KeyboardEvent as ReactKeyboardEvent,
   type MouseEvent as ReactMouseEvent,
   type ReactNode,
 } from "react";
+import { createPortal } from "react-dom";
 import { flashTarget } from "@/lib/flash-target";
 import type { SearchEntry } from "@/lib/rechtskodex-index";
 
@@ -222,12 +224,18 @@ function SearchIcon() {
   );
 }
 
+const subscribeNothing = () => () => {};
+
 export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [code, setCode] = useState<string | null>(null);
   const [active, setActive] = useState(0);
+  const [inlineVisible, setInlineVisible] = useState(true);
+  // True only in the browser, where document.body exists for the portal.
+  const mounted = useSyncExternalStore(subscribeNothing, () => true, () => false);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const inlineRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
   const items = useMemo<Indexed[]>(
@@ -273,6 +281,15 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
     if (!open && dialog.open) dialog.close();
   }, [open]);
 
+  // The floating button only appears once the inline button has scrolled out of view.
+  useEffect(() => {
+    const button = inlineRef.current;
+    if (!button) return;
+    const observer = new IntersectionObserver(([entry]) => setInlineVisible(entry.isIntersecting));
+    observer.observe(button);
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     listRef.current?.querySelector<HTMLElement>("[data-active='true']")?.scrollIntoView({ block: "nearest" });
   }, [active]);
@@ -312,6 +329,7 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
   return (
     <>
       <button
+        ref={inlineRef}
         type="button"
         onClick={() => setOpen(true)}
         className="liquid-solid inline-flex items-center gap-3 rounded-full px-5 py-3 text-sm font-medium text-white"
@@ -320,18 +338,31 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
         <kbd className="rounded-md border border-white/40 px-1.5 py-0.5 font-mono text-xs [@media(pointer:coarse)]:hidden">/</kbd>
       </button>
 
-      {/* The codex is very long on phones: the search stays one tap away. */}
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-label="Im Kodex suchen"
-        className="liquid-solid fixed bottom-5 right-5 z-30 flex size-14 items-center justify-center rounded-full text-white lg:hidden"
-      >
-        <svg aria-hidden="true" viewBox="0 0 20 20" className="size-6">
-          <circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" strokeWidth="1.8" />
-          <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        </svg>
-      </button>
+      {/* The codex is very long on phones: the search stays one tap away. It is portalled to
+          the body: the glass panels form their own stacking contexts, which would trap it below
+          later cards, and they set position: relative, so the placement lives on a wrapper. */}
+      {mounted &&
+        createPortal(
+          <div
+            className={`fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-5 z-30 transition-[opacity,translate] duration-300 lg:hidden ${
+              inlineVisible ? "pointer-events-none translate-y-4 opacity-0" : ""
+            }`}
+          >
+            <button
+              type="button"
+              tabIndex={inlineVisible ? -1 : undefined}
+              onClick={() => setOpen(true)}
+              aria-label="Im Kodex suchen"
+              className="liquid-solid flex size-14 items-center justify-center rounded-full text-white"
+            >
+              <svg aria-hidden="true" viewBox="0 0 20 20" className="size-6">
+                <circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>,
+          document.body,
+        )}
 
       <dialog
         ref={dialogRef}

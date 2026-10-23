@@ -94,15 +94,16 @@ export function SiteHeader() {
           onClick={() => setOpen((value) => !value)}
           className="flex size-11 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/15 md:hidden"
         >
+          {/* Both bars sit in the middle and move with transform only, so no frame shows a half-turned arrow. */}
           <span className="relative block h-3 w-4">
             <span
-              className={`absolute left-0 h-px w-4 bg-white transition-transform duration-300 ${
-                open ? "top-1.5 rotate-45" : "top-0"
+              className={`absolute left-0 top-1.5 h-px w-4 bg-white transition-transform duration-300 ease-out ${
+                open ? "rotate-45" : "-translate-y-1.5"
               }`}
             />
             <span
-              className={`absolute left-0 h-px w-4 bg-white transition-transform duration-300 ${
-                open ? "top-1.5 -rotate-45" : "top-3"
+              className={`absolute left-0 top-1.5 h-px w-4 bg-white transition-transform duration-300 ease-out ${
+                open ? "-rotate-45" : "translate-y-1.5"
               }`}
             />
           </span>
@@ -115,18 +116,24 @@ export function SiteHeader() {
             className="glass-dark is-solid menu-in absolute inset-x-0 top-[calc(100%+0.5rem)] rounded-[1.75rem] p-2 md:hidden"
           >
             <ul className="flex flex-col">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    transitionTypes={typesFor(item.page, item.transition)}
-                    onClick={() => setOpen(false)}
-                    className="block rounded-2xl px-5 py-4 font-serif text-xl text-white transition-colors hover:bg-white/10"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {navItems.map((item) => {
+                const samePage = item.page === pathname;
+                return (
+                  <li key={item.href}>
+                    {/* A jump within the page closes the sheet right away. Going to another page keeps it
+                        open with a pending mark until the new page replaces the header. */}
+                    <Link
+                      href={item.href}
+                      transitionTypes={typesFor(item.page, item.transition)}
+                      onClick={samePage ? () => setOpen(false) : undefined}
+                      className="flex items-center justify-between rounded-2xl px-5 py-4 font-serif text-xl text-white transition-colors hover:bg-white/10 active:bg-white/15"
+                    >
+                      {item.label}
+                      <span aria-hidden="true" className="pending-mark" />
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         )}
@@ -134,3 +141,4 @@ export function SiteHeader() {
     </header>
   );
 }
+

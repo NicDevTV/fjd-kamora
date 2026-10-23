@@ -1516,3 +1516,70 @@ textarea:focus-visible {
     transform: none !important;
   }
 }
+
+/* Page change feedback (nav-progress.tsx): a bar along the top edge and a spinner on the tapped
+   link. Both animate transform only, so they keep moving while the main thread is busy. */
+.nav-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 70;
+  height: 3px;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--color-accent), #c96a7c);
+  box-shadow: 0 0 12px rgb(122 34 50 / 0.6);
+  transform-origin: left;
+  transform: scaleX(0);
+  opacity: 0;
+  transition: opacity 0.3s ease 0.1s, transform 0.3s ease;
+}
+
+html[data-navigating] .nav-progress {
+  opacity: 1;
+  transition: opacity 0.1s ease;
+  animation: nav-progress 8s cubic-bezier(0.1, 0.7, 0.2, 1) forwards;
+}
+
+@keyframes nav-progress {
+  from {
+    transform: scaleX(0.08);
+  }
+  to {
+    transform: scaleX(0.92);
+  }
+}
+
+.pending-mark {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 2px solid rgb(255 255 255 / 0.25);
+  border-top-color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+a[data-pending] .pending-mark {
+  opacity: 1;
+  animation: pending-spin 0.7s linear infinite;
+}
+
+a[data-pending] {
+  background: rgb(255 255 255 / 0.12);
+}
+
+@keyframes pending-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-navigating] .nav-progress {
+    animation: none;
+    transform: scaleX(0.6);
+  }
+  a[data-pending] .pending-mark {
+    animation: none;
+  }
+}

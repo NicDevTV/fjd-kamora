@@ -3,6 +3,7 @@ import { IBM_Plex_Sans, IBM_Plex_Serif } from "next/font/google";
 import { AbbrTooltip } from "@/components/abbr-tooltip";
 import { GlassPointer } from "@/components/glass-pointer";
 import { IntroScreen } from "@/components/intro-screen";
+import { NavProgress } from "@/components/nav-progress";
 import { Toaster } from "@/components/toaster";
 import "./globals.css";
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Zum Inhalt springen
         </a>
         <IntroScreen />
+        <NavProgress />
         <GlassPointer />
         <AbbrTooltip />
         <Toaster />
