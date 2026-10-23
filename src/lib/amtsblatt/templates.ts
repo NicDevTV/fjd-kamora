@@ -79,7 +79,7 @@ const ernennungJm: Template = {
     { kind: "office", text: "Justizminister des Staates Kamora" },
     {
       kind: "text",
-      text: "Der Ernannte leitet das Föderale Justizdepartement. Er ist parteilos, an Verfassung und Gesetze gebunden und der Charta der höheren Ordnung verpflichtet.",
+      text: "Der Ernannte leitet das Föderale Justizdepartement. Er ist parteilos, an Verfassung und Gesetze gebunden und der Charta des Sicherheitsrats verpflichtet.",
     },
   ],
 };

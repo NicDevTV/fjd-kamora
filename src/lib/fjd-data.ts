@@ -97,9 +97,9 @@ export const verfahrensweg = [
 export const rangfolge = [
   {
     id: "hoehere-ordnung",
-    title: "Charta der höheren Ordnung",
+    title: "Charta des Sicherheitsrats",
     body: "Steht über allem. Der Sicherheitsrat ernennt den Justizminister und gibt die schwersten Eingriffe frei.",
-    href: codex(KV, "Art. 12 Höhere Ordnung"),
+    href: codex(KV, "Art. 12 Sicherheitsrat"),
   },
   {
     id: "verfassung",

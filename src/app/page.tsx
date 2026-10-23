@@ -82,7 +82,7 @@ export default async function HomePage() {
             >
               <SectionHeading id="rangfolge-titel" title="Was über allem steht.">
                 Jede Regel in Kamora gilt nur im Rahmen der Ebene darüber. Ganz oben steht die
-                Charta der höheren Ordnung, darunter die Verfassung.
+                Charta des Sicherheitsrats, darunter die Verfassung.
               </SectionHeading>
               <div className="mt-12">
                 <Rangfolge levels={rangfolge} />

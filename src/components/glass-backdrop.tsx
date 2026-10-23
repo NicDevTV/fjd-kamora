@@ -5,11 +5,11 @@ export function GlassBackdrop() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none sticky top-0 -z-10 -mb-[100svh] h-[100svh] overflow-hidden"
+      className="pointer-events-none sticky top-0 -z-10 -mb-[100lvh] h-[100lvh] overflow-hidden"
     >
-      <div className="glass-blob -left-32 top-[6%] size-[36rem] bg-accent/55" />
-      <div className="glass-blob -right-40 top-[34%] size-[34rem] bg-[#3b6ea5]/55" />
-      <div className="glass-blob bottom-[-12rem] left-[30%] size-[32rem] bg-[#2f8f8a]/40" />
+      <div className="glass-blob -left-32 top-[6%] size-[44rem] [--blob:rgb(122_34_50/0.5)]" />
+      <div className="glass-blob -right-40 top-[34%] size-[42rem] [--blob:rgb(59_110_165/0.5)]" />
+      <div className="glass-blob bottom-[-12rem] left-[30%] size-[40rem] [--blob:rgb(47_143_138/0.38)]" />
     </div>
   );
 }

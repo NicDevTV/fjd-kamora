@@ -53,7 +53,7 @@ function Edge({ children }: { children: ReactNode }) {
 function Staatsaufbau({ refs }: { refs: Refs }) {
   return (
     <figure className="mt-6">
-      <Node title="Höhere Ordnung" norm="KV 12" refs={refs} tone="dark">
+      <Node title="Sicherheitsrat" norm="KV 12" refs={refs} tone="dark">
         Sicherheitsrat mit der Charta über allem. Ernennt und entlässt den Justizminister, gibt Hinrichtung,
         Haft über 180 HE und Enteignung frei.
       </Node>
@@ -80,7 +80,7 @@ function Staatsaufbau({ refs }: { refs: Refs }) {
 
         <section aria-label="Justiz" className="sb-group sb-group-justiz">
           <p className="mb-3 mt-4 text-sm font-medium text-ink">Justiz: ernannt und unabhängig</p>
-          <Edge>von der höheren Ordnung ernannt</Edge>
+          <Edge>vom Sicherheitsrat ernannt</Edge>
           <Node title="Justizminister" norm="KV 7" refs={refs}>
             Parteilos. Leitet das FJD und die Wahlen, gibt dem KPD Weisungen, erlässt Verordnungen.
           </Node>

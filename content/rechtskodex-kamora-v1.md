@@ -41,13 +41,13 @@ Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 | Vorschläge für Richter, GStA, Gnade | Der Gouverneur entscheidet; Richter und GStA bestätigt der Senat; schlägt der JM binnen 7 Tagen keinen Richter vor, schlägt der Oberste Richter vor | KV 5 · JO 13 |
 | Immunität | Gilt bis zur Aufhebung; Eilaufhebung binnen 30 Min. möglich | ImmG 2–4 |
 | Notstands-Sofortmaßnahmen bis 48 h | Erlöschen ohne Zustimmung des Gouverneurs binnen 2 h; Verlängerung nur durch den Senat; OGH prüft danach jede Anordnung | KV 11 |
-| Das Amt selbst | Ernennung und Entlassung nur durch die höhere Ordnung; Amtsenthebung durch Senat und OGH | KV 6 · KV 12 |
+| Das Amt selbst | Ernennung und Entlassung nur durch den Sicherheitsrat; Amtsenthebung durch Senat und OGH | KV 6 · KV 12 |
 | Alleiniges Initiativrecht für Justizgesetze, Rederecht im Senat | Der Senat verabschiedet oder lehnt ab; Gesetze über den JM und Entwürfe nach 7 Tagen Untätigkeit bringt er selbst ein; der JM hat keine Stimme | KV 6 |
 | Wahlleitung | Öffentliche Auszählung mit Beobachtern der Parteien; der OGH prüft jeden Einspruch und kann die Wahl aufheben | KV 15 |
 | Antrag auf Parteiverbot | Nur der OGH entscheidet, einstimmig; nie in den 14 Tagen vor einer Wahl; der JM selbst ist parteilos | KV 16 |
 | Beschlüsse und vorläufige U-Haft | Ein Richter prüft Beschlüsse binnen 24 h und kann aufheben; U-Haft ohne Richter höchstens 60 HE; nie in eigener Sache, gegen Senat oder Immune | JO 9–10 |
 
-**Rangfolge:** Charta der höheren Ordnung (→ KV 12) > Verfassung, ihr Kern unabänderlich (→ KV 14) > Gesetze > FJD-Statut, Verordnungen > Dienstanweisungen
+**Rangfolge:** Charta des Sicherheitsrats (→ KV 12) > Verfassung, ihr Kern unabänderlich (→ KV 14) > Gesetze > FJD-Statut, Verordnungen > Dienstanweisungen
 
 **Verfahrensweg:** KPD (Ticket, Strafbefehl bis 30 HE) → StA (31–60 HE) → Bezirksgericht (über 60 HE) → OGH (→ JO 1)
 
@@ -55,7 +55,7 @@ Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 
 ### Art. 1 Rechtsstaat
 
-Die Gewalten sind geteilt: Gesetzgebung durch den Senat, Exekutive durch Regierung, FJD und KPD, Rechtsprechung durch die Gerichte. Niemand steht über dem Gesetz.
+Gesetzgebung: Senat. Exekutive: Regierung, FJD, KPD. Rechtsprechung: Gerichte. Niemand steht über dem Gesetz.
 
 ### Art. 2 Grundrechte
 
@@ -67,23 +67,38 @@ Keine Strafe ohne Gesetz (→ KStGB 1). Recht auf Schweigen, Anwalt und Grund de
 
 ### Art. 4 Schranken
 
-Einschränkungen nur per Gesetz und verhältnismäßig. Würde, Leben und faires Verfahren sind unantastbar. Einzige Ausnahme ist die Todesstrafe für Hochverrat, eingeführt durch die höhere Ordnung (→ Art. 12); ihr Verfahren regelt KStGB 9.
+Einschränkung nur per Gesetz und verhältnismäßig. Würde, Leben und faires Verfahren sind unantastbar. Einzige Ausnahme: die vom Sicherheitsrat eingeführte Todesstrafe für Hochverrat (→ Art. 12, KStGB 9).
 
 ### Art. 5 Gouverneur
 
-Staatsoberhaupt, gewählt vom Senat (→ Art. 15). Er ernennt die Minister außer dem JM (→ Art. 7), außerdem Richter und GStA auf Vorschlag des JM mit Bestätigung des Senats; schlägt der JM binnen 7 Tagen nach Freiwerden eines Richteramts niemanden vor, schlägt der Oberste Richter vor. Er hat das Gnadenrecht (→ JO 13) und ruft den Notstand aus (Art. 11).
+Staatsoberhaupt, vom Senat gewählt (→ Art. 15).
+
+- **Ernennt:** Minister außer dem JM (→ Art. 7); Richter und GStA auf Vorschlag des JM, vom Senat bestätigt.
+- **Vakanz:** Nennt der JM binnen 7 Tagen nach Freiwerden eines Richteramts niemanden, schlägt der Oberste Richter vor.
+- **Außerdem:** Gnadenrecht (→ JO 13), Notstand (Art. 11).
 
 ### Art. 6 Senat
 
-Vom Volk gewählt (→ Art. 15). Gesetze mit Mehrheit, Verfassungsänderungen mit 2/3 und nur, wenn mindestens 5 Sitze besetzt sind; nie bei Art. 14. Entwürfe für Justizgesetze (KStGB, JO, PolG, BeamtG, FJDS) bringt nur der JM ein; alle anderen Gesetze auch jedes Senatsmitglied. Gesetze über Immunität, Kontrolle oder Amtsenthebung des JM darf der Senat selbst einbringen. Legt der JM einen vom Senat mit Mehrheit angeforderten Entwurf nicht binnen 7 Tagen vor, darf der Senat selbst einbringen. Der Senat verabschiedet oder lehnt ab. Der JM darf in jeder Sitzung sprechen, stimmt aber nicht mit. Der Senat kontrolliert über den Justizausschuss (→ FJDS 8), den der JM nicht leiten darf. Amtsenthebung: Antrag 1/3, Beschluss 2/3, Bestätigung durch den OGH, beim Obersten Richter durch die übrigen OGH-Richter; ist der JM enthoben, ernennt die höhere Ordnung den Nachfolger. Ohne Senat übernimmt der OGH die Kontrolle.
+Vom Volk gewählt (→ Art. 15).
+
+- **Mehrheiten:** Gesetze einfach, Verfassungsänderungen 2/3 und nur bei mindestens 5 besetzten Sitzen; nie bei Art. 14.
+- **Einbringen:** Justizgesetze (KStGB, JO, PolG, BeamtG, FJDS) nur der JM, alle anderen auch jedes Senatsmitglied. Der Senat darf selbst einbringen: Gesetze über Immunität, Kontrolle oder Amtsenthebung des JM sowie jeden Entwurf, den der JM auf Senatsmehrheit binnen 7 Tagen nicht vorlegt.
+- **Beschluss:** Der Senat verabschiedet oder lehnt ab. Der JM darf in jeder Sitzung sprechen, stimmt nicht mit.
+- **Kontrolle:** Justizausschuss (→ FJDS 8), nie vom JM geleitet. Ohne Senat kontrolliert der OGH.
+- **Amtsenthebung des JM:** Antrag 1/3, Beschluss 2/3, Bestätigung durch den OGH (beim Obersten Richter durch die übrigen OGH-Richter). Den Nachfolger ernennt der Sicherheitsrat.
 
 ### Art. 7 Justizminister
 
-Wird von der höheren Ordnung ernannt und entlassen, nicht gewählt (→ Art. 12); so bleibt die Justiz unabhängig von Wahlen und Mehrheiten. Er ist parteilos (→ Art. 16). Er leitet das FJD (→ FJDS), weist das KPD an (→ FJDS 4), bringt Gesetzentwürfe in den Senat ein und spricht dort mit (→ Art. 6), erlässt Verordnungen (→ FJDS 6), schlägt vor (Art. 5) und vertritt Kamora nach außen mit Diplomatenpass (→ ImmG 1).
+Vom Sicherheitsrat ernannt und entlassen, nicht gewählt (→ Art. 12): So bleibt die Justiz von Wahlen und Mehrheiten unabhängig. Parteilos (→ Art. 16).
+
+- Leitet das FJD (→ FJDS), weist das KPD an (→ FJDS 4).
+- Bringt Gesetzentwürfe ein und spricht im Senat (→ Art. 6).
+- Erlässt Verordnungen (→ FJDS 6), schlägt vor (Art. 5).
+- Vertritt Kamora nach außen, mit Diplomatenpass (→ ImmG 1).
 
 ### Art. 8 Grenzen des JM
 
-Keine Urteile, keine Weisungen an Richter, nichts in eigener Sache, keine Gesetze allein, nichts Rechtswidriges. Der OGH prüft; was rechtswidrig ist, ist nichtig.
+Keine Urteile, keine Weisungen an Richter, nichts in eigener Sache, keine Gesetze allein, nichts Rechtswidriges. Der OGH prüft; Rechtswidriges ist nichtig.
 
 ### Art. 9 Gerichte
 
@@ -95,30 +110,30 @@ Für Gouverneur, JM, Senatspräsident und Obersten Richter (→ ImmG). Sie schü
 
 ### Art. 11 Notstand
 
-Der Gouverneur ruft ihn für bis zu 48 h aus, der Senat verlängert. Der JM darf dann diese Sofortmaßnahmen anordnen, ohne Senat höchstens 48 h:
+Der Gouverneur ruft ihn für bis zu 48 h aus, der Senat verlängert. Der JM darf dann anordnen, ohne Senat höchstens 48 h:
 
-- **Sperren:** Sperrzonen ohne Zeitlimit (→ PolG 9), Ausgangssperren für Gebiete oder ganz Kamora, Versammlungsverbote, Waffenverbot.
+- **Sperren:** Sperrzonen ohne Zeitlimit (→ PolG 9), Ausgangssperren für Gebiete oder ganz Kamora, Versammlungs- und Waffenverbot.
 - **Kontrolle:** Kontrollpunkte mit Ausweiskontrolle und Durchsuchung ohne Verdacht (→ PolG 5–6).
 - **Eingriffe:** Betriebe und Gebäude vorläufig schließen, Waffen und Fahrzeuge sicherstellen, in der Sperrzone Wohnungen ohne Beschluss durchsuchen (→ PolG 6).
 - **Haft:** Notstands-U-Haft bis 120 HE bei Terror, Geiselnahme und Mord (→ JO 10).
 - **Behörden:** Einsatzstab mit Weisungsrecht an KPD und SWAT, Bereitschafts- und Urlaubssperre für KPD und FJD, Vorrang für Schnellverfahren (→ JO 5).
-- **Verboten bleibt:** Strafhaft ohne Urteil, Aussetzung von Gerichten, Senat oder Immunität, Wahlen um mehr als 48 h verschieben, Ausgangssperren oder Versammlungsverbote, die Stimmabgabe oder Wahlkampf behindern, dauerhafte Enteignung, Maßnahmen gegen Senatsmitglieder wegen ihrer Politik.
-- **Gegengewicht:** Ohne mündliche Zustimmung des Gouverneurs erlöschen alle Maßnahmen nach 2 h. Nach dem Notstand prüft der OGH jede Anordnung; Missbrauch ist Amtsmissbrauch (→ KStGB 47). Art. 3 und 4 gelten immer.
+- **Verboten bleibt:** Strafhaft ohne Urteil; Aussetzung von Gerichten, Senat oder Immunität; Wahlverschiebung über 48 h; Sperren, die Stimmabgabe oder Wahlkampf behindern; dauerhafte Enteignung; Maßnahmen gegen Senatsmitglieder wegen ihrer Politik.
+- **Gegengewicht:** Ohne mündliche Zustimmung des Gouverneurs erlöschen alle Maßnahmen nach 2 h. Danach prüft der OGH jede Anordnung; Missbrauch ist Amtsmissbrauch (→ KStGB 47). Art. 3 und 4 gelten immer.
 
-### Art. 12 Höhere Ordnung
+### Art. 12 Sicherheitsrat
 
-Über Kamora steht die höhere Ordnung. Ihre Charta steht über diesem Kodex; für sie handelt der Sicherheitsrat, die höhere Ordnung.
+Über Kamora steht der Sicherheitsrat. Seine Charta steht über diesem Kodex.
 
-- **Ernennt und entlässt** den Justizminister (→ Art. 7).
-- **Gibt frei:** Hinrichtung (→ Art. 4), Haft über 180 HE und dauerhafte Enteignung.
-- **Greift ein,** wenn ein Amtsträger oder eine Wahl gegen die Charta verstößt: Sie kann Amtsträger abberufen und eine Wahl wiederholen lassen. Jeder Eingriff wird im Amtsblatt begründet.
+- **Ernennt und entlässt** den JM (→ Art. 7).
+- **Gibt frei:** Hinrichtung (→ Art. 4), Haft über 180 HE, dauerhafte Enteignung.
+- **Greift ein,** wenn ein Amtsträger oder eine Wahl gegen die Charta verstößt: Er beruft Amtsträger ab und lässt Wahlen wiederholen. Jeder Eingriff wird im Amtsblatt begründet.
 - **Setzt ein,** solange es keine gewählten Organe gibt (→ Art. 15).
 
-> **OOC-Hinweis:** Die höhere Ordnung, also der Sicherheitsrat, ist die Projektleitung (PL) von Kamora-V, die Charta ist das Serverregelwerk. Eine Hinrichtung ist ein Character-Kill. Bei Wahlen zählt pro Spieler eine Stimme, egal mit wie vielen Charakteren. Wissen aus OOC-Quellen ist in keinem Verfahren verwertbar (→ JO 8). Das Amtsblatt ist der Discord-Kanal #amtsblatt.
+> **OOC-Hinweis:** Der Sicherheitsrat ist die Projektleitung (PL) von Kamora-V, die Charta das Serverregelwerk. Hinrichtung = Character-Kill. Bei Wahlen zählt eine Stimme pro Spieler, egal wie viele Charaktere. OOC-Wissen ist nie verwertbar (→ JO 8). Amtsblatt = Discord-Kanal #amtsblatt.
 
 ### Art. 13 Handlungsfähigkeit
 
-Nicht erreichbar ist, wer nicht im Dienst ist und auch binnen 15 Min. nicht per Funk oder Telefon antwortet. Dann vertritt die Kette:
+Nicht erreichbar ist, wer nicht im Dienst ist und binnen 15 Min. nicht per Funk oder Telefon antwortet. Dann vertritt die Kette:
 
 | Amt offline | Vertretung | Nie durch Vertreter |
 | --- | --- | --- |
@@ -129,12 +144,12 @@ Nicht erreichbar ist, wer nicht im Dienst ist und auch binnen 15 Min. nicht per 
 | Oberster Richter | dienstältester OGH-Richter → dienstältester Bezirksrichter | Amtsenthebung bestätigen |
 | Chief of Police | Deputy Chief → Ranghöchster im Dienst | Entlassungen, Beförderungen |
 
-- **Kein Richter online:** Das Verfahren wird vertagt. Der Beschuldigte erhält eine Vorladung oder kommt bis zu 60 HE in Sicherungsgewahrsam, angeordnet von StA oder Captain; der nächste Richter entscheidet (→ JO 10).
-- **Niemand aus der Justiz online:** Das KPD handelt im Rahmen seiner eigenen Befugnisse (→ JO 5), der Rest wird vertagt.
-- **Vertreter:** Sie entscheiden nur, was nicht warten kann, und tragen alles ins MDT ein. Der Amtsinhaber kann es binnen 24 h ändern, Urteile aber nur per Rechtsmittel (→ JO 11).
-- **Inaktivität:** Wer 14 Tage ohne Abmeldung inaktiv ist, kann abgelöst werden. Bis dahin führt der erste Vertreter das Amt kommissarisch.
-- **Unbesetzte Ämter:** Ein Amt ohne Inhaber gilt als dauerhaft nicht erreichbar; die Kette oben vertritt, bis es besetzt ist. Für Behörden ohne eigenes Personal gilt die Tabelle unten.
-- **Doppeldienst:** Bei Personalmangel darf jemand zugleich im KPD und im FJD dienen, wenn Chief und JM zustimmen. Er handelt immer nur in der Rolle, die er bei Dienstantritt im MDT einträgt, und nie in einem Fall, den er in der anderen Rolle bearbeitet hat. Ausgeschlossen sind AIR, Richteramt und Sonderermittler.
+- **Kein Richter online:** Das Verfahren wird vertagt. Der Beschuldigte erhält eine Vorladung oder kommt bis zu 60 HE in Sicherungsgewahrsam (angeordnet von StA oder Captain); der nächste Richter entscheidet (→ JO 10).
+- **Niemand aus der Justiz online:** Das KPD handelt im Rahmen seiner Befugnisse (→ JO 5), der Rest wird vertagt.
+- **Vertreter:** Entscheiden nur, was nicht warten kann, und tragen alles ins MDT ein. Der Amtsinhaber ändert es binnen 24 h, Urteile nur per Rechtsmittel (→ JO 11).
+- **Inaktivität:** Wer 14 Tage ohne Abmeldung inaktiv ist, kann abgelöst werden; bis dahin führt der erste Vertreter das Amt kommissarisch.
+- **Unbesetzte Ämter:** Gelten als dauerhaft nicht erreichbar; die Kette vertritt bis zur Besetzung. Für Behörden ohne Personal gilt die Tabelle unten.
+- **Doppeldienst:** Bei Personalmangel darf jemand mit Zustimmung von Chief und JM zugleich im KPD und FJD dienen. Er handelt nur in der Rolle, die er bei Dienstantritt im MDT einträgt, nie in einem Fall der anderen Rolle. Ausgeschlossen: AIR, Richteramt, Sonderermittler.
 
 | Behörde unbesetzt | Aufgaben übernimmt | Grenze |
 | --- | --- | --- |
@@ -148,60 +163,57 @@ Nicht erreichbar ist, wer nicht im Dienst ist und auch binnen 15 Min. nicht per 
 Kein Staatsorgan kann diese Artikel ändern oder aufheben, auch nicht einstimmig:
 
 - Art. 1 (Gewaltenteilung, niemand über dem Gesetz)
-- Art. 2 bis 4 (Grund- und Justizrechte und ihr unantastbarer Kern; die Ausnahme der Todesstrafe in Art. 4 stammt von der höheren Ordnung)
-- Art. 8 (Grenzen des JM) und Art. 9 (unabhängige Gerichte)
-- Art. 12 (höhere Ordnung)
-- Art. 14 selbst
-- die Wahlgrundsätze aus Art. 15: frei, gleich, geheim und spätestens alle 180 Tage, im Notstand höchstens 48 h später (→ Art. 11)
+- Art. 2 bis 4 (Grund- und Justizrechte samt unantastbarem Kern; die Todesstrafe-Ausnahme stammt vom Sicherheitsrat)
+- Art. 8 (Grenzen des JM), Art. 9 (unabhängige Gerichte), Art. 12 (Sicherheitsrat), Art. 14 selbst
+- die Wahlgrundsätze aus Art. 15: frei, gleich, geheim, spätestens alle 180 Tage, im Notstand höchstens 48 h später (→ Art. 11)
 
-Wer versucht, sie zu umgehen, begeht Amtsmissbrauch (→ KStGB 47). Änderungen bleiben allein der höheren Ordnung vorbehalten (→ Art. 12).
+Umgehung ist Amtsmissbrauch (→ KStGB 47). Änderungen bleiben allein dem Sicherheitsrat vorbehalten (→ Art. 12).
 
 ### Art. 15 Wahlen
 
-Das Volk wählt den Senat, der Senat wählt den Gouverneur. Wahlen sind frei, gleich und geheim.
+Das Volk wählt den Senat, der Senat den Gouverneur. Wahlen sind frei, gleich und geheim.
 
 ::schaubild wahlzyklus::
 
-- **Zyklus:** Der Senat wird alle 180 Tage gewählt. Den Wahltag setzt der Wahlleiter spätestens 14 Tage vorher im Amtsblatt fest. Steht 21 Tage vor Ablauf der Periode kein Wahltag fest, setzt ihn der OGH.
-- **Sitze:** 7, verteilt nach dem Stimmenanteil der Parteien (D'Hondt-Verfahren). Mit 2/3 kann der Senat eine andere ungerade Zahl zwischen 5 und 15 festlegen; sie gilt ab der nächsten Wahl.
-- **Stimme:** Jeder Bürger mit Ausweis hat genau eine Stimme und gibt sie im Wahllokal oder über das amtliche Wahlsystem ab. Wer mehrfach abstimmt, fälscht die Wahl (→ KStGB 85).
-- **Wählbar für den Senat:** Bürger seit mindestens 30 Tagen, auf der Liste einer zugelassenen Partei (→ Art. 16), in den letzten 90 Tagen nicht verurteilt wegen Korruption, Amtsanmaßung, Strafvereitelung, Gefangenenbefreiung, Terror, Amtsmissbrauch oder Staatsschutz (→ KStGB 40, 41, 44–47, 80–86).
-- **Wählbar als Gouverneur:** Bürger seit mindestens 30 Tagen, vorgeschlagen von mindestens einem Senatsmitglied, in den letzten 90 Tagen gar nicht verurteilt.
-- **Verurteilt** heißt rechtskräftiger Strafbefehl oder rechtskräftiges Urteil über 10 HE. Tickets, Verkehr (→ KStGB 60–64) und Beleidigung (→ KStGB 73) zählen nicht.
+- **Zyklus:** Alle 180 Tage. Den Wahltag setzt der Wahlleiter spätestens 14 Tage vorher im Amtsblatt fest; steht er 21 Tage vor Periodenende nicht fest, setzt ihn der OGH.
+- **Sitze:** 7, nach Stimmenanteil der Parteien (D'Hondt). Mit 2/3 kann der Senat eine andere ungerade Zahl von 5 bis 15 festlegen, ab der nächsten Wahl.
+- **Stimme:** Jeder Bürger mit Ausweis hat genau eine, abgegeben im Wahllokal oder über das amtliche Wahlsystem. Mehrfachstimmen sind Wahlfälschung (→ KStGB 85).
+- **Wählbar für den Senat:** Bürger seit mindestens 30 Tagen auf der Liste einer zugelassenen Partei (→ Art. 16), in den letzten 90 Tagen nicht verurteilt wegen Korruption, Amtsanmaßung, Strafvereitelung, Gefangenenbefreiung, Terror, Amtsmissbrauch oder Staatsschutz (→ KStGB 40, 41, 44–47, 80–86).
+- **Wählbar als Gouverneur:** Bürger seit mindestens 30 Tagen, von mindestens einem Senatsmitglied vorgeschlagen, in den letzten 90 Tagen gar nicht verurteilt.
+- **Verurteilt:** rechtskräftiger Strafbefehl oder rechtskräftiges Urteil über 10 HE. Tickets, Verkehr (→ KStGB 60–64) und Beleidigung (→ KStGB 73) zählen nicht.
 - **Fristen:** Parteilisten liegen spätestens 7 Tage vor der Wahl beim Wahlleiter.
-- **Prüfung der Akte:** Der Wahlleiter prüft das Strafregister samt Archiv. Löschungen innerhalb der 90 Tage zählen nicht (→ FJDS 7). Ein laufendes Verfahren hindert nicht, bis zum Urteil gilt die Unschuldsvermutung.
-- **Nicht wählbar** sind während ihres Amtes JM, Staatssekretär, Richter, GStA, Chief of Police, AIR und Sonderermittler (→ Art. 16).
-- **Gouverneurswahl:** Binnen 7 Tagen nach der Wahl wählt der neue Senat erst seinen Präsidenten, dann den Gouverneur, jeweils mit der Mehrheit seiner Sitze; bis dahin amtiert der bisherige Präsident. Gelingt das in zwei Wahlgängen nicht, reichen im dritten die meisten Stimmen; bei Gleichstand entscheidet das Los, öffentlich gezogen vom Wahlleiter. Wer Gouverneur wird, gibt seinen Senatssitz ab. Niemand ist mehr als zwei Wahlperioden in Folge Gouverneur; jede angefangene Periode zählt.
-- **Amtszeit und Abwahl:** Der Gouverneur bleibt bis zur Wahl seines Nachfolgers im Amt. Der Senat kann ihn jederzeit abwählen, aber nur, indem er mit der Mehrheit seiner Sitze einen Nachfolger wählt. Die Amtsenthebung bei Verfehlungen (→ Art. 6) bleibt daneben möglich.
-- **Nachrücken:** Ein frei werdender Sitz, auch nach 14 Tagen Inaktivität (→ Art. 13), geht an den Nächsten auf der Liste derselben Partei. Ist die Liste leer, bleibt er bis zur nächsten Wahl frei. Ob ein Senatsmitglied inaktiv ist, entscheidet der OGH auf Antrag des Senatspräsidenten oder der Partei.
-- **Wahlleitung:** Wahlleiter ist der JM, parteilos und von keiner Wahl abhängig (→ Art. 7). Er lässt Parteien zu, prüft die Kandidaten und zählt öffentlich aus; jede zugelassene Partei darf einen Beobachter stellen. Ist er befangen, etwa weil ein Angehöriger kandidiert, leitet der Staatssekretär (→ Art. 13).
-- **Kontrolle:** Einspruch gegen Zulassung, Prüfung oder Ergebnis binnen 48 h zum OGH (→ JO 1); er entscheidet binnen 72 h. Der OGH kann eine Wahl ganz oder teilweise für ungültig erklären und wiederholen lassen.
-- **Aufbau:** Bis zur ersten Wahl setzt die höhere Ordnung einen Übergangsgouverneur und einen Übergangssenat ein (→ Art. 12); die erste Wahl folgt binnen 30 Tagen. Gibt es weniger Kandidaten als Sitze, bleiben Sitze frei. Alle Mehrheiten im Senat zählen nach besetzten Sitzen. Sind weniger als 3 Sitze besetzt, übernimmt der OGH die Kontrolle (→ Art. 6).
+- **Prüfung:** Der Wahlleiter prüft Strafregister samt Archiv; Löschungen innerhalb der 90 Tage zählen nicht (→ FJDS 7). Ein laufendes Verfahren hindert nicht (Unschuldsvermutung).
+- **Nicht wählbar** sind im Amt: JM, Staatssekretär, Richter, GStA, Chief of Police, AIR, Sonderermittler (→ Art. 16).
+- **Gouverneurswahl:** Binnen 7 Tagen nach der Wahl wählt der neue Senat erst seinen Präsidenten, dann den Gouverneur, je mit der Mehrheit seiner Sitze; bis dahin amtiert der bisherige Präsident. Nach zwei erfolglosen Wahlgängen reichen im dritten die meisten Stimmen; bei Gleichstand zieht der Wahlleiter öffentlich das Los. Der Gouverneur gibt seinen Senatssitz ab. Höchstens zwei Perioden in Folge; jede angefangene zählt.
+- **Amtszeit und Abwahl:** Der Gouverneur bleibt bis zur Wahl seines Nachfolgers im Amt. Der Senat kann ihn jederzeit abwählen, indem er mit der Mehrheit seiner Sitze einen Nachfolger wählt. Amtsenthebung bei Verfehlungen bleibt möglich (→ Art. 6).
+- **Nachrücken:** Ein frei werdender Sitz (auch nach 14 Tagen Inaktivität, → Art. 13) geht an den Nächsten der Liste derselben Partei; ist sie leer, bleibt er bis zur nächsten Wahl frei. Inaktivität stellt der OGH auf Antrag des Senatspräsidenten oder der Partei fest.
+- **Wahlleitung:** Der JM, parteilos und von keiner Wahl abhängig (→ Art. 7). Er lässt Parteien zu, prüft Kandidaten und zählt öffentlich aus; jede zugelassene Partei darf einen Beobachter stellen. Bei Befangenheit (etwa kandidierender Angehöriger) leitet der Staatssekretär (→ Art. 13).
+- **Kontrolle:** Einspruch gegen Zulassung, Prüfung oder Ergebnis binnen 48 h zum OGH (→ JO 1). Er entscheidet binnen 72 h und kann eine Wahl ganz oder teilweise für ungültig erklären und wiederholen lassen.
+- **Aufbau:** Bis zur ersten Wahl setzt der Sicherheitsrat Übergangsgouverneur und Übergangssenat ein (→ Art. 12); die erste Wahl folgt binnen 30 Tagen. Gibt es weniger Kandidaten als Sitze, bleiben Sitze frei. Mehrheiten zählen nach besetzten Sitzen. Bei weniger als 3 besetzten Sitzen kontrolliert der OGH (→ Art. 6).
 
 ### Art. 16 Parteien
 
 In den Senat kommt man nur über eine Partei.
 
-- **Gründung:** Name, Programm, Vorsitz und Unterschriften von 30 Bürgern oder 5 % aller Bürger, je nachdem, was weniger ist, mindestens aber 5. Der Wahlleiter entscheidet binnen 48 h und gibt die Zulassung im Amtsblatt bekannt; schweigt er, gilt die Partei als zugelassen. Jeder Bürger ist Mitglied höchstens einer Partei und unterschreibt nur für eine.
-- **Neutralität:** JM, Staatssekretär, Richter, GStA, Chief of Police, AIR und Sonderermittler sind während ihres Amtes parteilos (→ BeamtG 3).
-- **Verbot:** Antrag durch den JM oder 1/3 des Senats; der JM nie vom Verkünden des Wahltags bis zum Ergebnis, weil er dann die Wahl leitet; der OGH entscheidet mit allen 3 Richtern einstimmig. Verboten werden darf eine Partei nur, wenn sie Gewalt einsetzt oder plant oder die Artikel aus Art. 14 abschaffen will. Kritik an Regierung, JM oder Gesetzen ist nie ein Grund. Von 14 Tagen vor einer Wahl bis zum Ergebnis wird nicht verboten.
-- **Folgen:** Die Partei wird aufgelöst, ihre Senatssitze bleiben bis zur nächsten Wahl frei. Wer sie weiterführt oder eine Ersatzpartei gründet, macht sich strafbar (→ KStGB 86). Ihre Mitglieder bleiben wählbar, solange sie nicht selbst verurteilt sind.
-
+- **Gründung:** Name, Programm, Vorsitz und Unterschriften von 30 Bürgern oder 5 % aller Bürger (der kleinere Wert, mindestens 5). Der Wahlleiter entscheidet binnen 48 h und gibt die Zulassung im Amtsblatt bekannt; schweigt er, gilt die Partei als zugelassen. Jeder Bürger gehört höchstens einer Partei an und unterschreibt nur für eine.
+- **Neutralität:** JM, Staatssekretär, Richter, GStA, Chief of Police, AIR und Sonderermittler sind im Amt parteilos (→ BeamtG 3).
+- **Verbot:** Antrag durch den JM oder 1/3 des Senats. Der JM darf vom Verkünden des Wahltags bis zum Ergebnis nicht beantragen, weil er die Wahl leitet. Der OGH entscheidet einstimmig mit allen 3 Richtern. Grund nur: Die Partei setzt Gewalt ein oder plant sie, oder will Artikel aus Art. 14 abschaffen. Kritik an Regierung, JM oder Gesetzen ist nie ein Grund. 14 Tage vor einer Wahl bis zum Ergebnis wird nicht verboten.
+- **Folgen:** Die Partei wird aufgelöst, ihre Senatssitze bleiben bis zur nächsten Wahl frei. Weiterführung oder Ersatzpartei sind strafbar (→ KStGB 86). Mitglieder bleiben wählbar, solange sie nicht selbst verurteilt sind.
 ## Teil 02 · Strafgesetzbuch (KStGB)
 
 ### § 1 Geltung
 
-Gilt für jeden in Kamora; strafbar ist nur, was zur Tatzeit verboten war (→ KV 3).
+Gilt für jeden in Kamora. Strafbar ist nur, was zur Tatzeit verboten war (→ KV 3).
 
 ### § 2 Höchstmaße
 
 KPD bis 30 HE + $25.000 · StA bis 60 HE · Gericht bis 180 HE · darüber nur der OGH mit Freigabe nach KV 12.
 
-Ordnungswidrigkeit heißt nur Geldstrafe, Vergehen bis 30 HE, Verbrechen darüber. Kapitalverbrechen sind §§ 10, 11, 20, 46, 80 und 81.
+Ordnungswidrigkeit: nur Geldstrafe. Vergehen: bis 30 HE. Verbrechen: darüber. Kapitalverbrechen: §§ 10, 11, 20, 46, 80, 81.
 
 ### § 3 Versuch und Beteiligung
 
-Versuch und Beihilfe ergeben den halben Rahmen, Anstiftung den vollen.
+Versuch und Beihilfe: halber Rahmen. Anstiftung: voller Rahmen.
 
 ### § 4 Notwehr
 
@@ -209,15 +221,15 @@ Erforderliche und verhältnismäßige Abwehr ist straffrei.
 
 ### § 5 Zumessung
 
-Ersttäter untere Grenze · Geständnis −25 % · Wiederholung binnen 7 Tagen +50 % · Bande ab 3 Personen +25 % · gegen Amtsträger +25 % · durch Amtsträger +50 %, außer bei Taten, die nur Amtsträger begehen können (§§ 47, 84).
+Ersttäter untere Grenze · Geständnis −25 % · Wiederholung binnen 7 Tagen +50 % · Bande ab 3 Personen +25 % · gegen Amtsträger +25 % · durch Amtsträger +50 % (nicht bei Taten, die nur Amtsträger begehen können: §§ 47, 84).
 
 ### § 6 Mehrere Taten
 
-Die Strafen werden addiert, gedeckelt durch § 2.
+Strafen werden addiert, gedeckelt durch § 2.
 
 ### § 7 Verjährung
 
-Ordnungswidrigkeit 3 Tage · Vergehen 14 Tage · Verbrechen 30 Tage · Mord, Geiselnahme, Terror und Hochverrat nie. Sie ruht während einer Immunität (→ ImmG 3).
+Ordnungswidrigkeit 3 Tage · Vergehen 14 Tage · Verbrechen 30 Tage · Mord, Geiselnahme, Terror, Hochverrat nie. Sie ruht während einer Immunität (→ ImmG 3).
 
 ### § 8 Einziehung
 
@@ -225,14 +237,14 @@ Illegales, Tatwerkzeuge und Erlöse werden eingezogen; Opfer werden zuerst entsc
 
 ### § 9 Staatsschutz
 
-Hochverrat (§ 80) und Landesverrat (§ 81) werden nur mit Ermächtigung des JM verfolgt:
+Hochverrat (§ 80) und Landesverrat (§ 81) werden nur mit Ermächtigung des JM verfolgt.
 
-- **Antrag:** KPD oder StA beantragen die Ermächtigung schriftlich mit Begründung und Beweisen im MDT.
-- **Entscheidung:** Der JM erteilt oder versagt sie binnen 24 h schriftlich in der Akte; eine Versagung ist zu begründen. Entscheidet er nicht binnen 24 h, entscheidet der OGH. Alles kommt ins Weisungsregister, das Senat und OGH jederzeit sehen (→ FJDS 8).
-- **Bis dahin:** Gefahrenabwehr, Festnahme, Gewahrsam und Beweissicherung bleiben erlaubt (→ JO 10). Andere Taten wie Terror (§ 46) oder Mord (§ 10) werden ohne Ermächtigung verfolgt.
-- **Befangenheit:** Richtet sich der Verdacht gegen den JM, das FJD, Angehörige oder ist der JM befangen, entscheidet der OGH auf Antrag des Sonderermittlers (→ JO 6).
-- **Verfahren:** Anklage erhebt der GStA, verhandelt wird immer vor dem OGH (→ JO 1).
-- **Todesstrafe:** Nur bei Hochverrat, nur durch einstimmiges Urteil des OGH mit 3 Richtern und nur mit Freigabe der höheren Ordnung (→ KV 4, KV 12). Vollstreckt wird frühestens 48 h nach dem Urteil; ein Gnadengesuch hemmt die Vollstreckung bis zur Entscheidung (→ JO 13). Die Hinrichtung ist endgültig.
+- **Antrag:** KPD oder StA beantragen sie schriftlich mit Begründung und Beweisen im MDT.
+- **Entscheidung:** Der JM erteilt oder versagt sie binnen 24 h schriftlich in der Akte; Versagung mit Begründung. Schweigt er, entscheidet der OGH. Alles kommt ins Weisungsregister, das Senat und OGH jederzeit sehen (→ FJDS 8).
+- **Bis dahin:** Gefahrenabwehr, Festnahme, Gewahrsam und Beweissicherung bleiben erlaubt (→ JO 10). Andere Taten wie Terror (§ 46) oder Mord (§ 10) brauchen keine Ermächtigung.
+- **Befangenheit:** Richtet sich der Verdacht gegen JM, FJD oder Angehörige, oder ist der JM befangen, entscheidet der OGH auf Antrag des Sonderermittlers (→ JO 6).
+- **Verfahren:** Der GStA klagt an, immer vor dem OGH (→ JO 1).
+- **Todesstrafe:** Nur bei Hochverrat, nur durch einstimmiges Urteil des OGH (3 Richter), nur mit Freigabe des Sicherheitsrats (→ KV 4, KV 12). Vollstreckung frühestens 48 h nach dem Urteil; ein Gnadengesuch hemmt sie bis zur Entscheidung (→ JO 13). Die Hinrichtung ist endgültig.
 
 ### Nummernkreise
 
@@ -240,7 +252,7 @@ Hochverrat (§ 80) und Landesverrat (§ 81) werden nur mit Ermächtigung des JM 
 
 ### Strafkatalog
 
-Ein Klick auf eine Tat zeigt ihre Definition. HE ist die Hafteinheit (1 Min.), $ die Geldstrafe. „+ Amtsverlust“ tritt mit Rechtskraft ein; beim JM entscheidet die höhere Ordnung (→ KV 12), bei Richtern die Amtsenthebung (→ KV 6).
+Klick auf eine Tat zeigt ihre Definition. HE = Hafteinheit (1 Min.), $ = Geldstrafe. „+ Amtsverlust“ tritt mit Rechtskraft ein; beim JM entscheidet der Sicherheitsrat (→ KV 12), bei Richtern die Amtsenthebung (→ KV 6).
 
 | § | Tat | HE | $ |
 | --- | --- | --- | --- |
@@ -308,23 +320,25 @@ Ein Klick auf eine Tat zeigt ihre Definition. HE ist die Hafteinheit (1 Min.), $
 
 ### § 1 Gerichte
 
-Das Bezirksgericht ist die erste Instanz mit Einzelrichter. Der OGH entscheidet über Berufung, Verfassung, Immunität (→ ImmG 4), Amtsenthebung (→ KV 6), Aktenlöschung (→ FJDS 7), Wahlen (→ KV 15) und Parteiverbote (→ KV 16). Er tagt mit 3 Richtern, notfalls entscheidet der Oberste Richter allein; wo der Kodex alle 3 Richter verlangt (→ KV 16, KStGB 9), wird bis dahin vertagt. Wer in erster Instanz entschieden hat, wirkt in der Berufung nicht mit.
+- **Bezirksgericht:** erste Instanz, Einzelrichter.
+- **OGH:** Berufung, Verfassung, Immunität (→ ImmG 4), Amtsenthebung (→ KV 6), Aktenlöschung (→ FJDS 7), Wahlen (→ KV 15), Parteiverbote (→ KV 16). Er tagt mit 3 Richtern; notfalls entscheidet der Oberste Richter allein. Wo der Kodex alle 3 verlangt (→ KV 16, KStGB 9), wird bis dahin vertagt.
+- **Ausschluss:** Wer in erster Instanz entschieden hat, wirkt in der Berufung nicht mit.
 
 ### § 2 Richter
 
-Ernennung nach KV 5. Sie sind weisungsfrei (→ KV 8); wer befangen ist, tritt zurück.
+Ernennung nach KV 5. Weisungsfrei (→ KV 8); wer befangen ist, tritt zurück.
 
 ### § 3 Anwälte
 
-Zugelassen durch die Anwaltskammer am OGH, nicht durch das FJD. Gespräche mit Mandanten werden nicht überwacht. Wer sich keinen Anwalt leisten kann, bekommt auf Wunsch einen Pflichtverteidiger; ab 60 HE gilt das für jeden Beschuldigten (→ PolG 7).
+Die Anwaltskammer am OGH lässt sie zu, nicht das FJD. Mandantengespräche werden nicht überwacht. Wer sich keinen Anwalt leisten kann, erhält auf Wunsch einen Pflichtverteidiger; ab 60 HE jeder Beschuldigte (→ PolG 7).
 
 ### § 4 Staatsanwaltschaft
 
-Teil des FJD (→ FJDS 2) mit Anklagemonopol und Ermittlungspflicht. Der JM gibt allgemeine Weisungen, im Einzelfall nur schriftlich in der Akte. Nie darf er etwas zugunsten von sich, Angehörigen oder dem FJD anweisen.
+Teil des FJD (→ FJDS 2) mit Anklagemonopol und Ermittlungspflicht. Der JM gibt allgemeine Weisungen, im Einzelfall nur schriftlich in der Akte, nie zugunsten von sich, Angehörigen oder dem FJD.
 
 ### § 5 Ersatzanklage
 
-Die Kette lautet Staatsanwalt → GStA → Staatssekretär → JM. Ist binnen 15 Min. niemand erreichbar (→ KV 13), führt ein KPD-Beamter ab Lieutenant das Schnellverfahren oder klagt beim Gericht an. Betrifft der Fall das FJD, übernimmt der Sonderermittler (§ 6).
+Kette: Staatsanwalt → GStA → Staatssekretär → JM. Ist binnen 15 Min. niemand erreichbar (→ KV 13), führt ein KPD-Beamter ab Lieutenant das Schnellverfahren oder klagt beim Gericht an. Betrifft der Fall das FJD, übernimmt der Sonderermittler (§ 6).
 
 ### § 6 Sonderermittler
 
@@ -336,18 +350,28 @@ Anklage → Zulassung → Belehrung → Beweise → Plädoyers → letztes Wort 
 
 ### § 8 Beweise
 
-Bodycam, Dashcam, Zeugen, Spuren, Dokumente, Geständnis. Unverwertbar ist, was durch Zwang, ohne Belehrung (→ PolG 7), durch rechtswidrige Durchsuchung (→ PolG 6), ohne Dokumentation (→ PolG 11) oder aus Wissen stammt, für das es keine rechtmäßige Quelle gibt.
+Zulässig: Bodycam, Dashcam, Zeugen, Spuren, Dokumente, Geständnis. Unverwertbar ist, was stammt aus:
+
+- Zwang,
+- fehlender Belehrung (→ PolG 7),
+- rechtswidriger Durchsuchung (→ PolG 6),
+- fehlender Dokumentation (→ PolG 11),
+- Wissen ohne rechtmäßige Quelle.
 
 ### § 9 Beschlüsse
 
-Haft-, Durchsuchungs- und Überwachungsbeschlüsse erlassen der Richter oder der JM, vertreten durch den Staatssekretär (→ KV 13). Ein Beschluss des JM gilt sofort; ein Richter prüft ihn binnen 24 h und kann ihn aufheben. In eigener Sache und gegen Angehörige, Senatsmitglieder oder immune Personen (→ ImmG 2) erlässt der JM keine Beschlüsse. Bei Gefahr im Verzug ordnen StA oder Lieutenant an; Richter oder JM bestätigen binnen 1 h.
+Haft-, Durchsuchungs- und Überwachungsbeschlüsse erlassen Richter oder JM (vertreten durch den Staatssekretär, → KV 13).
+
+- **JM-Beschluss:** gilt sofort; ein Richter prüft binnen 24 h und kann ihn aufheben.
+- **Grenzen:** In eigener Sache und gegen Angehörige, Senatsmitglieder oder Immune (→ ImmG 2) erlässt der JM keine.
+- **Gefahr im Verzug:** StA oder Lieutenant ordnen an; Richter oder JM bestätigen binnen 1 h.
 
 ### § 10 Gewahrsam
 
-Vernehmung binnen 30 Min. Vorläufige U-Haft bis 60 HE ordnen JM, Staatssekretär oder StA an; ein Richter verlängert sie bis höchstens 120 HE oder lässt frei. Danach kommt der Beschuldigte mit Vorladung frei. Kaution ist möglich. Gewahrsam wird auf die Strafe angerechnet.
+Vernehmung binnen 30 Min. Vorläufige U-Haft bis 60 HE ordnen JM, Staatssekretär oder StA an; ein Richter verlängert bis höchstens 120 HE oder lässt frei. Danach kommt der Beschuldigte mit Vorladung frei. Kaution ist möglich. Gewahrsam wird auf die Strafe angerechnet.
 
-- **Ohne Richter:** Sicherungsgewahrsam bis 60 HE nach KV 13 und FJDS 10.
-- **Notstand:** Notstands-U-Haft bis 120 HE nach KV 11.
+- **Ohne Richter:** Sicherungsgewahrsam bis 60 HE (→ KV 13, FJDS 10).
+- **Notstand:** Notstands-U-Haft bis 120 HE (→ KV 11).
 - **Grenzen:** Der JM ordnet nie in eigener Sache, gegen Angehörige, Senatsmitglieder oder Immune an (→ ImmG 2).
 
 ### § 11 Rechtsmittel
@@ -356,19 +380,18 @@ Einspruch binnen 24 h zum Bezirksgericht, Berufung binnen 48 h zum OGH. Der OGH 
 
 ### § 12 Öffentlichkeit
 
-Verhandlungen sind öffentlich, außer bei Zeugen- oder Staatsschutz. Die Ordnung halten die Justizmarschalle (→ FJDS 10).
+Verhandlungen sind öffentlich, außer bei Zeugen- oder Staatsschutz. Die Justizmarschalle halten die Ordnung (→ FJDS 10).
 
 ### § 13 Gnade
 
-Das Gesuch geht an den JM, er schlägt vor, der Gouverneur entscheidet (→ KV 5). Ausgeschlossen sind die eigene Sache, das Kabinett und Amtsmissbrauch (→ KStGB 47). Jede Begnadigung kommt ins Amtsblatt.
-
+Gesuch an den JM, er schlägt vor, der Gouverneur entscheidet (→ KV 5). Ausgeschlossen: die eigene Sache, das Kabinett, Amtsmissbrauch (→ KStGB 47). Jede Begnadigung kommt ins Amtsblatt.
 ## Teil 04 · Polizeigesetz (PolG)
 
 ### § 1 Aufgaben
 
 Gefahrenabwehr, Strafverfolgung, Verkehr, Schutz von Personen und Eigentum.
 
-Polizeiliche Befugnisse (§§ 5–10) hat allein das KPD. FJD und StA leiten Ermittlungen und erlassen Anordnungen; Festnahme, Durchsuchung und anderen Zwang führt das KPD aus (→ JO 4). Ausnahmen sind nur der Justizmarschalldienst in seinem Schutzbereich und Marshals in der Amtshilfe auf Anforderung des KPD (→ FJDS 10).
+Polizeiliche Befugnisse (§§ 5–10) hat allein das KPD. FJD und StA leiten Ermittlungen und ordnen an; Festnahme, Durchsuchung und anderen Zwang führt das KPD aus (→ JO 4). Ausnahmen: der Justizmarschalldienst in seinem Schutzbereich und Marshals in der Amtshilfe auf Anforderung des KPD (→ FJDS 10).
 
 ### § 2 Organisation
 
@@ -376,7 +399,7 @@ Den Chief of Police ernennt der Gouverneur. Personal, Ränge und Dienstpläne li
 
 ### § 3 FJD
 
-Bei der Strafverfolgung sind Beamte Ermittlungspersonen der StA (→ JO 4). Mündliche FJD-Weisungen dürfen sie ablehnen, schriftliche befolgen sie sofort (→ FJDS 4, BeamtG 4). Bei Streit zwischen Chief und JM entscheidet der Gouverneur.
+Beamte sind bei der Strafverfolgung Ermittlungspersonen der StA (→ JO 4). Mündliche FJD-Weisungen dürfen sie ablehnen, schriftliche befolgen sie sofort (→ FJDS 4, BeamtG 4). Bei Streit zwischen Chief und JM entscheidet der Gouverneur.
 
 ### § 4 Verhältnismäßigkeit
 
@@ -392,7 +415,7 @@ Person und Fahrzeug bei Verdacht, nach Festnahme oder zur Eigensicherung. Wohnun
 
 ### § 7 Festnahme
 
-Bei dringendem Verdacht oder auf Haftbefehl; Haftbefehle vollstreckt das KPD. Die Belehrung (Miranda-Warnung) folgt sofort und vollständig (→ KV 3). Fehlt sie, ist eine Aussage unverwertbar (→ JO 8):
+Bei dringendem Verdacht oder auf Haftbefehl; das KPD vollstreckt Haftbefehle. Die Belehrung (Miranda-Warnung) folgt sofort und vollständig (→ KV 3). Fehlt sie, ist die Aussage unverwertbar (→ JO 8):
 
 > „Sie sind festgenommen wegen [Tatvorwurf].\
 > Sie haben das Recht zu schweigen.\
@@ -409,7 +432,7 @@ Bei dringendem Verdacht oder auf Haftbefehl; Haftbefehle vollstreckt das KPD. Di
 3. Taser, Schlagstock, Reizgas, Nagelband
 4. Schusswaffe, nur bei Gefahr für Leib oder Leben
 
-Jeder Schuss wird an die AIR gemeldet (→ FJDS 2).
+Jeder Schuss wird der AIR gemeldet (→ FJDS 2).
 
 ### § 9 Verfolgung
 
@@ -429,24 +452,26 @@ Beschwerden gehen an die AIR. Dienstvergehen werden nach BeamtG 6 geahndet, Stra
 
 ### § 13 SWAT
 
-Einsatz nur auf Anordnung des Command Staff. Gegen immune Personen gilt ImmG 2–3.
-
+Einsatz nur auf Anordnung des Command Staff. Gegen Immune gilt ImmG 2–3.
 ## Teil 05 · Beamten- und Immunitätsgesetz
 
 ### Beamtengesetz (BeamtG)
 
 #### § 1 Geltung
 
-Für KPD, FJD, Regierung und Verwaltung. Für Richter gelten nur §§ 2 und 5; abgesetzt werden sie nur per Amtsenthebung (→ KV 9). Sie schwören auf die Verfassung statt auf den Justizminister.
+Für KPD, FJD, Regierung und Verwaltung. Für Richter gelten nur §§ 2 und 5; abgesetzt werden sie nur per Amtsenthebung (→ KV 9). Sie schwören auf die Verfassung statt auf den JM.
 
 #### § 2 Ernennung und Eid
 
-Die Behördenleitung ernennt frühestens nach 14 Tagen Probezeit; wirksam wird die Ernennung erst mit dem Eid. Vereidigt wird einmal im Monat an einem festen Termin, den das FJD im Amtsblatt bekannt gibt. Sondertermine setzt der JM an, etwa bei dringendem Personalbedarf. Ist kein JM im Amt, nimmt der Staatssekretär den Eid ab, sonst der Oberste Richter. Bis zur Vereidigung bleibt der Beamte Anwärter. Der Eid wird feierlich vor der Flagge abgelegt:
+- **Ernennung:** Die Behördenleitung ernennt frühestens nach 14 Tagen Probezeit; wirksam wird sie erst mit dem Eid. Bis dahin bleibt der Beamte Anwärter.
+- **Termin:** Einmal im Monat, Termin im Amtsblatt durch das FJD. Sondertermine setzt der JM an (etwa bei dringendem Personalbedarf).
+- **Abnahme:** Der JM; ohne JM im Amt der Staatssekretär, sonst der Oberste Richter.
+- **Ablauf:**
 
-1. Die Flagge von Kamora steht. Auf Befehl treten alle Anwärter in einer Reihe vor die Flagge.
-2. Der Justizminister tritt vor die Reihe. Die Anwärter stehen still und erheben die rechte Hand zur Flagge.
-3. Der Justizminister spricht den Eid, die Anwärter sprechen ihm nach.
-4. Danach reicht er jedem die Hand und übergibt den Dienstausweis: „Willkommen im Dienste Kamoras.“
+1. Die Flagge von Kamora steht. Auf Befehl treten alle Anwärter in einer Reihe davor.
+2. Der JM tritt vor die Reihe. Die Anwärter stehen still und erheben die rechte Hand zur Flagge.
+3. Der JM spricht den Eid, die Anwärter sprechen nach.
+4. Er reicht jedem die Hand und übergibt den Dienstausweis: „Willkommen im Dienste Kamoras.“
 
 > Ich schwöre bei meiner Ehre,\
 > vor der Flagge von Kamora und vor seinem Volk,\
@@ -462,10 +487,10 @@ Gesetzestreue, Neutralität im Dienst (parteilos sind nur die in KV 16 Genannten
 
 #### § 4 Einspruch gegen Weisungen (Remonstration)
 
-- **Mündliche Weisung:** Der Beamte darf sie sofort und ohne Begründung ablehnen.
-- **Schriftliche Weisung:** Erst wird sie befolgt, danach kann er schriftlich Einspruch einlegen, zuerst beim nächsthöheren Vorgesetzten, gegen FJD-Weisungen bei der AIR.
-- **Nie befolgen:** Weisungen, die eine Straftat verlangen, Würde, Leib oder Leben verletzen oder Ermittlungen gegen JM oder FJD behindern (→ FJDS 4). Meldung an AIR, bei der FJD-Leitung an OGH oder Sonderermittler (→ JO 6).
-- Wer Einspruch einlegt, darf keinen Nachteil haben.
+- **Mündlich:** Der Beamte darf sofort und ohne Begründung ablehnen.
+- **Schriftlich:** Erst befolgen, dann schriftlich Einspruch beim nächsthöheren Vorgesetzten, gegen FJD-Weisungen bei der AIR.
+- **Nie befolgen:** Weisungen, die eine Straftat verlangen, Würde, Leib oder Leben verletzen oder Ermittlungen gegen JM oder FJD behindern (→ FJDS 4). Meldung an die AIR, bei der FJD-Leitung an OGH oder Sonderermittler (→ JO 6).
+- **Schutz:** Wer Einspruch einlegt, darf keinen Nachteil haben.
 
 #### § 5 Konflikte
 
@@ -473,7 +498,11 @@ Mitgliedschaft in kriminellen Gruppen ist verboten. Befangenheit und Geschenke �
 
 #### § 6 Disziplin
 
-Ermahnung → Verweis → Geldbuße → Suspendierung bis 7 Tage → Degradierung → Entlassung. Bis zur Geldbuße entscheidet der Vorgesetzte, darüber die Disziplinarkammer (ein OGH-Richter, ein Vertreter der Behörde, ein Vertreter der AIR). Der JM darf teilnehmen und sprechen; bei Gleichstand entscheidet seine Stimme. Geht es um ihn oder das FJD, nimmt er nicht teil, und der OGH-Richter entscheidet bei Gleichstand. Rechtsmittel zum OGH.
+Ermahnung → Verweis → Geldbuße → Suspendierung bis 7 Tage → Degradierung → Entlassung.
+
+- **Bis Geldbuße:** entscheidet der Vorgesetzte.
+- **Darüber:** Disziplinarkammer aus einem OGH-Richter, einem Behördenvertreter und einem AIR-Vertreter. Der JM darf teilnehmen und sprechen; bei Gleichstand entscheidet seine Stimme. Geht es um ihn oder das FJD, nimmt er nicht teil, und der OGH-Richter entscheidet bei Gleichstand.
+- **Rechtsmittel:** zum OGH.
 
 #### § 7 Rechte
 
@@ -481,25 +510,29 @@ Besoldung, Rechtsschutz, Anhörung, Einsicht in die eigene Akte.
 
 #### § 8 Streikverbot
 
-Kein Streik, keine kollektive Dienstverweigerung, keine Massenkrankmeldung, keine abgesprochene Inaktivität. Anliegen gehen an die Behördenleitung, dann an den Justizausschuss. Ein Verstoß ist ein Dienstvergehen (§ 6). Ein Einspruch nach § 4 ist kein Streik.
+Kein Streik, keine kollektive Dienstverweigerung, keine Massenkrankmeldung, keine abgesprochene Inaktivität; Verstoß ist Dienstvergehen (§ 6). Anliegen gehen an die Behördenleitung, dann an den Justizausschuss. Ein Einspruch nach § 4 ist kein Streik.
 
 ### Immunitäts- und Diplomatengesetz (ImmG)
 
 #### § 1 Geschützt
 
-Amtsimmunität haben Gouverneur, JM, Senatspräsident und Oberster Richter (→ KV 10). Diplomatenstatus haben nur akkreditierte Gesandte fremder Staaten oder Organisationen (→ § 8). Eigene Amtsträger haben ihn im Inland nie. Vertritt der JM Kamora nach außen, erhält er einen Diplomatenpass (→ KV 7); in Kamora schützt der ihn nicht.
+- **Amtsimmunität:** Gouverneur, JM, Senatspräsident, Oberster Richter (→ KV 10).
+- **Diplomatenstatus:** nur akkreditierte Gesandte fremder Staaten oder Organisationen (→ § 8). Eigene Amtsträger haben ihn im Inland nie. Der Diplomatenpass des JM (→ KV 7) schützt ihn in Kamora nicht.
 
 #### § 2 Umfang
 
-Bis zur Aufhebung keine Strafverfolgung, auch nicht auf frischer Tat: keine Festnahme, Fesselung, Durchsuchung von Person, Dienstfahrzeug oder Dienstsitz, keine Beschlagnahme von Amtsakten, kein Ticket, kein Strafbefehl, keine Vernehmung als Beschuldigter. Das gilt überall und während der ganzen Amtszeit.
+Bis zur Aufhebung keine Strafverfolgung, auch nicht auf frischer Tat: keine Festnahme, Fesselung, Durchsuchung von Person, Dienstfahrzeug oder Dienstsitz, keine Beschlagnahme von Amtsakten, kein Ticket, kein Strafbefehl, keine Vernehmung als Beschuldigter. Gilt überall und während der ganzen Amtszeit.
 
 #### § 3 Erlaubt bleibt
 
-Einen laufenden Angriff unterbrechen (entwaffnen ohne Festnahme) · Beweise am Tatort sichern · sofortige Meldung an OGH und Senatspräsident. Die Verjährung ruht (→ KStGB 7).
+Einen laufenden Angriff unterbrechen (entwaffnen ohne Festnahme) · Beweise am Tatort sichern · sofort OGH und Senatspräsident melden. Die Verjährung ruht (→ KStGB 7).
 
 #### § 4 Aufhebung
 
-Antrag durch 1/3 des Senats, den Sonderermittler oder den GStA; gegen den JM nie aus dem FJD. Der OGH entscheidet binnen 24 h. Eilaufhebung bei Mord, Geiselnahme, Terror oder Waffenhandel: Der Oberste Richter entscheidet allein binnen 30 Min. auf Antrag von Sonderermittler, Senatspräsident oder Chief; die Spruchkammer prüft nach. Bis dahin kann der OGH die Amtsgeschäfte ruhen lassen; beim JM übernimmt der Staatssekretär (→ FJDS 1). Betrifft das Verfahren den Obersten Richter, entscheidet der dienstälteste OGH-Richter; der Betroffene wirkt nie mit.
+- **Antrag:** 1/3 des Senats, Sonderermittler oder GStA; gegen den JM nie aus dem FJD. Der OGH entscheidet binnen 24 h.
+- **Eilaufhebung** bei Mord, Geiselnahme, Terror oder Waffenhandel: Der Oberste Richter entscheidet allein binnen 30 Min. auf Antrag von Sonderermittler, Senatspräsident oder Chief; die Spruchkammer prüft nach.
+- **Bis dahin:** Der OGH kann die Amtsgeschäfte ruhen lassen; beim JM übernimmt der Staatssekretär (→ FJDS 1).
+- **Oberster Richter betroffen:** Es entscheidet der dienstälteste OGH-Richter; der Betroffene wirkt nie mit.
 
 #### § 5 Ende
 
@@ -507,44 +540,44 @@ Mit dem Amt. Danach und nach einer Aufhebung wird alles voll verfolgt, mit +50 %
 
 #### § 6 Personenschutz
 
-Schutzpersonen sind die Immunen (§ 1), akkreditierte Gesandte (§ 8) und Zeugen auf richterliche Anordnung; jede wird im MDT eingetragen. Geschützt werden sie durch den Justizmarschalldienst. Sein Schutzbereich wandert mit der Schutzperson, wo immer sie sich aufhält (→ FJDS 10). Ein Angriff auf eine geschützte Person gilt als Angriff auf einen Amtsträger (→ KStGB 15).
+Schutzpersonen: die Immunen (§ 1), akkreditierte Gesandte (§ 8) und Zeugen auf richterliche Anordnung; alle im MDT eingetragen. Der Justizmarschalldienst schützt sie, sein Schutzbereich wandert mit der Person (→ FJDS 10). Ein Angriff auf sie gilt als Angriff auf einen Amtsträger (→ KStGB 15).
 
 #### § 7 Missbrauch
 
-Wer Immunität vortäuscht, wird nach KStGB 41 bestraft. Wer seinen Status für Straftaten nutzt, begeht Amtsmissbrauch (→ KStGB 47); das ist immer ein Grund zur Aufhebung.
+Immunität vortäuschen: KStGB 41. Den Status für Straftaten nutzen: Amtsmissbrauch (→ KStGB 47) und immer ein Aufhebungsgrund.
 
 #### § 8 Diplomatenstatus
 
 Er schützt die Beziehungen zu anderen Staaten, nicht die Person. Der Gouverneur akkreditiert Gesandte, stellt den Ausweis aus und gibt jede Akkreditierung im Amtsblatt bekannt.
 
 - **Schutz:** Wie § 2 für Person, Fahrzeug und Gesandtschaft; § 3 gilt. Der OGH kann ihn nicht aufheben (§ 4 gilt nicht).
-- **Verzicht:** Verzichtet der Entsendestaat auf den Schutz, wird sofort normal verfolgt.
-- **Unerwünschte Person (persona non grata):** Bei einer Straftat oder Missbrauch erklärt der Gouverneur den Gesandten zur unerwünschten Person, auf eigene Initiative oder auf Antrag von Senat, JM oder Chief. Die Akkreditierung erlischt sofort, er muss Kamora binnen 24 h verlassen. Danach entfällt jeder Schutz, und alle Taten werden voll verfolgt.
-- **Ende:** Mit Abberufung, Ablauf oder Entzug der Akkreditierung.
-- **Vortäuschen:** Wer Diplomatenstatus vortäuscht, wird nach KStGB 41 bestraft.
+- **Verzicht:** Verzichtet der Entsendestaat, wird sofort normal verfolgt.
+- **Unerwünschte Person (persona non grata):** Bei Straftat oder Missbrauch erklärt der Gouverneur den Gesandten dazu, von sich aus oder auf Antrag von Senat, JM oder Chief. Die Akkreditierung erlischt sofort, er muss Kamora binnen 24 h verlassen. Jeder Schutz entfällt, alle Taten werden voll verfolgt.
+- **Ende:** Abberufung, Ablauf oder Entzug der Akkreditierung.
+- **Vortäuschen:** KStGB 41.
 
 ## Teil 06 · FJD-Statut (FJDS)
 
 ### § 1 Stellung
 
-Das FJD ist die oberste Justizbehörde und wird vom JM geleitet (→ KV 7). Den Staatssekretär ernennt der JM mit Zustimmung des Gouverneurs; er vertritt bei Abwesenheit und Befangenheit (→ KV 13).
+Das FJD ist die oberste Justizbehörde, geleitet vom JM (→ KV 7). Den Staatssekretär ernennt der JM mit Zustimmung des Gouverneurs; er vertritt bei Abwesenheit und Befangenheit (→ KV 13).
 
 ### § 2 Ämter
 
-- **Staatsanwaltschaft (GStA):** Anklage und Ermittlungen, auch organisierte Kriminalität, Korruption und Staatsschutz (→ JO 4–5).
-- **Justizmarschalldienst:** Schutz von FJD, Gerichten und Schutzpersonen, Ordnung im Gericht, Gefangenentransport und Gefängnis. Keine Polizeibefugnisse (→ FJDS 10, ImmG 6, JO 12).
-- **Innere Revision (AIR):** Kontrolle von KPD und FJD, Beschwerden, Schusswaffengebrauch (→ PolG 8, 12). Sie berichtet direkt an den Senat; ihre Leitung ist nur mit Zustimmung des Senats abberufbar.
+- **Staatsanwaltschaft (GStA):** Anklage und Ermittlungen, auch organisierte Kriminalität, Korruption, Staatsschutz (→ JO 4–5).
+- **Justizmarschalldienst:** Schutz von FJD, Gerichten und Schutzpersonen, Ordnung im Gericht, Gefangenentransport, Gefängnis. Keine Polizeibefugnisse (→ FJDS 10, ImmG 6, JO 12).
+- **Innere Revision (AIR):** Kontrolle von KPD und FJD, Beschwerden, Schusswaffengebrauch (→ PolG 8, 12). Berichtet direkt an den Senat; ihre Leitung ist nur mit Zustimmung des Senats abberufbar.
 
 ### § 3 Ränge
 
-JM · Staatssekretär · GStA bzw. Amtsleiter · Oberstaatsanwalt bzw. Deputy · Staatsanwalt bzw. Marshal · Deputy Marshal · Anwärter. Mehrere Ämter in einer Hand sind erlaubt, außer bei der AIR und beim Richteramt.
+JM · Staatssekretär · GStA bzw. Amtsleiter · Oberstaatsanwalt bzw. Deputy · Staatsanwalt bzw. Marshal · Deputy Marshal · Anwärter. Mehrere Ämter in einer Hand sind erlaubt, außer bei AIR und Richteramt.
 
 ### § 4 Weisungen an das KPD
 
-Weisen dürfen JM, Staatssekretär, GStA und Amtsleiter, Staatsanwälte nur im eigenen Verfahren. Gegenstand kann jeder Einsatz und jede Ermittlung sein, außer Personal, Ränge und Dienstpläne (→ PolG 2).
+Weisen dürfen JM, Staatssekretär, GStA und Amtsleiter; Staatsanwälte nur im eigenen Verfahren. Gegenstand ist jeder Einsatz und jede Ermittlung, nicht aber Personal, Ränge und Dienstpläne (→ PolG 2).
 
-- **Mündlich** (Funk, vor Ort): jederzeit möglich; der Beamte darf sofort ablehnen (→ BeamtG 4).
-- **Schriftlich** (MDT mit Weisungsnummer): wird sofort befolgt; Einspruch erst danach (→ BeamtG 4).
+- **Mündlich** (Funk, vor Ort): jederzeit; der Beamte darf sofort ablehnen (→ BeamtG 4).
+- **Schriftlich** (MDT mit Weisungsnummer): wird sofort befolgt, Einspruch erst danach (→ BeamtG 4).
 - **Sofort verweigern** muss der Beamte bei Straftat, Gefahr für Würde, Leib oder Leben und Behinderung von Ermittlungen gegen JM oder FJD.
 
 ### § 5 Fallübernahme
@@ -553,16 +586,16 @@ Die StA kann Fälle des KPD übernehmen; das KPD übergibt Akten und Asservate. 
 
 ### § 6 Verordnungen
 
-Regeln zu Verfahren, Dienstvorschriften und Geldstrafen ±25 % (→ KStGB). Sie erscheinen im Amtsblatt und gelten nach 24 h. Auf Antrag von Senat, Chief, Anwaltskammer oder Betroffenen prüft der OGH (→ KV 8).
+Regeln zu Verfahren, Dienstvorschriften und Geldstrafen ±25 % (→ KStGB). Sie erscheinen im Amtsblatt und gelten nach 24 h. Der OGH prüft sie auf Antrag von Senat, Chief, Anwaltskammer oder Betroffenen (→ KV 8).
 
 ### § 7 Akten und Löschung
 
 Das FJD führt Akten und Strafregister; KPD und StA tragen ein.
 
-- Löschen dürfen nur der JM und sein Staatssekretär (→ KV 13).
-- Jede Löschung braucht eine Begründung, einen Eintrag im Löschregister und eine Meldung an den OGH binnen 24 h.
+- Löschen dürfen nur JM und Staatssekretär (→ KV 13).
+- Jede Löschung braucht Begründung, Eintrag im Löschregister und Meldung an den OGH binnen 24 h.
 - Nichts wird vernichtet: Die Akte geht ins Archiv, das nur JM, Staatssekretär und OGH sehen. Der OGH kann eine Löschung aufheben und die Akte wiederherstellen (→ JO 1).
-- Verboten ist das Löschen in laufenden Verfahren, in eigener Sache und für Angehörige oder FJD-Mitglieder (→ KStGB 44, 47).
+- Verboten: Löschen in laufenden Verfahren, in eigener Sache, für Angehörige oder FJD-Mitglieder (→ KStGB 44, 47).
 
 ### § 8 Rechenschaft
 
@@ -570,17 +603,17 @@ Monatsbericht an den Justizausschuss mit Weisungen, Fällen, Beschwerden, Lösch
 
 ### § 9 Amtsverlust
 
-Der JM durch Entlassung durch die höhere Ordnung (→ KV 12) oder Amtsenthebung (→ KV 6), alle anderen nach BeamtG 6.
+Der JM durch Entlassung durch den Sicherheitsrat (→ KV 12) oder Amtsenthebung (→ KV 6), alle anderen nach BeamtG 6.
 
 ### § 10 Justizmarschalldienst
 
-Der Dienst schützt, er ermittelt nicht. Er hat keine Polizeibefugnisse (→ PolG 1), nur die Befugnisse aus diesem Paragraphen und nur in seinem Schutzbereich.
+Er schützt, er ermittelt nicht. Er hat keine Polizeibefugnisse (→ PolG 1), nur die folgenden und nur im Schutzbereich.
 
-- **Schutzbereich:** Gebäude und Gelände von FJD und Gerichten, das Gefängnis, Gefangenentransporte und der unmittelbare Umkreis einer Schutzperson (→ ImmG 6).
-- **Erlaubt:** Einlasskontrolle mit Durchsuchung von Person und Taschen, Hausverbot und Platzverweis, Gefahrenabwehr mit den Mitteln aus PolG 8. Die Schusswaffe nur bei gegenwärtiger Gefahr für Leib oder Leben. Gegenüber Gefangenen gilt dasselbe im Gefängnis und beim Transport.
-- **Festhalten:** Wer im Schutzbereich eine Straftat begeht, darf festgehalten und gefesselt werden. Der Marshal ruft sofort das KPD, belehrt über Schweigerecht und Anwalt (→ PolG 7) und stellt keine Fragen zur Tat. Festnahme, Durchsuchung und Akte übernimmt das KPD.
-- **Kein KPD binnen 15 Min.:** Bei Gewalt, Waffen oder einem Angriff auf eine Schutzperson kommt die Person bis zu 60 HE in Sicherungsgewahrsam. Anordnen darf das die StA, ein KPD-Beamter ab Captain oder, wenn beide nicht erreichbar sind, ein Marshal (nicht Deputy oder Anwärter); der nächste Richter entscheidet (→ JO 10). Bei allen anderen Taten nimmt der Marshal die Identität auf, meldet im MDT und lässt die Person gehen.
+- **Schutzbereich:** Gebäude und Gelände von FJD und Gerichten, Gefängnis, Gefangenentransporte, unmittelbarer Umkreis einer Schutzperson (→ ImmG 6).
+- **Erlaubt:** Einlasskontrolle mit Durchsuchung von Person und Taschen, Hausverbot, Platzverweis, Gefahrenabwehr mit den Mitteln aus PolG 8. Schusswaffe nur bei gegenwärtiger Gefahr für Leib oder Leben. Gegenüber Gefangenen dasselbe im Gefängnis und beim Transport.
+- **Festhalten:** Wer im Schutzbereich eine Straftat begeht, darf festgehalten und gefesselt werden. Der Marshal ruft sofort das KPD, belehrt über Schweigerecht und Anwalt (→ PolG 7) und fragt nicht zur Tat. Festnahme, Durchsuchung und Akte übernimmt das KPD.
+- **Kein KPD binnen 15 Min.:** Bei Gewalt, Waffen oder Angriff auf eine Schutzperson: Sicherungsgewahrsam bis 60 HE. Anordnen darf die StA, ein KPD-Beamter ab Captain oder, wenn beide nicht erreichbar sind, ein Marshal (nicht Deputy oder Anwärter); der nächste Richter entscheidet (→ JO 10). Bei allen anderen Taten nimmt der Marshal die Identität auf, meldet im MDT und lässt die Person gehen.
 - **Flucht:** Außerhalb des Schutzbereichs darf er nur einen geflohenen Gefangenen festhalten. Alle anderen verfolgt er nicht, sondern hält Sichtkontakt und lotst das KPD.
-- **Verboten:** Ermittlungen, Vernehmungen, Verkehrskontrollen, Tickets und Strafbefehle, Durchsuchung von Wohnungen und Fahrzeugen, Vollstreckung von Haftbefehlen (→ PolG 7).
-- **Amtshilfe:** Fehlt dem KPD Personal, kann der Ranghöchste im KPD-Dienst ab Lieutenant Marshals für einen bestimmten Einsatz anfordern. Für diesen Einsatz haben sie die Befugnisse des PolG unter KPD-Führung. Anforderung und Ende kommen ins MDT. Das FJD kann sich nicht selbst einsetzen; eine Weisung nach § 4 ersetzt die Anforderung nicht.
+- **Verboten:** Ermittlungen, Vernehmungen, Verkehrskontrollen, Tickets, Strafbefehle, Durchsuchung von Wohnungen und Fahrzeugen, Vollstreckung von Haftbefehlen (→ PolG 7).
+- **Amtshilfe:** Fehlt dem KPD Personal, kann der Ranghöchste im KPD-Dienst ab Lieutenant Marshals für einen bestimmten Einsatz anfordern. Sie haben dafür die Befugnisse des PolG unter KPD-Führung. Anforderung und Ende kommen ins MDT. Das FJD kann sich nicht selbst einsetzen; eine Weisung nach § 4 ersetzt die Anforderung nicht.
 - **Kontrolle:** Bodycam beim Festhalten, Bericht im MDT vor Schichtende (→ PolG 11). Beschwerden gehen an die AIR (→ PolG 12); Überschreiten der Befugnisse ist Amtsmissbrauch (→ KStGB 47).

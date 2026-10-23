@@ -598,7 +598,9 @@ h2.is-flash {
 .glass-blob {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(90px);
+  /* A soft radial falloff instead of filter: blur(). Big blurred layers are drawn in tiles on iOS Safari,
+     which showed up as hard rectangles and a white strip at the bottom. */
+  background: radial-gradient(closest-side, var(--blob), transparent);
   opacity: 0.85;
   animation: blob-drift 26s ease-in-out infinite alternate;
 }
@@ -952,7 +954,6 @@ textarea:focus-visible {
 @media (max-width: 767px), (pointer: coarse) {
   .glass-blob {
     animation: none;
-    filter: blur(70px);
   }
 
   .glass-panel {
@@ -1348,6 +1349,7 @@ textarea:focus-visible {
 
 .cert-content p {
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .cert-formula {
