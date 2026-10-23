@@ -15,7 +15,7 @@ export const instant = false;
 const MESSAGES: Record<string, { title: string; description: string; persistent?: boolean }> = {
   "keine-rolle": {
     title: "Noch keine Rolle",
-    description: "Dein Discord-Konto ist bekannt, hat aber noch keine Rolle. Der Justizminister muss dich freischalten.",
+    description: "Dein Discord-Konto ist bekannt, hat aber noch keine Rolle. Der Sicherheitsrat muss dich freischalten.",
     persistent: true,
   },
   abgebrochen: { title: "Anmeldung abgebrochen", description: "Du hast die Anmeldung bei Discord nicht bestätigt." },

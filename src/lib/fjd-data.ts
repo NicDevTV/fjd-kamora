@@ -98,7 +98,7 @@ export const rangfolge = [
   {
     id: "hoehere-ordnung",
     title: "Charta der höheren Ordnung",
-    body: "Steht über allem. Der Föderationsrat ernennt den Justizminister und gibt die schwersten Eingriffe frei.",
+    body: "Steht über allem. Der Sicherheitsrat ernennt den Justizminister und gibt die schwersten Eingriffe frei.",
     href: codex(KV, "Art. 12 Höhere Ordnung"),
   },
   {

@@ -1,5 +1,4 @@
 import "server-only";
-import type { Role } from "@/lib/server/db/types";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -31,22 +30,4 @@ export function discordConfig() {
 // only when explicitly switched on; a production build can never enable it.
 export function devLoginEnabled() {
   return !isProduction && process.env.FJD_DEV_LOGIN === "1";
-}
-
-// Discord IDs that receive a role on sign-in (comma separated env vars). Lets the first
-// officials in without database access; later grants happen inside the app.
-function idList(value: string | undefined): Set<string> {
-  return new Set(
-    (value ?? "")
-      .split(",")
-      .map((id) => id.trim())
-      .filter((id) => /^\d{5,25}$/.test(id)),
-  );
-}
-
-export function bootstrapRoles(discordId: string): Role[] {
-  const roles: Role[] = [];
-  if (idList(process.env.FJD_BOOTSTRAP_JM).has(discordId)) roles.push("justizminister");
-  if (idList(process.env.FJD_BOOTSTRAP_FR).has(discordId)) roles.push("foederationsrat");
-  return roles;
 }

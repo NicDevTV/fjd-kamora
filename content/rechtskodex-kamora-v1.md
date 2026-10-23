@@ -107,14 +107,14 @@ Der Gouverneur ruft ihn für bis zu 48 h aus, der Senat verlängert. Der JM darf
 
 ### Art. 12 Höhere Ordnung
 
-Kamora gehört der Föderation an. Ihre Charta steht über diesem Kodex; für sie handelt der Föderationsrat, die höhere Ordnung.
+Kamora gehört der Föderation an. Ihre Charta steht über diesem Kodex; für sie handelt der Sicherheitsrat, die höhere Ordnung.
 
 - **Ernennt und entlässt** den Justizminister (→ Art. 7).
 - **Gibt frei:** Hinrichtung (→ Art. 4), Haft über 180 HE und dauerhafte Enteignung.
 - **Greift ein,** wenn ein Amtsträger oder eine Wahl gegen die Charta verstößt: Sie kann Amtsträger abberufen und eine Wahl wiederholen lassen. Jeder Eingriff wird im Amtsblatt begründet.
 - **Setzt ein,** solange es keine gewählten Organe gibt (→ Art. 15).
 
-> **OOC-Hinweis:** Die höhere Ordnung ist die Serverleitung von Kamora-V, die Charta ist das Serverregelwerk. Eine Hinrichtung ist ein Character-Kill. Bei Wahlen zählt pro Spieler eine Stimme, egal mit wie vielen Charakteren. Wissen aus OOC-Quellen ist in keinem Verfahren verwertbar (→ JO 8). Das Amtsblatt ist der Discord-Kanal #amtsblatt.
+> **OOC-Hinweis:** Die höhere Ordnung, also der Sicherheitsrat, ist die Projektleitung (PL) von Kamora-V, die Charta ist das Serverregelwerk. Eine Hinrichtung ist ein Character-Kill. Bei Wahlen zählt pro Spieler eine Stimme, egal mit wie vielen Charakteren. Wissen aus OOC-Quellen ist in keinem Verfahren verwertbar (→ JO 8). Das Amtsblatt ist der Discord-Kanal #amtsblatt.
 
 ### Art. 13 Handlungsfähigkeit
 

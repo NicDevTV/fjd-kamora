@@ -16,7 +16,7 @@ export const COLORS = {
 };
 
 export const SEAL_TEXT: Record<SealKind, string> = {
-  foederation: "FÖDERATIONSRAT · FÖDERATION · ",
+  foederation: "SICHERHEITSRAT · FÖDERATION · ",
   fjd: "JUSTIZDEPARTEMENT · KAMORA · ",
 };
 

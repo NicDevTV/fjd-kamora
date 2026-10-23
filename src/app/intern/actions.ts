@@ -38,7 +38,7 @@ export async function issueDocument(_state: FormState, formData: FormData): Prom
 
   const template = getTemplate(String(formData.get("template") ?? ""));
   if (!template) return { error: "Unbekannte Vorlage.", at };
-  // Each template belongs to one office: the Föderationsrat appoints the minister, the minister his staff.
+  // Each template belongs to one office: the Sicherheitsrat appoints the minister, the minister his staff.
   if (!user.roles.includes(template.role)) return { error: "Diese Urkunde darf deine Rolle nicht ausfertigen.", at };
 
   const input = Object.fromEntries(template.fields.map((field) => [field.name, String(formData.get(field.name) ?? "")]));

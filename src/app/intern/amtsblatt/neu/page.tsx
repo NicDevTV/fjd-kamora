@@ -8,7 +8,7 @@ import { IssueStudio } from "./issue-studio";
 // Depends on the signed-in user: rendered per request (see intern/layout.tsx).
 export const instant = false;
 
-const ISSUER_LABEL = { foederation: "Föderationsrat", fjd: "Justizdepartement" } as const;
+const ISSUER_LABEL = { foederation: "Sicherheitsrat", fjd: "Justizdepartement" } as const;
 
 export default async function NeuPage({ searchParams }: PageProps<"/intern/amtsblatt/neu">) {
   const user = await requireUser();

@@ -2,13 +2,14 @@
 // staging and production on Supabase Postgres (postgres.ts), behind the same interface.
 // Every method is async so both backends fit behind it unchanged.
 
-// "foederationsrat" is the higher order (KV Art. 12): it appoints and dismisses the Justizminister.
-export const ROLES = ["justizminister", "foederationsrat"] as const;
+// "sicherheitsrat" is the higher order (KV Art. 12), the server leadership in character:
+// it appoints and dismisses the Justizminister and grants roles.
+export const ROLES = ["justizminister", "sicherheitsrat"] as const;
 export type Role = (typeof ROLES)[number];
 
 export const ROLE_LABEL: Record<Role, string> = {
   justizminister: "Justizminister",
-  foederationsrat: "Föderationsrat",
+  sicherheitsrat: "Sicherheitsrat",
 };
 
 export type User = {

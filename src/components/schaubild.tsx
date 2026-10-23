@@ -54,7 +54,7 @@ function Staatsaufbau({ refs }: { refs: Refs }) {
   return (
     <figure className="mt-6">
       <Node title="Höhere Ordnung" norm="KV 12" refs={refs} tone="dark">
-        Föderationsrat mit der Charta über allem. Ernennt und entlässt den Justizminister, gibt Hinrichtung,
+        Sicherheitsrat mit der Charta über allem. Ernennt und entlässt den Justizminister, gibt Hinrichtung,
         Haft über 180 HE und Enteignung frei.
       </Node>
 

@@ -3,7 +3,6 @@ import {
   OAUTH_COOKIE,
   SECURE_COOKIES,
   appUrl,
-  bootstrapRoles,
   discordConfig,
 } from "@/lib/server/auth/config";
 import { fetchDiscordUser, sameState } from "@/lib/server/auth/discord";
@@ -44,9 +43,8 @@ export async function GET(request: NextRequest) {
 
   const store = await getStore();
   const user = await store.upsertDiscordUser(profile);
-  for (const role of bootstrapRoles(user.discordId)) await store.grantRole(user.id, role, null);
-
-  // Without a role there is no session at all: the account exists, but cannot enter.
+  // Roles are granted in the database by the Sicherheitsrat. Without one there is no session at
+  // all: the account exists (so it can be granted later), but cannot enter.
   if ((await store.listRoles(user.id)).length === 0) return fail("keine-rolle");
 
   const response = NextResponse.redirect(`${appUrl()}/intern`);
