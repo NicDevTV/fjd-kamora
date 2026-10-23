@@ -146,7 +146,7 @@ const suspendierung: Template = {
   id: "suspendierung",
   group: "Dienstrecht",
   label: "Suspendierung",
-  description: "Vorläufige Dienstenthebung bis zu 7 Tage nach Beschluss der Disziplinarkammer (§ 6 BeamtG).",
+  description: "Vorläufige Dienstenthebung bis zu 7 Tage nach Beschluss der Disziplinarkammer (§ 10 BeamtG).",
   title: "Suspendierungsbescheid",
   legalBasis: "§ 6 des Beamtengesetzes und § 2 des Waffengesetzes",
   fields: [
@@ -174,7 +174,7 @@ const degradierung: Template = {
   id: "degradierung",
   group: "Dienstrecht",
   label: "Degradierung",
-  description: "Rückstufung nach Beschluss der Disziplinarkammer (§ 6 BeamtG).",
+  description: "Rückstufung nach Beschluss der Disziplinarkammer (§ 10 BeamtG).",
   title: "Degradierungsbescheid",
   legalBasis: "§ 6 des Beamtengesetzes und § 3 des FJD-Statuts",
   fields: [

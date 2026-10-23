@@ -54,7 +54,7 @@ Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 | Weisungen an die StA | Im Einzelfall nur schriftlich in der Akte; nie zum eigenen Vorteil | JO 4 |
 | Verordnungen | Nur im Rahmen der Gesetze; der OGH kann sie aufheben | FJDS 6 |
 | Akten löschen | Begründung und Archivierung; der OGH prüft und kann wiederherstellen | FJDS 7 |
-| Stichentscheid in der Disziplinarkammer | Nur bei Gleichstand; nie in eigener Sache oder bei FJD-Fällen | BeamtG 6 |
+| Stichentscheid in der Disziplinarkammer | Nur bei Gleichstand; nie in eigener Sache oder bei FJD-Fällen | BeamtG 10 |
 | Vorschläge für Richter, GStA, Gnade | Der Gouverneur entscheidet; Richter und GStA bestätigt der Senat; schlägt der JM binnen 7 Tagen keinen Richter vor, schlägt der Oberste Richter vor | KV 5 · JO 13 |
 | Waffenerlaubnisse erteilen | Ablehnung mit Begründung; der OGH prüft Beschwerden; die Freigabeliste setzt der Gouverneur | WaffG 3–4 |
 | Ernennungen im FJD | Staatssekretär nur mit dem Gouverneur, Leiter der Inneren Revision nur mit dem Senat; den GStA ernennt der Gouverneur | FJDS 11 |
@@ -357,7 +357,7 @@ Klick auf eine Tat zeigt ihre Definition. HE = Hafteinheit (1 Min.), $ = Geldstr
 ### § 1 Gerichte
 
 - **Bezirksgericht:** erste Instanz, Einzelrichter.
-- **OGH:** Berufung, Verfassung, Immunität (→ ImmG 4), Amtsenthebung (→ KV 6), Aktenlöschung (→ FJDS 7), Wahlen (→ KV 15), Parteiverbote (→ KV 16), Disziplin (→ BeamtG 6). Er tagt mit 3 Richtern; notfalls entscheidet der Oberste Richter allein. Den Vorsitz führt der Oberste Richter, ein vom Gouverneur dazu bestimmter OGH-Richter; fehlt er, führt ihn der dienstälteste OGH-Richter (→ KV 13). Wo der Kodex alle 3 verlangt (→ KV 16, KStGB 9), wird bis dahin vertagt.
+- **OGH:** Berufung, Verfassung, Immunität (→ ImmG 4), Amtsenthebung (→ KV 6), Aktenlöschung (→ FJDS 7), Wahlen (→ KV 15), Parteiverbote (→ KV 16), Disziplin (→ BeamtG 10). Er tagt mit 3 Richtern; notfalls entscheidet der Oberste Richter allein. Den Vorsitz führt der Oberste Richter, ein vom Gouverneur dazu bestimmter OGH-Richter; fehlt er, führt ihn der dienstälteste OGH-Richter (→ KV 13). Wo der Kodex alle 3 verlangt (→ KV 16, KStGB 9), wird bis dahin vertagt.
 - **Ausschluss:** Wer in erster Instanz entschieden hat, wirkt in der Berufung nicht mit.
 
 ### § 2 Richter
@@ -562,10 +562,7 @@ Mitgliedschaft in kriminellen Gruppen ist verboten. Befangenheit und Geschenke �
 Ermahnung → Verweis → Geldbuße → Suspendierung bis 7 Tage → Degradierung → Entlassung. Voraussetzung ist ein Dienstvergehen; die Maßnahme steht im Verhältnis zur Schwere. Vorher wird der Betroffene angehört (→ § 7).
 
 - **Bis Geldbuße:** entscheidet der Vorgesetzte, schriftlich mit Begründung im MDT. Die Geldbuße beträgt höchstens $5.000.
-- **Darüber:** die Disziplinarkammer. Sie hat 3 Mitglieder: einen OGH-Richter (Vorsitz), einen Vertreter der Behörde des Betroffenen und einen Vertreter der AIR. Der Behördenvertreter ist weder Antragsteller noch Vorgesetzter des Betroffenen; bei Beamten des FJD ist es der Staatssekretär oder ein Amtsleiter.
-- **Verfahren:** Antrag stellen der Vorgesetzte, die Behördenleitung oder die AIR schriftlich im MDT mit Vorwurf und Beweisen. Der Oberste Richter bildet die Kammer binnen 48 h, sie entscheidet binnen 7 Tagen nach dem Antrag und nach Anhörung des Betroffenen. Der Beschluss ist begründet und kommt ins MDT.
-- **Abstimmung:** Mehrheit der Anwesenden. Der JM darf teilnehmen und sprechen, bei Gleichstand entscheidet seine Stimme. Geht es um ihn, das FJD oder Angehörige, nimmt er nicht teil, und die Stimme des OGH-Richters entscheidet.
-- **Personalmangel:** Die Kammer ist mit dem OGH-Richter und einem weiteren Mitglied beschlussfähig. Entsendet die Behörde binnen 48 h niemanden, tagt sie ohne. Ist die AIR unbesetzt, tritt ein Mitglied des Justizausschusses an ihre Stelle (→ KV 13). Ist kein OGH-Richter erreichbar, wird vertagt.
+- **Darüber:** entscheidet die Disziplinarkammer (→ § 10).
 - **Rechtsmittel:** binnen 48 h zum OGH (→ JO 11). Entlassung und Degradierung wirken erst nach Ablauf der Frist oder der Entscheidung des OGH, die Suspendierung sofort.
 
 #### § 7 Rechte
@@ -581,9 +578,21 @@ Kein Streik, keine kollektive Dienstverweigerung, keine Massenkrankmeldung, kein
 Jede Entlassung ist ehrenhaft oder unehrenhaft. Die Art steht in der Entlassungsurkunde. Im Zweifel gilt sie als ehrenhaft.
 
 - **Ehrenhaft:** auf eigenen Wunsch, bei Auflösung der Stelle oder wegen Inaktivität (→ KV 13). Der Beamte gibt Ausweis und Ausrüstung ab (→ § 3), führt Rang und Titel mit dem Zusatz „a. D.“ und kann sich nach 14 Tagen wieder bewerben.
-- **Unehrenhaft:** nur nach einem Disziplinarverfahren (→ § 6) oder mit rechtskräftigem Amtsverlust (→ KStGB). Die Urkunde nennt den Grund. Rang und Titel erlöschen, eine Wiedereinstellung ist erst nach 90 Tagen möglich und nur mit Zustimmung der Disziplinarkammer.
+- **Unehrenhaft:** nur nach einem Disziplinarverfahren (→ § 6) oder mit rechtskräftigem Amtsverlust (→ KStGB). Die Urkunde nennt den Grund. Rang und Titel erlöschen, eine Wiedereinstellung ist erst nach 90 Tagen möglich und nur mit Zustimmung der Disziplinarkammer (→ § 10).
 - **Nie unehrenhaft:** eine Entlassung auf eigenen Wunsch, ohne Verfahren oder allein aus Streit mit dem Vorgesetzten.
 - **Rechtsmittel:** Gegen die Einstufung als unehrenhaft ist die Beschwerde zum OGH offen (→ JO 1). Hebt er sie auf, wird die Urkunde im Amtsblatt berichtigt.
+
+#### § 10 Disziplinarkammer
+
+Sie entscheidet über Suspendierung, Degradierung und Entlassung (→ § 6) und stimmt einer Wiedereinstellung nach unehrenhafter Entlassung zu (→ § 9).
+
+- **Mitglieder:** drei. Ein OGH-Richter führt den Vorsitz, dazu kommen ein Vertreter der Behörde des Betroffenen und ein Vertreter der AIR. Der Behördenvertreter ist weder Antragsteller noch Vorgesetzter des Betroffenen; bei Beamten des FJD ist es der Staatssekretär oder ein Amtsleiter.
+- **Antrag:** Vorgesetzter, Behördenleitung oder AIR stellen ihn schriftlich im MDT mit Vorwurf und Beweisen.
+- **Bildung:** Der Oberste Richter bildet die Kammer binnen 48 h nach dem Antrag.
+- **Entscheidung:** binnen 7 Tagen nach dem Antrag, nach Anhörung des Betroffenen (→ § 7). Der Beschluss ist begründet und kommt ins MDT.
+- **Abstimmung:** Mehrheit der Anwesenden. Der JM darf teilnehmen und sprechen, bei Gleichstand entscheidet seine Stimme. Geht es um ihn, das FJD oder Angehörige, nimmt er nicht teil, und die Stimme des OGH-Richters entscheidet.
+- **Personalmangel:** Die Kammer ist mit dem OGH-Richter und einem weiteren Mitglied beschlussfähig. Entsendet die Behörde binnen 48 h niemanden, tagt sie ohne. Ist die AIR unbesetzt, tritt ein Mitglied des Justizausschusses an ihre Stelle (→ KV 13). Ist kein OGH-Richter erreichbar, wird vertagt.
+- **Rechtsmittel:** nach § 6.
 
 ### Immunitäts- und Diplomatengesetz (ImmG)
 

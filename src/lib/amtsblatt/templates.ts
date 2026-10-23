@@ -134,7 +134,7 @@ const entlassungFjd: Template = {
   dishonourableReason: "nach Beschluss der Disziplinarkammer",
   check: (values) =>
     values.art === "unehrenhaft" && values.grund !== "nach Beschluss der Disziplinarkammer"
-      ? "Unehrenhaft entlassen wird nur nach einem Beschluss der Disziplinarkammer (§ 9 BeamtG)."
+      ? "Unehrenhaft entlassen wird nur nach einem Beschluss der Disziplinarkammer (§ 10 BeamtG)."
       : null,
   blocks: (fields) => [
     { kind: "text", text: "Aus dem Föderalen Justizdepartement wird" },
