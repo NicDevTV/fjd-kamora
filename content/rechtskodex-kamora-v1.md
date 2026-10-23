@@ -39,6 +39,7 @@ Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 | Akten löschen | Begründung und Archivierung; der OGH prüft und kann wiederherstellen | FJDS 7 |
 | Stichentscheid in der Disziplinarkammer | Nie in eigener Sache oder bei FJD-Fällen | BeamtG 6 |
 | Vorschläge für Richter, GStA, Gnade | Der Gouverneur entscheidet; Richter und GStA bestätigt der Senat; schlägt der JM binnen 7 Tagen keinen Richter vor, schlägt der Oberste Richter vor | KV 5 · JO 13 |
+| Waffenerlaubnisse erteilen | Ablehnung mit Begründung; der OGH prüft Beschwerden; die Freigabeliste setzt der Gouverneur | WaffG 3–4 |
 | Immunität | Gilt bis zur Aufhebung; Eilaufhebung binnen 30 Min. möglich | ImmG 2–4 |
 | Notstands-Sofortmaßnahmen bis 48 h | Erlöschen ohne Zustimmung des Gouverneurs binnen 2 h; Verlängerung nur durch den Senat; OGH prüft danach jede Anordnung | KV 11 |
 | Das Amt selbst | Ernennung und Entlassung nur durch den Sicherheitsrat; Amtsenthebung durch Senat und OGH | KV 6 · KV 12 |
@@ -82,7 +83,7 @@ Staatsoberhaupt, vom Senat gewählt (→ Art. 15).
 Vom Volk gewählt (→ Art. 15).
 
 - **Mehrheiten:** Gesetze einfach, Verfassungsänderungen 2/3 und nur bei mindestens 5 besetzten Sitzen; nie bei Art. 14.
-- **Einbringen:** Justizgesetze (KStGB, JO, PolG, BeamtG, FJDS) nur der JM, alle anderen auch jedes Senatsmitglied. Der Senat darf selbst einbringen: Gesetze über Immunität, Kontrolle oder Amtsenthebung des JM sowie jeden Entwurf, den der JM auf Senatsmehrheit binnen 7 Tagen nicht vorlegt.
+- **Einbringen:** Justizgesetze (KStGB, JO, PolG, WaffG, BeamtG, FJDS) nur der JM, alle anderen auch jedes Senatsmitglied. Der Senat darf selbst einbringen: Gesetze über Immunität, Kontrolle oder Amtsenthebung des JM sowie jeden Entwurf, den der JM auf Senatsmehrheit binnen 7 Tagen nicht vorlegt.
 - **Beschluss:** Der Senat verabschiedet oder lehnt ab. Der JM darf in jeder Sitzung sprechen, stimmt nicht mit.
 - **Kontrolle:** Justizausschuss (→ FJDS 8), nie vom JM geleitet. Ohne Senat kontrolliert der OGH.
 - **Amtsenthebung des JM:** Antrag 1/3, Beschluss 2/3, Bestätigung durch den OGH (beim Obersten Richter durch die übrigen OGH-Richter). Den Nachfolger ernennt der Sicherheitsrat.
@@ -112,7 +113,7 @@ Für Gouverneur, JM, Senatspräsident und Obersten Richter (→ ImmG). Sie schü
 
 Der Gouverneur ruft ihn für bis zu 48 h aus, der Senat verlängert. Der JM darf dann anordnen, ohne Senat höchstens 48 h:
 
-- **Sperren:** Sperrzonen ohne Zeitlimit (→ PolG 9), Ausgangssperren für Gebiete oder ganz Kamora, Versammlungs- und Waffenverbot.
+- **Sperren:** Sperrzonen ohne Zeitlimit (→ PolG 9), Ausgangssperren für Gebiete oder ganz Kamora, Versammlungs- und Waffenverbot (→ WaffG 5).
 - **Kontrolle:** Kontrollpunkte mit Ausweiskontrolle und Durchsuchung ohne Verdacht (→ PolG 5–6).
 - **Eingriffe:** Betriebe und Gebäude vorläufig schließen, Waffen und Fahrzeuge sicherstellen, in der Sperrzone Wohnungen ohne Beschluss durchsuchen (→ PolG 6).
 - **Haft:** Notstands-U-Haft bis 120 HE bei Terror, Geiselnahme und Mord (→ JO 10).
@@ -282,10 +283,11 @@ Klick auf eine Tat zeigt ihre Definition. HE = Hafteinheit (1 Min.), $ = Geldstr
 | 46 | Terror, Anschlag auf Verfassungsorgane | 150–180 | Einziehung |
 | 47 | Amtsmissbrauch, bis zum Minister (+ Amtsverlust) | 30–60 | 25.000 |
 | 48 | Missachtung des Gerichts | 5–15 | 5.000 |
-| 50 | Kurzwaffe ohne Schein | 15–25 | 10.000 |
+| 50 | Waffe ohne Erlaubnis | 15–25 | 10.000 |
 | 51 | Kriegswaffen, Sprengstoff | 40–60 | 30.000 |
 | 52 | Waffenhandel | 50–80 | 50.000 |
 | 53 | Schüsse in der Öffentlichkeit | 10–20 | 7.500 |
+| 54 | Verstoß gegen Waffenauflagen, Waffe in Verbotszone | 5–15 | 5.000 |
 | 55 | BtM, Eigenbedarf (bis 5 Einheiten) | – | 2.500 |
 | 56 | BtM, Handelsmenge (ab 6 Einheiten) | 20–45 | 15.000 |
 | 57 | BtM, Herstellung und Handel | 40–70 | 30.000 |
@@ -403,15 +405,28 @@ Beamte sind bei der Strafverfolgung Ermittlungspersonen der StA (→ JO 4). Mün
 
 ### § 4 Verhältnismäßigkeit
 
-Stets das mildeste wirksame Mittel (→ KV 4).
+Stets das mildeste wirksame Mittel (→ KV 4). Jede Maßnahme braucht einen konkreten Anlass. Kontrollen ins Blaue, nach Aussehen, Zugehörigkeit oder Laune sind verboten.
 
 ### § 5 Identität
 
-Feststellung bei Verdacht, an Gefahrenorten und bei Verkehrskontrollen. Wer verweigert, kommt zur Wache.
+Der Ausweis wird nur mit Anlass verlangt:
+
+- **Verdacht** aus Tatsachen: eine Zeugenaussage, eine Spur oder eine Tat vor Ort.
+- **Gefahrenort:** ein Ort, den der Supervisor für die Dauer der Gefahr benennt.
+- **Verkehrskontrolle:** nur bei einem Verstoß oder erkennbaren Mangel, nie als Routine ohne Anlass.
+
+Der Beamte nennt den Anlass sofort und hält ihn im Bericht fest (→ PolG 11). Wer sich trotz Anlass verweigert, kommt zur Wache. Ohne Anlass gibt es keine Mitnahme.
 
 ### § 6 Durchsuchung
 
-Person und Fahrzeug bei Verdacht, nach Festnahme oder zur Eigensicherung. Wohnung oder Firma nur mit Beschluss (→ JO 9).
+Person und Fahrzeug darf nur durchsuchen, wer einen Grund nennen kann:
+
+- **Verdacht** aus Tatsachen, dass die Person Beweise oder verbotene Gegenstände bei sich hat.
+- **Nach der Festnahme.**
+- **Eigensicherung:** Abtasten nach Waffen bei einem konkreten Hinweis auf Gefahr, nicht mehr.
+- **Einwilligung:** freiwillig und auf Bodycam. Unter Druck oder Drohung ersetzt sie keinen Anlass.
+
+Der Anlass wird vor der Durchsuchung genannt und protokolliert. Wohnung oder Firma nur mit Beschluss (→ JO 9), in der Sperrzone nach KV 11. Eine Durchsuchung ohne Anlass macht ihre Funde unverwertbar (→ JO 8); absichtlich oder wiederholt ist sie Amtsmissbrauch (→ KStGB 47).
 
 ### § 7 Festnahme
 
@@ -512,6 +527,15 @@ Besoldung, Rechtsschutz, Anhörung, Einsicht in die eigene Akte.
 
 Kein Streik, keine kollektive Dienstverweigerung, keine Massenkrankmeldung, keine abgesprochene Inaktivität; Verstoß ist Dienstvergehen (§ 6). Anliegen gehen an die Behördenleitung, dann an den Justizausschuss. Ein Einspruch nach § 4 ist kein Streik.
 
+#### § 9 Entlassung
+
+Jede Entlassung ist ehrenhaft oder unehrenhaft. Die Art steht in der Entlassungsurkunde. Im Zweifel gilt sie als ehrenhaft.
+
+- **Ehrenhaft:** auf eigenen Wunsch, bei Auflösung der Stelle oder wegen Inaktivität (→ KV 13). Der Beamte gibt Ausweis und Ausrüstung ab (→ § 3), führt Rang und Titel mit dem Zusatz „a. D.“ und kann sich nach 14 Tagen wieder bewerben.
+- **Unehrenhaft:** nur nach einem Disziplinarverfahren (→ § 6) oder mit rechtskräftigem Amtsverlust (→ KStGB). Die Urkunde nennt den Grund. Rang und Titel erlöschen, eine Wiedereinstellung ist erst nach 90 Tagen möglich und nur mit Zustimmung der Disziplinarkammer.
+- **Nie unehrenhaft:** eine Entlassung auf eigenen Wunsch, ohne Verfahren oder allein aus Streit mit dem Vorgesetzten.
+- **Rechtsmittel:** Gegen die Einstufung als unehrenhaft ist die Beschwerde zum OGH offen (→ JO 1). Hebt er sie auf, wird die Urkunde im Amtsblatt berichtigt.
+
 ### Immunitäts- und Diplomatengesetz (ImmG)
 
 #### § 1 Geschützt
@@ -603,7 +627,7 @@ Monatsbericht an den Justizausschuss mit Weisungen, Fällen, Beschwerden, Lösch
 
 ### § 9 Amtsverlust
 
-Der JM durch Entlassung durch den Sicherheitsrat (→ KV 12) oder Amtsenthebung (→ KV 6), alle anderen nach BeamtG 6.
+Der JM durch Entlassung durch den Sicherheitsrat (→ KV 12) oder Amtsenthebung (→ KV 6), alle anderen nach BeamtG 6. Ob ehrenhaft oder unehrenhaft, regelt BeamtG 9; beim JM ist die Entlassung nach einer Amtsenthebung unehrenhaft, sonst ehrenhaft.
 
 ### § 10 Justizmarschalldienst
 
@@ -617,3 +641,56 @@ Er schützt, er ermittelt nicht. Er hat keine Polizeibefugnisse (→ PolG 1), nu
 - **Verboten:** Ermittlungen, Vernehmungen, Verkehrskontrollen, Tickets, Strafbefehle, Durchsuchung von Wohnungen und Fahrzeugen, Vollstreckung von Haftbefehlen (→ PolG 7).
 - **Amtshilfe:** Fehlt dem KPD Personal, kann der Ranghöchste im KPD-Dienst ab Lieutenant Marshals für einen bestimmten Einsatz anfordern. Sie haben dafür die Befugnisse des PolG unter KPD-Führung. Anforderung und Ende kommen ins MDT. Das FJD kann sich nicht selbst einsetzen; eine Weisung nach § 4 ersetzt die Anforderung nicht.
 - **Kontrolle:** Bodycam beim Festhalten, Bericht im MDT vor Schichtende (→ PolG 11). Beschwerden gehen an die AIR (→ PolG 12); Überschreiten der Befugnisse ist Amtsmissbrauch (→ KStGB 47).
+
+## Teil 07 · Waffengesetz (WaffG)
+
+### § 1 Grundsatz
+
+Wer eine Waffe besitzt oder führt, braucht eine Erlaubnis für genau diese Waffe. Ohne Erlaubnis, oder mit einer nicht freigegebenen Waffe, ist es strafbar (→ KStGB 50, 51).
+
+| Klasse | Waffen |
+| --- | --- |
+| A | Kurzwaffen (Pistole, Revolver) |
+| B | Langwaffen (Jagd- und Sportgewehr, Schrotflinte) |
+| C | Taser, Reizgas, Schlagstock, Kampfmesser |
+| D | Kriegswaffen: Automatikwaffen, militärische Langwaffen, Granaten, Sprengstoff |
+
+### § 2 Erlaubnis kraft Amtes
+
+- **KPD:** Beamte im Dienst führen die für das KPD freigegebenen Waffen (→ WaffG 3). Anwärter führen bis zur Vereidigung nur Klasse C.
+- **Justizmarschalldienst:** Marshals im Dienst führen die für ihn freigegebenen Waffen, nur im Schutzbereich und in der Amtshilfe (→ FJDS 10). Anwärter und Deputy Marshals führen nur Klasse C.
+- **Außer Dienst** ruht die Erlaubnis. Die Dienstwaffe bleibt in der Verwahrung der Dienststelle; Privatwaffen brauchen einen Schein (→ WaffG 4).
+- **Klasse D** führt allein das SWAT, nur laut Freigabeliste (→ PolG 13).
+- **Amtsende:** Wer das Amt verliert oder suspendiert wird, gibt die Dienstwaffen sofort ab; die Erlaubnis erlischt mit dem Dienst (→ BeamtG 6).
+
+### § 3 Freigabe
+
+- **Nur Freigegebenes:** Eine Waffe, die nicht auf der Freigabeliste steht, ist für den Dienst verboten.
+- **Listen:** Der Gouverneur setzt die Liste des KPD auf Vorschlag des Chiefs, die des Justizmarschalldienstes auf Vorschlag des JM. Beide stehen im Amtsblatt, Änderungen gelten ab Veröffentlichung.
+- **Bis zur ersten Liste** gilt als Grundausstattung: KPD Dienstpistole, Taser, Schlagstock, Reizgas; Marshals Taser, Schlagstock, Reizgas und ab Marshal die Dienstpistole.
+- **Einsatz:** Wie weit eine Waffe eingesetzt werden darf, regelt allein PolG 8; jeder Schuss geht an die AIR.
+
+### § 4 Waffenschein
+
+- **Erteilung:** Der JM erteilt ihn auf Antrag für eine Klasse (A, B oder C), schriftlich und im Amtsblatt eingetragen. Er ist auf 180 Tage befristet und verlängerbar.
+- **Voraussetzungen:** Ein nachvollziehbarer Grund (Schutz, Beruf, Jagd, Sport) und eine saubere Akte: keine Verurteilung in den letzten 90 Tagen wegen Taten der Nummernkreise 10, 20, 40 oder 50–53.
+- **Ablehnung:** Immer mit Begründung. Der Antragsteller kann Beschwerde zum OGH einlegen (→ JO 1).
+- **Nie:** Klasse D bekommt keine Privatperson.
+- **Ohne JM:** Ist das Amt unbesetzt, erteilt der Gouverneur.
+- **Mitführen:** Der Schein ist bei sich zu tragen und wird bei einer Kontrolle mit Anlass gezeigt (→ PolG 5, 6).
+
+### § 5 Führen und Verbotszonen
+
+- **Führen:** Dienstwaffen offen, private Waffen verdeckt. Wer eine Waffe zieht oder auf einen Menschen richtet, ohne dass Notwehr (→ KStGB 4) oder Dienstzwang (→ PolG 8) vorliegt, verliert die Erlaubnis.
+- **Verbotszonen:** Gerichte, Senat, FJD, Wachen, Gefängnis, Wahllokale am Wahltag (→ KV 15) und jede Sperrzone mit Waffenverbot (→ KV 11, PolG 9). Dort gibt man Waffen am Eingang ab.
+- **Ausnahme:** KPD und Marshals im Dienst sowie der Einlassdienst, der die Waffen verwahrt (→ FJDS 10).
+
+### § 6 Entzug
+
+- **Sicherstellen:** KPD und StA stellen eine Waffe sicher, die ohne Erlaubnis oder gegen Auflagen geführt wird (→ PolG 10, KStGB 8).
+- **Entziehen:** Den Schein entzieht der JM bei Verstoß oder Wegfall der Voraussetzungen. Der OGH kann den Entzug aufheben.
+- **Verlust:** Verlust oder Diebstahl einer Waffe wird sofort gemeldet, bei Dienstwaffen der AIR.
+
+### § 7 Herstellung und Handel
+
+Wer Waffen herstellt, verkauft, liefert oder vermittelt, braucht eine befristete Handelslizenz des JM mit Zustimmung des Gouverneurs. Verkauft wird nur an Inhaber eines Scheins der passenden Klasse. Jeder Verkauf kommt in ein Verkaufsbuch, das StA und AIR einsehen. Sonst gilt KStGB 52.

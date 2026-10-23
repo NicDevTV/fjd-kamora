@@ -249,8 +249,9 @@ function Signature({ name, seed, signerKey }: { name: string; seed: number; sign
           fontSize: style.size,
           color: style.ink,
           letterSpacing: style.letterSpacing,
-          marginLeft: style.shift,
-          marginBottom: style.drop,
+          position: "relative",
+          left: style.shift,
+          marginBottom: style.drop + style.size * 0.2,
           transform: `rotate(${style.rotate.toFixed(1)}deg) skewX(${style.skew.toFixed(1)}deg) scaleX(${style.stretch.toFixed(3)})`,
         }}
       >

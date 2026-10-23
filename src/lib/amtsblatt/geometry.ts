@@ -1,4 +1,5 @@
 import { hashString, seededRandom } from "./random";
+import { SIGNATURE_ADVANCES } from "./signature-metrics";
 import type { SealKind } from "./templates";
 
 // Shapes shared by the PDF (pdf.tsx) and the live preview (certificate-preview.tsx). Both draw
@@ -90,10 +91,10 @@ export function sealShape(kind: SealKind, seed: number) {
 // it is random per person, never changes and needs no storage. Each document then varies that
 // hand a little, the way nobody signs twice exactly the same.
 export const SIGNATURE_FONTS = [
-  { key: "hand", family: "Signature", size: 31 },
-  { key: "delafield", family: "SignatureDelafield", size: 34 },
-  { key: "doulaise", family: "SignatureDoulaise", size: 32 },
-  { key: "haviland", family: "SignatureHaviland", size: 31 },
+  { key: "hand", family: "Signature", size: 31, base: 0.286 },
+  { key: "delafield", family: "SignatureDelafield", size: 34, base: 0.356 },
+  { key: "doulaise", family: "SignatureDoulaise", size: 32, base: 0.233 },
+  { key: "haviland", family: "SignatureHaviland", size: 31, base: 0.283 },
 ] as const;
 
 const INKS = ["#1d2b66", "#1a2754", "#232c5a", "#2a2f55", "#17306b"];
@@ -132,41 +133,111 @@ export function signatureHand(key: string): SignatureHand {
 // The signature box is 240 x 54 pt; the flourish is drawn in the same space under the name.
 export const SIGNATURE_BOX = { width: 240, height: 54 };
 
-function flourishPath(hand: SignatureHand, random: () => number) {
+type Point = [number, number];
+type Segment = [string, ...Point[]];
+
+function drawPath(segments: Segment[], pivot: Point, degrees: number) {
+  const rad = (degrees * Math.PI) / 180;
+  const cos = Math.cos(rad);
+  const sin = Math.sin(rad);
+  const turn = ([x, y]: Point) => {
+    const dx = x - pivot[0];
+    const dy = y - pivot[1];
+    return `${(pivot[0] + dx * cos - dy * sin).toFixed(2)} ${(pivot[1] + dx * sin + dy * cos).toFixed(2)}`;
+  };
+  return segments.map(([command, ...points]) => `${command} ${points.map(turn).join(" ")}`).join(" ");
+}
+
+// The flourish hugs the written name: it spans the name's width and runs just under its baseline,
+// turned a little with the writing.
+function flourishPath(hand: SignatureHand, random: () => number, x0: number, x1: number, y: number, degrees: number) {
   const j = (range: number) => (random() - 0.5) * range;
-  // Below the name: the text baseline sits around y 44, the signature line just under the box.
-  const y = 51 + j(2);
+  const w = x1 - x0;
+  const at = (u: number, v: number): Point => [x0 + u * w, y + v];
+  const pivot: Point = [(x0 + x1) / 2, y];
   switch (hand.flourish) {
     case 1:
       // One long swash under the name, rising a little towards the end.
-      return `M ${22 + j(10)} ${y} C ${80 + j(20)} ${y - 4 + j(3)} ${150 + j(20)} ${y + 2 + j(3)} ${222 + j(8)} ${y - 6 + j(3)}`;
-    case 2:
-      // A sweep that ends in a small loop.
-      return `M ${26 + j(10)} ${y} C ${90 + j(20)} ${y + 2} ${165 + j(15)} ${y + 1} ${208 + j(8)} ${y - 3} C ${228 + j(6)} ${y - 7} ${234} ${y - 17 + j(3)} ${224 + j(3)} ${y - 19 + j(2)} C ${214} ${y - 21} ${210 + j(4)} ${y - 8} ${230 + j(5)} ${y - 3}`;
+      return drawPath(
+        [["M", at(0, j(2))], ["C", at(0.3, -3 + j(3)), at(0.65, 2 + j(3)), at(1, -5 + j(3))]],
+        pivot,
+        degrees,
+      );
+    case 2: {
+      // A sweep that ends in a small loop at the right.
+      const end: Point = [x1 + 2, y + 1 + j(1.5)];
+      return drawPath(
+        [
+          ["M", at(0, j(2))],
+          ["C", at(0.35, 2 + j(2)), at(0.7, 1 + j(2)), [end[0] - 12, end[1]]],
+          ["C", [end[0] - 5, end[1] - 1], [end[0] + 3, end[1] - 5], [end[0] - 1, end[1] - 8]],
+          ["C", [end[0] - 6, end[1] - 10], [end[0] - 9, end[1] - 3], [end[0] + 4, end[1] + 1]],
+        ],
+        pivot,
+        degrees,
+      );
+    }
     default:
       // A rising dash with a short tick below it.
-      return `M ${44 + j(14)} ${y} Q ${120 + j(20)} ${y - 4} ${208 + j(10)} ${y - 9 + j(2)} M ${182 + j(10)} ${y + 1} L ${216 + j(8)} ${y - 2 + j(2)}`;
+      return drawPath(
+        [
+          ["M", at(0.05, 1)],
+          ["Q", at(0.5, -4 + j(2)), at(0.95, -8 + j(2))],
+          ["M", at(0.6, 2)],
+          ["L", at(0.92, -1 + j(2))],
+        ],
+        pivot,
+        degrees,
+      );
   }
 }
 
+// Width of a name in points, without kerning.
+function nameWidth(name: string, font: SignatureHand["font"], size: number, stretch: number, spacing: number) {
+  const table = SIGNATURE_ADVANCES[font.key];
+  let em = 0;
+  for (const char of name) em += table.widths[char] ?? table.fallback;
+  return em * size * stretch + spacing * name.length;
+}
+
 // One document's version of the official's hand. The same seed always gives the same result,
-// so the preview, the stored document and the PDF agree.
+// so the preview, the stored document and the PDF agree. The name always fits the box.
 export function signatureStyle(name: string, seed: number, hand: SignatureHand) {
   const random = seededRandom(seed ^ 0x51a9);
   const wobble = (range: number) => (random() - 0.5) * range;
-  const fit = Math.min(1, 20 / Math.max(name.length, 1));
+  const stretch = hand.stretch * (1 + wobble(0.05));
+  const spacing = hand.spacing + wobble(0.5);
+  const wanted = hand.font.size * hand.scale * (1 + wobble(0.08));
+
+  // Largest size that keeps the name inside the box with room for the flourish.
+  const maxWidth = SIGNATURE_BOX.width - 36;
+  const unit = nameWidth(name, hand.font, 1, stretch, 0);
+  const size = Math.max(16, Math.min(wanted, (maxWidth - spacing * name.length) / Math.max(unit, 1)));
+  const width = nameWidth(name, hand.font, size, stretch, spacing);
+
+  const room = Math.max(0, (SIGNATURE_BOX.width - 16 - width) / 2);
+  const shift = (random() * 2 - 1) * Math.min(10, room);
+  const drop = 6 + random() * 5;
+  const rotate = hand.tilt + wobble(3.2);
+
+  const centre = SIGNATURE_BOX.width / 2 + shift;
+  const baseline = SIGNATURE_BOX.height - drop - hand.font.base * size;
+  const flourishY = Math.min(SIGNATURE_BOX.height - 2, baseline + 0.12 * size + 2);
+  const x0 = Math.max(6, centre - width / 2 - 2);
+  const x1 = Math.min(SIGNATURE_BOX.width - 10, centre + width / 2 + 4);
+
   return {
     family: hand.font.family,
     key: hand.font.key,
     ink: hand.ink,
-    size: hand.font.size * hand.scale * (1 + wobble(0.08)) * Math.max(fit, 0.62),
-    letterSpacing: hand.spacing + wobble(0.5),
-    shift: -12 + random() * 24,
-    drop: 7 + random() * 5,
-    rotate: hand.tilt + wobble(3.2),
+    size,
+    letterSpacing: spacing,
+    shift,
+    drop,
+    rotate,
     skew: hand.slant + wobble(4),
-    stretch: hand.stretch * (1 + wobble(0.05)),
-    flourish: hand.flourish ? flourishPath(hand, random) : null,
+    stretch,
+    flourish: hand.flourish ? flourishPath(hand, random, x0, x1, flourishY, rotate * 0.8) : null,
     weight: hand.weight * (1 + wobble(0.25)),
   };
 }

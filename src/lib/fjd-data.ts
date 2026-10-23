@@ -110,7 +110,7 @@ export const rangfolge = [
   {
     id: "gesetze",
     title: "Gesetze",
-    body: "KStGB, JO, PolG, BeamtG und ImmG: Strafrecht, Verfahren, Polizei, Beamte und Immunität.",
+    body: "KStGB, JO, PolG, WaffG, BeamtG und ImmG: Strafrecht, Verfahren, Polizei, Waffen, Beamte und Immunität.",
     href: codex(KSTGB),
   },
   {

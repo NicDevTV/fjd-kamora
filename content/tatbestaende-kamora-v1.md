@@ -29,10 +29,11 @@ Verweise wie (→ KStGB 9) werden auf der Seite zu Links.
 § 46: Gewalttaten, um die Bevölkerung einzuschüchtern oder den Staat zu erpressen, sowie Anschläge auf Gouverneur, Senat, Gerichte oder FJD.
 § 47: Ein Amtsträger nutzt seine Befugnisse rechtswidrig, zum eigenen Vorteil oder zum Schaden anderer. Gilt für jeden bis zum Minister und führt zum Amtsverlust.
 § 48: Wer eine Verhandlung stört, richterliche Anordnungen missachtet oder einer Ladung ohne Grund nicht folgt.
-§ 50: Besitz oder Führen einer Pistole oder anderen Kurzwaffe ohne gültigen Waffenschein.
+§ 50: Besitz oder Führen einer Waffe ohne Erlaubnis oder einer Waffe, die für den eigenen Dienst nicht freigegeben ist (→ WaffG 1).
 § 51: Besitz von Automatikwaffen, militärischen Langwaffen, Granaten oder Sprengstoff.
-§ 52: Wer Waffen ohne Lizenz verkauft, liefert oder vermittelt, auch einzelne Stücke mit Gewinnabsicht.
+§ 52: Wer Waffen ohne Handelslizenz verkauft, liefert oder vermittelt, auch einzelne Stücke mit Gewinnabsicht (→ WaffG 7).
 § 53: Wer in der Öffentlichkeit eine Schusswaffe abfeuert, ohne dass Notwehr vorliegt (→ KStGB 4).
+§ 54: Wer eine Waffe entgegen den Auflagen seiner Erlaubnis oder in einer Verbotszone führt, eine Waffe auf Menschen richtet, ohne dass Notwehr oder Dienstzwang vorliegt, oder den Verlust einer Waffe nicht meldet (→ WaffG 5, 6).
 § 55: Besitz von bis zu 5 Einheiten Betäubungsmitteln für den eigenen Konsum.
 § 56: Besitz von 6 oder mehr Einheiten Betäubungsmitteln. Ab dieser Menge wird Handelsabsicht vermutet.
 § 57: Anbau, Herstellung, Verarbeitung oder Verkauf von Betäubungsmitteln.

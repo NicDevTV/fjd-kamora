@@ -13,6 +13,7 @@ export const ABBREVIATIONS: Record<string, string> = {
   KStGB: "Strafgesetzbuch",
   JO: "Justizordnung",
   PolG: "Polizeigesetz",
+  WaffG: "Waffengesetz",
   BeamtG: "Beamtengesetz",
   ImmG: "Immunitäts- und Diplomatengesetz",
   FJDS: "FJD-Statut",

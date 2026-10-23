@@ -15,7 +15,7 @@ export function SignatureMark({ name, seed, signerKey }: { name: string; seed: n
             fontFamily: `var(--font-cert-sig-${style.key}), cursive`,
             fontSize: u(style.size),
             letterSpacing: u(style.letterSpacing),
-            marginLeft: u(style.shift),
+            left: u(style.shift),
             marginBottom: u(style.drop),
             transform: `rotate(${style.rotate.toFixed(1)}deg) skewX(${style.skew.toFixed(1)}deg) scaleX(${style.stretch.toFixed(3)})`,
           } as CSSProperties

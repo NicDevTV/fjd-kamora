@@ -41,6 +41,8 @@ export type Template = {
   // Values for the thumbnail and an empty form's preview.
   sample: Record<string, string>;
   blocks: (fields: Record<string, string>) => Block[];
+  // Rules between fields that single-field validation cannot express; returns an error message.
+  check?: (values: Record<string, string>) => string | null;
 };
 
 const DATE_FORMAT = new Intl.DateTimeFormat("de-DE", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
@@ -53,6 +55,16 @@ export function formatDate(value: string) {
 
 // Placeholder text in the preview while a field is still empty.
 const or = (value: string | undefined, fallback: string) => (value && value.trim() ? value : fallback);
+
+const DISMISSAL_KINDS = ["ehrenhaft", "unehrenhaft"];
+
+// "ehrenhaft" / "unehrenhaft" in the sentence of the certificate; the preview shows a placeholder until chosen.
+const dismissalKind = (value: string | undefined) => (value === "unehrenhaft" ? "unehrenhaft" : value === "ehrenhaft" ? "ehrenhaft" : "…");
+
+const dismissalNote = (value: string | undefined) =>
+  value === "unehrenhaft"
+    ? "Rang und Titel erlöschen (§ 9 BeamtG)."
+    : "Für die geleisteten Dienste wird gedankt. Rang und Titel dürfen mit dem Zusatz „a. D.“ geführt werden (§ 9 BeamtG).";
 
 const FJD_OFFICES = ["Staatsanwalt", "Oberstaatsanwalt", "Deputy Marshal", "Marshal", "Anwärter des Justizmarschalldienstes"];
 
@@ -92,7 +104,7 @@ const entlassungJm: Template = {
   formula: "Im Namen des Staates Kamora",
   issuer: "Der Sicherheitsrat",
   seal: "foederation",
-  legalBasis: "Art. 7, Art. 12 und Art. 13 der Verfassung des Staates Kamora",
+  legalBasis: "Art. 7, Art. 12 und Art. 13 der Verfassung des Staates Kamora und § 9 des Beamtengesetzes",
   role: "sicherheitsrat",
   signerTitles: ["Vorsitzender des Sicherheitsrats", "Mitglied des Sicherheitsrats"],
   fields: [
@@ -105,16 +117,21 @@ const entlassungJm: Template = {
       required: true,
       options: ["auf eigenen Wunsch", "durch Beschluss des Sicherheitsrats", "nach Amtsenthebung durch Senat und OGH"],
     },
+    { name: "art", label: "Art der Entlassung", type: "select", required: true, options: DISMISSAL_KINDS },
   ],
-  sample: { name: "Marlene Hartenstein", wirksam: "2026-12-31", grund: "auf eigenen Wunsch" },
+  sample: { name: "Marlene Hartenstein", wirksam: "2026-12-31", grund: "auf eigenen Wunsch", art: "ehrenhaft" },
+  check: (values) =>
+    values.art === "unehrenhaft" && values.grund !== "nach Amtsenthebung durch Senat und OGH"
+      ? "Unehrenhaft entlassen wird der Justizminister nur nach einer Amtsenthebung durch Senat und OGH (§ 9 BeamtG)."
+      : null,
   blocks: (fields) => [
     { kind: "text", text: "Auf Grundlage von Art. 7 und Art. 12 der Verfassung des Staates Kamora entlässt der Sicherheitsrat" },
     { kind: "name", text: or(fields.name, "Name des Entlassenen") },
-    { kind: "text", text: `${or(fields.grund, "…")} mit Ablauf des ${or(formatDate(fields.wirksam), "…")} aus dem Amt des` },
+    { kind: "text", text: `${dismissalKind(fields.art)} ${or(fields.grund, "…")} mit Ablauf des ${or(formatDate(fields.wirksam), "…")} aus dem Amt des` },
     { kind: "office", text: "Justizministers des Staates Kamora" },
     {
       kind: "text",
-      text: "Bis zur Ernennung eines Nachfolgers führt der Staatssekretär die Amtsgeschäfte (Art. 13 der Verfassung). Dem Entlassenen wird für seine Dienste gedankt.",
+      text: `Bis zur Ernennung eines Nachfolgers führt der Staatssekretär die Amtsgeschäfte (Art. 13 der Verfassung). ${dismissalNote(fields.art)}`,
     },
   ],
 };
@@ -156,7 +173,7 @@ const entlassungFjd: Template = {
   formula: "Im Namen des Staates Kamora",
   issuer: "Der Justizminister",
   seal: "fjd",
-  legalBasis: "§ 6 des Beamtengesetzes und § 9 des FJD-Statuts",
+  legalBasis: "§§ 6 und 9 des Beamtengesetzes und § 9 des FJD-Statuts",
   role: "justizminister",
   signerTitles: ["Justizminister des Staates Kamora", "Staatssekretär im Föderalen Justizdepartement"],
   fields: [
@@ -170,14 +187,19 @@ const entlassungFjd: Template = {
       required: true,
       options: ["auf eigenen Wunsch", "nach Beschluss der Disziplinarkammer", "wegen Inaktivität (Art. 13 KV)"],
     },
+    { name: "art", label: "Art der Entlassung", type: "select", required: true, options: DISMISSAL_KINDS },
   ],
-  sample: { name: "Jonas Brandt", amt: "Staatsanwalt", wirksam: "2026-12-31", grund: "auf eigenen Wunsch" },
+  sample: { name: "Jonas Brandt", amt: "Staatsanwalt", wirksam: "2026-12-31", grund: "auf eigenen Wunsch", art: "ehrenhaft" },
+  check: (values) =>
+    values.art === "unehrenhaft" && values.grund !== "nach Beschluss der Disziplinarkammer"
+      ? "Unehrenhaft entlassen wird nur nach einem Beschluss der Disziplinarkammer (§ 9 BeamtG)."
+      : null,
   blocks: (fields) => [
     { kind: "text", text: "Aus dem Föderalen Justizdepartement wird" },
     { kind: "name", text: or(fields.name, "Name des Entlassenen") },
-    { kind: "text", text: `${or(fields.grund, "…")} mit Ablauf des ${or(formatDate(fields.wirksam), "…")} aus dem Amt` },
+    { kind: "text", text: `${dismissalKind(fields.art)} ${or(fields.grund, "…")} mit Ablauf des ${or(formatDate(fields.wirksam), "…")} aus dem Amt` },
     { kind: "office", text: or(fields.amt, "Amt") },
-    { kind: "text", text: "entlassen. Dienstausweis und Ausrüstung sind zurückzugeben (§ 3 BeamtG). Für die geleisteten Dienste wird gedankt." },
+    { kind: "text", text: `entlassen. Dienstausweis und Ausrüstung sind zurückzugeben (§ 3 BeamtG). ${dismissalNote(fields.art)}` },
   ],
 };
 
@@ -209,5 +231,7 @@ export function validateFields(template: Template, input: Record<string, string>
     }
     values[field.name] = value;
   }
+  const problem = template.check?.(values);
+  if (problem) return { error: problem };
   return { values };
 }
