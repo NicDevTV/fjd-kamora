@@ -7,7 +7,7 @@ import { toast } from "@/lib/toast";
 import { issueDocument, type FormState } from "../../actions";
 
 const input =
-  "mt-2 block min-h-[3.25rem] w-full min-w-0 max-w-full rounded-2xl [&::-webkit-date-and-time-value]:text-left border border-ink/15 bg-white/85 px-4 py-3 text-[1.0625rem] outline-none transition-shadow placeholder:text-ink/35 focus:border-accent/50 focus:ring-2 focus:ring-accent/25";
+  "mt-2 block min-h-[3.25rem] w-full min-w-0 max-w-full rounded-2xl [&::-webkit-date-and-time-value]:text-left [&[type=date]]:h-[3.25rem] [&[type=date]]:appearance-none [&[type=date]]:overflow-hidden [&[type=date]]:leading-[1.5] border border-ink/15 bg-white/85 px-4 py-3 text-[1.0625rem] outline-none transition-shadow placeholder:text-ink/35 focus:border-accent/50 focus:ring-2 focus:ring-accent/25";
 
 // Form and live preview side by side: every keystroke redraws the certificate exactly as it
 // will be issued. Only the number is missing until the document is filed.
