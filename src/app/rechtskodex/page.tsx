@@ -55,37 +55,43 @@ function lawOf(text: string, fallback: string) {
   return LAW_CODE.exec(text)?.[1] ?? fallback;
 }
 
+const CODED_REF = /^(KV|KStGB|JO|PolG|WaffG|BeamtG|ImmG|FJDS|Art\.)\s?(\d+)/;
+const BARE_NUMBER = /^§§?\s?(\d+)/;
+const ARROW_BEFORE = /→\s*$/;
+
 function linkRefs(children: ReactNode, refs: Map<string, string>, law: { code: string }): ReactNode {
   if (typeof children === "string") {
-    // Plain text and link text both get abbreviation tooltips, so „JO“ in „JO 5“ explains itself too.
-    return children.split(BARE_REF).map((part, index) => {
-      const text = <Fragment key={index}>{withAbbreviations(part)}</Fragment>;
-      if (index % 2 === 0) return text;
-      const bare = /^§§?\s?(\d+)/.exec(part);
-      if (bare) {
-        const href = refs.get(`${law.code} ${bare[1]}`);
-        return href ? (
-          <a key={index} href={href} className="rk-ref">
-            {part}
-          </a>
-        ) : (
-          text
-        );
+    const parts = children.split(BARE_REF);
+    const hrefs = parts.map((part, index) => {
+      if (index % 2 === 0) return undefined;
+      const bare = BARE_NUMBER.exec(part);
+      if (bare) return refs.get(`${law.code} ${bare[1]}`);
+      const coded = CODED_REF.exec(part);
+      return coded ? refs.get(`${coded[1] === "Art." ? "KV" : coded[1]} ${coded[2]}`) : undefined;
+    });
+
+    // Every reference link reads the same: an arrow, then the cited norm. Written arrows move into the link.
+    return parts.map((part, index) => {
+      if (index % 2 === 0) {
+        const nextIsLink = Boolean(hrefs[index + 1]);
+        const text = nextIsLink ? part.replace(ARROW_BEFORE, "") : part;
+        return <Fragment key={index}>{withAbbreviations(text)}</Fragment>;
       }
-      const match = /^(KV|KStGB|JO|PolG|WaffG|BeamtG|ImmG|FJDS|Art\.)\s?(\d+)/.exec(part);
-      if (!match) return text;
-      const code = match[1] === "Art." ? "KV" : match[1];
-      const href = refs.get(`${code} ${match[2]}`);
-      return href ? (
+      const href = hrefs[index];
+      // Plain text and link text both get abbreviation tooltips, so „JO“ in „JO 5“ explains itself too.
+      if (!href) return <Fragment key={index}>{withAbbreviations(part)}</Fragment>;
+      return (
         <a key={index} href={href} className="rk-ref">
-          {withAbbreviations(part)}
+          {"→ "}
+          {BARE_NUMBER.test(part) ? part : withAbbreviations(part)}
         </a>
-      ) : (
-        text
       );
     });
   }
   if (Array.isArray(children)) return children.map((child) => linkRefs(child, refs, law));
+  if (isValidElement<{ children?: ReactNode }>(children) && typeof children.type === "string" && children.type !== "a") {
+    return cloneElement(children, undefined, linkRefs(children.props.children, refs, law));
+  }
   return children;
 }
 
