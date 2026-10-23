@@ -1,3 +1,4 @@
+import { fullName } from "@/lib/server/db/types";
 import Link from "next/link";
 import { getTemplate } from "@/lib/amtsblatt/templates";
 import { requireUser } from "@/lib/server/auth/dal";
@@ -45,7 +46,7 @@ export default async function AmtsblattPage() {
                   <td className="px-4 py-3.5">
                     {getTemplate(document.template)?.title ?? document.template}: {document.fields.name}
                   </td>
-                  <td className="px-4 py-3.5">{document.signerName}</td>
+                  <td className="px-4 py-3.5">{fullName(document.signerHonorific, document.signerName)}</td>
                   <td className="px-4 py-3.5 tabular-nums">{ISSUED.format(new Date(document.issuedAt))}</td>
                 </tr>
               ))}

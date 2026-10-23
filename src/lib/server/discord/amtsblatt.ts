@@ -2,7 +2,7 @@ import "server-only";
 import { renderCertificate } from "@/lib/amtsblatt/pdf";
 import { formatDate, type Template } from "@/lib/amtsblatt/templates";
 import { appUrl } from "@/lib/server/auth/config";
-import type { DocumentRecord } from "@/lib/server/db/types";
+import { fullName, type DocumentRecord } from "@/lib/server/db/types";
 import { attachedFile, container, linkButtons, plain, separator, text, type DiscordComponent } from "./components";
 import { sendWebhook, webhookUrl } from "./webhook";
 
@@ -39,7 +39,7 @@ export async function announceDocument(document: DocumentRecord, template: Templ
     ...body,
     separator(1),
     text(
-      `-# Kamora, den ${formatDate(document.issuedAt.slice(0, 10))} · ${plain(document.signerName)}, ${plain(document.signerTitle)}\n` +
+      `-# Kamora, den ${formatDate(document.issuedAt.slice(0, 10))} · ${plain(fullName(document.signerHonorific, document.signerName))}, ${plain(document.signerTitle)}\n` +
         `-# Rechtsgrundlage: ${plain(template.legalBasis)}`,
     ),
     attachedFile(fileName),

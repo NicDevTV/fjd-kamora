@@ -12,6 +12,7 @@ type UserRow = {
   discord_name: string;
   avatar_url: string | null;
   service_name: string | null;
+  honorific: string | null;
   created_at: Date;
 };
 
@@ -21,6 +22,7 @@ type DocumentRow = {
   template: string;
   fields: Record<string, string>;
   signer_name: string;
+  signer_honorific: string | null;
   signer_title: string;
   signature_seed: number;
   issued_by: string;
@@ -33,6 +35,7 @@ const toUser = (row: UserRow): User => ({
   discordName: row.discord_name,
   avatarUrl: row.avatar_url,
   serviceName: row.service_name,
+  honorific: row.honorific,
   createdAt: row.created_at.toISOString(),
 });
 
@@ -42,6 +45,7 @@ const toDocument = (row: DocumentRow): DocumentRecord => ({
   template: row.template,
   fields: row.fields,
   signerName: row.signer_name,
+  signerHonorific: row.signer_honorific,
   signerTitle: row.signer_title,
   signatureSeed: row.signature_seed,
   issuedBy: row.issued_by,
@@ -70,8 +74,8 @@ export function createPostgresStore(url: string): Store {
       return row ? toUser(row) : null;
     },
 
-    async setServiceName(userId, serviceName) {
-      await sql`update users set service_name = ${serviceName} where id = ${userId}`;
+    async setServiceName(userId, serviceName, honorific) {
+      await sql`update users set service_name = ${serviceName}, honorific = ${honorific} where id = ${userId}`;
     },
 
     async listRoles(userId) {
@@ -109,9 +113,9 @@ export function createPostgresStore(url: string): Store {
         const [{ next }] = await tx<{ next: number }[]>`
           select coalesce(max(sequence), 0) + 1 as next from documents where year = ${year}`;
         const [row] = await tx<DocumentRow[]>`
-          insert into documents (number, year, sequence, template, fields, signer_name, signer_title, signature_seed, issued_by)
+          insert into documents (number, year, sequence, template, fields, signer_name, signer_honorific, signer_title, signature_seed, issued_by)
           values (${`AB-${year}-${String(next).padStart(4, "0")}`}, ${year}, ${next}, ${input.template},
-                  ${tx.json(input.fields)}, ${input.signerName}, ${input.signerTitle}, ${input.signatureSeed}, ${input.issuedBy})
+                  ${tx.json(input.fields)}, ${input.signerName}, ${input.signerHonorific}, ${input.signerTitle}, ${input.signatureSeed}, ${input.issuedBy})
           returning *`;
         return toDocument(row);
       });

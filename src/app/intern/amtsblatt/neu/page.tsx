@@ -45,6 +45,7 @@ export default async function NeuPage({ searchParams }: PageProps<"/intern/amtsb
                         fields: item.sample,
                         number: "AB-0000-0000",
                         signerName: user.serviceName ?? "Konrad von Ellwangen",
+                        signerHonorific: user.honorific,
                         signerTitle: item.signerTitles[0],
                         signerKey: user.id,
                         seed: 1000 + index * 7919,
@@ -93,6 +94,7 @@ export default async function NeuPage({ searchParams }: PageProps<"/intern/amtsb
           key={template.id}
           templateId={template.id}
           signerName={user.serviceName}
+          signerHonorific={user.honorific}
           signerKey={user.id}
           today={today}
           previewSeed={randomInt(1, 2 ** 31 - 1)}

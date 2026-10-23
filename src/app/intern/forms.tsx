@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect } from "react";
 import { toast } from "@/lib/toast";
+import { HONORIFICS } from "@/lib/server/db/types";
 import { saveServiceName, type FormState } from "./actions";
 
 const input =
@@ -16,11 +17,23 @@ function useResultToast(state: FormState, success: string, failure: string) {
   }, [state, success, failure]);
 }
 
-export function ServiceNameForm({ current }: { current: string }) {
+export function ServiceNameForm({ current, honorific }: { current: string; honorific: string }) {
   const [state, action, pending] = useActionState(saveServiceName, {});
   useResultToast(state, "Dienstname gespeichert", "Nicht gespeichert");
   return (
     <form action={action} className="mt-6 max-w-md space-y-4">
+      <label className="block">
+        <span className="text-sm font-medium">Titel (optional)</span>
+        <select name="honorific" defaultValue={honorific} className={input}>
+          <option value="">Kein Titel</option>
+          {HONORIFICS.map((entry) => (
+            <option key={entry} value={entry}>
+              {entry}
+            </option>
+          ))}
+        </select>
+        <span className="mt-1.5 block text-xs text-muted">Erscheint gedruckt vor deinem Namen unter der Unterschrift, nicht in der Handschrift.</span>
+      </label>
       <label className="block">
         <span className="text-sm font-medium">Dienstname</span>
         <input name="serviceName" defaultValue={current} required minLength={3} maxLength={60} autoComplete="off" className={input} />

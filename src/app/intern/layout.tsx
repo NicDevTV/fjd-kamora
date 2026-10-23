@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FjdLogo } from "@/components/fjd-logo";
 import { GlassBackdrop } from "@/components/glass-backdrop";
 import { requireUser } from "@/lib/server/auth/dal";
-import { ROLE_LABEL } from "@/lib/server/db/types";
+import { fullName, ROLE_LABEL } from "@/lib/server/db/types";
 
 export const metadata: Metadata = {
   title: "Intern | Federal Justice Department (FJD)",
@@ -45,7 +45,7 @@ export default async function InternLayout({ children }: LayoutProps<"/intern">)
           </nav>
           <div className="flex items-center gap-3">
             <div className="hidden text-right text-xs leading-tight sm:block">
-              <p className="font-medium text-white">{user.serviceName ?? user.discordName}</p>
+              <p className="font-medium text-white">{user.serviceName ? fullName(user.honorific, user.serviceName) : user.discordName}</p>
               <p className="text-white/60">{user.roles.map((role) => ROLE_LABEL[role]).join(", ")}</p>
             </div>
             <form action="/auth/logout" method="post">

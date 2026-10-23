@@ -1,3 +1,4 @@
+import { fullName } from "@/lib/server/db/types";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CertificatePreview } from "@/components/certificate/certificate-preview";
@@ -31,6 +32,7 @@ export default async function DokumentPage({ params }: PageProps<"/intern/amtsbl
               fields: document.fields,
               number: document.number,
               signerName: document.signerName,
+              signerHonorific: document.signerHonorific,
               signerTitle: document.signerTitle,
               signerKey: document.issuedBy,
               seed: document.signatureSeed,
@@ -52,7 +54,7 @@ export default async function DokumentPage({ params }: PageProps<"/intern/amtsbl
           ))}
           <div>
             <dt className="text-xs text-muted">Unterzeichnet</dt>
-            <dd>{document.signerName}</dd>
+            <dd>{fullName(document.signerHonorific, document.signerName)}</dd>
             <dd className="text-sm text-muted">{document.signerTitle}</dd>
           </div>
           <div>

@@ -15,12 +15,14 @@ const input =
 export function IssueStudio({
   templateId,
   signerName,
+  signerHonorific,
   signerKey,
   today,
   previewSeed,
 }: {
   templateId: string;
   signerName: string;
+  signerHonorific: string | null;
   signerKey: string;
   today: string;
   previewSeed: number;
@@ -35,6 +37,9 @@ export function IssueStudio({
   }, [state]);
 
   const missing = template.fields.filter((field) => field.required && !values[field.name]?.trim()).length;
+  // Rules between fields (e.g. dishonourable only after a disciplinary decision) show up while filling in,
+  // so nobody finds out only after pressing the button.
+  const problem = template.check?.(values) ?? null;
 
   return (
     <div className={`grid items-start gap-8 lg:grid-cols-[minmax(0,25rem)_minmax(0,1fr)] ${certificateFonts}`}>
@@ -112,9 +117,14 @@ export function IssueStudio({
         </fieldset>
 
         <div className="border-t border-ink/10 pt-6">
+          {problem && (
+            <p role="alert" className="mb-4 rounded-2xl border border-accent/30 bg-accent/5 px-4 py-3 text-sm text-accent">
+              {problem}
+            </p>
+          )}
           <button
             type="submit"
-            disabled={pending}
+            disabled={pending || problem !== null}
             className="liquid-solid w-full rounded-full px-6 py-4 text-[0.9375rem] font-medium text-white disabled:opacity-60"
           >
             {pending ? "Wird ausgefertigt …" : missing > 0 ? `Urkunde ausfertigen (${missing} ${missing === 1 ? "Angabe fehlt" : "Angaben fehlen"})` : "Urkunde ausfertigen"}
@@ -133,6 +143,7 @@ export function IssueStudio({
               fields: values,
               number: null,
               signerName,
+              signerHonorific,
               signerKey,
               signerTitle,
               seed: previewSeed,

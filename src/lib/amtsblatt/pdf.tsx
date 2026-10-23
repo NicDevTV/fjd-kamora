@@ -18,7 +18,7 @@ import {
   View,
   renderToBuffer,
 } from "@react-pdf/renderer";
-import type { DocumentRecord } from "@/lib/server/db/types";
+import { fullName, type DocumentRecord } from "@/lib/server/db/types";
 import {
   COLORS,
   LETTER_PATH,
@@ -143,7 +143,7 @@ function Emblem({ kind }: { kind: SealKind }) {
           <Circle cx={48} cy={48} r={6} fill={PAPER} />
         </G>
       ) : (
-        <G transform="translate(6, -4) scale(0.9)">
+        <G transform="translate(7.7, 0.6) scale(0.84)">
           <Path d={SHIELD_PATH} fill="none" stroke={SEPIA} strokeWidth={4} />
           <Path d={LETTER_PATH} fill={SEPIA} />
         </G>
@@ -323,7 +323,7 @@ function Certificate({ document, template }: { document: DocumentRecord; templat
             <Text style={{ fontSize: 12.5, fontStyle: "italic" }}>Kamora, den {issued}</Text>
             <Signature name={document.signerName} seed={document.signatureSeed} signerKey={document.issuedBy} />
             <View style={{ width: 210, borderTopWidth: 0.7, borderTopColor: INK, marginTop: 2 }} />
-            <Text style={{ fontSize: 12, marginTop: 5 }}>{document.signerName}</Text>
+            <Text style={{ fontSize: 12, marginTop: 5 }}>{fullName(document.signerHonorific, document.signerName)}</Text>
             <Text style={{ fontSize: 10, fontStyle: "italic", color: SEPIA, marginTop: 1 }}>{document.signerTitle}</Text>
           </View>
         </View>

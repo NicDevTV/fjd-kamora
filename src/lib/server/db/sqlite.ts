@@ -14,6 +14,7 @@ const SCHEMA = `
     discord_name text not null,
     avatar_url text,
     service_name text,
+    honorific text,
     created_at text not null,
     last_login_at text not null
   );
@@ -39,6 +40,7 @@ const SCHEMA = `
     template text not null,
     fields text not null,
     signer_name text not null,
+    signer_honorific text,
     signer_title text not null,
     signature_seed integer not null,
     issued_by text not null references users(id),
@@ -56,6 +58,7 @@ function toUser(row: Row): User {
     discordName: String(row.discord_name),
     avatarUrl: row.avatar_url === null ? null : String(row.avatar_url),
     serviceName: row.service_name === null ? null : String(row.service_name),
+    honorific: row.honorific == null ? null : String(row.honorific),
     createdAt: String(row.created_at),
   };
 }
@@ -67,6 +70,7 @@ function toDocument(row: Row): DocumentRecord {
     template: String(row.template),
     fields: JSON.parse(String(row.fields)) as Record<string, string>,
     signerName: String(row.signer_name),
+    signerHonorific: row.signer_honorific == null ? null : String(row.signer_honorific),
     signerTitle: String(row.signer_title),
     signatureSeed: Number(row.signature_seed),
     issuedBy: String(row.issued_by),
@@ -74,11 +78,19 @@ function toDocument(row: Row): DocumentRecord {
   };
 }
 
+function addColumn(db: DatabaseSync, table: string, column: string, type: string) {
+  const columns = db.prepare(`pragma table_info(${table})`).all() as Row[];
+  if (!columns.some((entry) => entry.name === column)) db.exec(`alter table ${table} add column ${column} ${type}`);
+}
+
 function open(file: string) {
   mkdirSync(path.dirname(file), { recursive: true });
   const db = new DatabaseSync(file);
   db.exec("pragma journal_mode = wal; pragma foreign_keys = on;");
   db.exec(SCHEMA);
+  // Columns added after the first release: older local files get them on the next start.
+  addColumn(db, "users", "honorific", "text");
+  addColumn(db, "documents", "signer_honorific", "text");
   return db;
 }
 
@@ -105,8 +117,8 @@ export function createSqliteStore(file = path.join(process.cwd(), ".data", "fjd.
       return row ? toUser(row) : null;
     },
 
-    async setServiceName(userId, serviceName) {
-      db.prepare("update users set service_name = ? where id = ?").run(serviceName, userId);
+    async setServiceName(userId, serviceName, honorific) {
+      db.prepare("update users set service_name = ?, honorific = ? where id = ?").run(serviceName, honorific, userId);
     },
 
     async listRoles(userId) {
@@ -155,9 +167,9 @@ export function createSqliteStore(file = path.join(process.cwd(), ".data", "fjd.
         const sequence = Number(last.seq ?? 0) + 1;
         const number = `AB-${year}-${String(sequence).padStart(4, "0")}`;
         db.prepare(
-          `insert into documents (id, number, year, sequence, template, fields, signer_name, signer_title,
-             signature_seed, issued_by, issued_at)
-           values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          `insert into documents (id, number, year, sequence, template, fields, signer_name, signer_honorific,
+             signer_title, signature_seed, issued_by, issued_at)
+           values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         ).run(
           id,
           number,
@@ -166,6 +178,7 @@ export function createSqliteStore(file = path.join(process.cwd(), ".data", "fjd.
           input.template,
           JSON.stringify(input.fields),
           input.signerName,
+          input.signerHonorific,
           input.signerTitle,
           input.signatureSeed,
           input.issuedBy,

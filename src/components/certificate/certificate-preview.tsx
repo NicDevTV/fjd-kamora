@@ -10,6 +10,7 @@ import {
 import { COLORS, LETTER_PATH, SHIELD_PATH, star } from "@/lib/amtsblatt/geometry";
 import { formatDate, type SealKind, type Template } from "@/lib/amtsblatt/templates";
 import { SignatureMark } from "./signature-mark";
+import { fullName } from "@/lib/server/db/types";
 import { WaxSeal } from "./wax-seal";
 
 // The certificate in HTML, laid out like the PDF (pdf.tsx) on the same A4 grid in points.
@@ -41,7 +42,7 @@ function Emblem({ kind }: { kind: SealKind }) {
           <circle cx={48} cy={48} r={6} fill={COLORS.paper} />
         </g>
       ) : (
-        <g transform="translate(6 -4) scale(0.9)">
+        <g transform="translate(7.7 0.6) scale(0.84)">
           <path d={SHIELD_PATH} fill="none" stroke={COLORS.sepia} strokeWidth={4} />
           <path d={LETTER_PATH} fill={COLORS.sepia} />
         </g>
@@ -55,6 +56,8 @@ export type CertificateData = {
   fields: Record<string, string>;
   number: string | null;
   signerName: string;
+  // Printed before the name under the signature, never inside it.
+  signerHonorific?: string | null;
   signerTitle: string;
   // Id of the official whose personal hand signs (see signatureHand).
   signerKey: string;
@@ -64,7 +67,7 @@ export type CertificateData = {
 };
 
 export function CertificatePreview({ data, className = "" }: { data: CertificateData; className?: string }) {
-  const { template, fields, number, signerName, signerTitle, signerKey, seed, issuedAt } = data;
+  const { template, fields, number, signerName, signerHonorific, signerTitle, signerKey, seed, issuedAt } = data;
 
   return (
     <div
@@ -98,7 +101,7 @@ export function CertificatePreview({ data, className = "" }: { data: Certificate
               <p className="cert-date">Kamora, den {formatDate(issuedAt.slice(0, 10))}</p>
               <SignatureMark name={signerName || "Dein Dienstname"} seed={seed} signerKey={signerKey} />
               <span className="cert-line" />
-              <p className="cert-signer">{signerName || "Dein Dienstname"}</p>
+              <p className="cert-signer">{fullName(signerHonorific, signerName || "Dein Dienstname")}</p>
               <p className="cert-signer-title">{signerTitle}</p>
             </div>
           </div>

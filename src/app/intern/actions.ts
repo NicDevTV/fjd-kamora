@@ -8,6 +8,7 @@ import { getTemplate, validateFields } from "@/lib/amtsblatt/templates";
 import { requireUser } from "@/lib/server/auth/dal";
 import { announceDocument } from "@/lib/server/discord/amtsblatt";
 import { getStore } from "@/lib/server/db";
+import { HONORIFICS } from "@/lib/server/db/types";
 import { setFlash } from "@/lib/server/flash";
 
 // Server Actions of the internal area. Each one checks the session and role itself:
@@ -28,8 +29,12 @@ export async function saveServiceName(_state: FormState, formData: FormData): Pr
   if (name.length < 3) return { error: "Der Dienstname braucht mindestens 3 Zeichen.", at };
   if (name.length > 60) return { error: "Der Dienstname darf höchstens 60 Zeichen haben.", at };
   if (!/^[\p{L}][\p{L} .'-]*$/u.test(name)) return { error: "Nur Buchstaben, Leerzeichen, Punkt, Bindestrich und Apostroph.", at };
+  // Titles have their own field, so the handwritten signature never starts with "Dr.".
+  if (/^(dr|prof)\b\.?/i.test(name)) return { error: "Titel wie Dr. oder Prof. wählst du im Feld „Titel“; sie gehören nicht in den Namen.", at };
+  const honorific = String(formData.get("honorific") ?? "").trim();
+  if (honorific && !(HONORIFICS as readonly string[]).includes(honorific)) return { error: "Unbekannter Titel.", at };
 
-  await (await getStore()).setServiceName(user.id, name);
+  await (await getStore()).setServiceName(user.id, name, honorific || null);
   return { saved: true, at };
 }
 
@@ -55,6 +60,7 @@ export async function issueDocument(_state: FormState, formData: FormData): Prom
     fields: checked.values,
     // The signature always carries the signed-in official's own name; nobody signs for another.
     signerName: user.serviceName,
+    signerHonorific: user.honorific,
     signerTitle,
     // The seed only shapes seal and signature; a tampered value changes looks, nothing else.
     signatureSeed: seedFrom(formData.get("seed")),

@@ -19,7 +19,7 @@ export default async function ProfilPage() {
         <dt className="text-muted">Rolle</dt>
         <dd>{user.roles.map((role) => ROLE_LABEL[role]).join(", ")}</dd>
       </dl>
-      <ServiceNameForm current={user.serviceName ?? ""} />
+      <ServiceNameForm current={user.serviceName ?? ""} honorific={user.honorific ?? ""} />
 
       <div className={`mt-10 max-w-md border-t border-ink/10 pt-8 ${certificateFonts}`}>
         <h2 className="font-serif text-2xl font-medium">Deine Unterschrift</h2>
