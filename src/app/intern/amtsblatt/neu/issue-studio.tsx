@@ -108,12 +108,6 @@ export function IssueStudio({
           </div>
         </fieldset>
 
-        {state.error && (
-          <p role="alert" className="rounded-2xl border border-accent/30 bg-accent/5 px-4 py-3 text-sm text-accent">
-            {state.error}
-          </p>
-        )}
-
         <div className="border-t border-ink/10 pt-6">
           <button
             type="submit"

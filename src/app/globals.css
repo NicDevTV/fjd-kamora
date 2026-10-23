@@ -1564,7 +1564,7 @@ a[data-pending] .pending-mark {
   animation: pending-spin 0.7s linear infinite;
 }
 
-a[data-pending] {
+#mobile-menu a[data-pending] {
   background: rgb(255 255 255 / 0.12);
 }
 

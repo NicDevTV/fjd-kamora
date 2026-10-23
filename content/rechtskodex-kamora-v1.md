@@ -107,7 +107,7 @@ Der Gouverneur ruft ihn für bis zu 48 h aus, der Senat verlängert. Der JM darf
 
 ### Art. 12 Höhere Ordnung
 
-Kamora gehört der Föderation an. Ihre Charta steht über diesem Kodex; für sie handelt der Sicherheitsrat, die höhere Ordnung.
+Über Kamora steht die höhere Ordnung. Ihre Charta steht über diesem Kodex; für sie handelt der Sicherheitsrat, die höhere Ordnung.
 
 - **Ernennt und entlässt** den Justizminister (→ Art. 7).
 - **Gibt frei:** Hinrichtung (→ Art. 4), Haft über 180 HE und dauerhafte Enteignung.

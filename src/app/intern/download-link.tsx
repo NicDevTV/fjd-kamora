@@ -8,7 +8,7 @@ export function DownloadLink({ href, number }: { href: string; number: string })
     <a
       href={href}
       download
-      onClick={() => toast.info("Download gestartet", { description: `${number}.pdf wird gespeichert.` })}
+      onClick={() => toast.info("Download gestartet", { description: `${number}.pdf` })}
       className="liquid-solid rounded-full px-6 py-3 text-center text-sm font-medium text-white"
     >
       PDF herunterladen

@@ -28,7 +28,7 @@ export type Template = {
   label: string;
   description: string;
   title: string;
-  // Formula above the title ("Im Namen der Föderation") and the issuing body under it.
+  // Formula above the title ("Im Namen des Staates Kamora") and the issuing body under it.
   formula: string;
   issuer: string;
   seal: SealKind;
@@ -61,7 +61,7 @@ const ernennungJm: Template = {
   label: "Ernennung des Justizministers",
   description: "Der Sicherheitsrat ernennt den Justizminister (Art. 7 und 12 KV).",
   title: "Ernennungsurkunde",
-  formula: "Im Namen der Föderation",
+  formula: "Im Namen des Staates Kamora",
   issuer: "Der Sicherheitsrat",
   seal: "foederation",
   legalBasis: "Art. 7 und Art. 12 der Verfassung des Staates Kamora",
@@ -79,7 +79,7 @@ const ernennungJm: Template = {
     { kind: "office", text: "Justizminister des Staates Kamora" },
     {
       kind: "text",
-      text: "Der Ernannte leitet das Föderale Justizdepartement. Er ist parteilos, an Verfassung und Gesetze gebunden und der Charta der Föderation verpflichtet.",
+      text: "Der Ernannte leitet das Föderale Justizdepartement. Er ist parteilos, an Verfassung und Gesetze gebunden und der Charta der höheren Ordnung verpflichtet.",
     },
   ],
 };
@@ -89,7 +89,7 @@ const entlassungJm: Template = {
   label: "Entlassung des Justizministers",
   description: "Der Sicherheitsrat entlässt den Justizminister; der Staatssekretär führt weiter.",
   title: "Entlassungsurkunde",
-  formula: "Im Namen der Föderation",
+  formula: "Im Namen des Staates Kamora",
   issuer: "Der Sicherheitsrat",
   seal: "foederation",
   legalBasis: "Art. 7, Art. 12 und Art. 13 der Verfassung des Staates Kamora",
