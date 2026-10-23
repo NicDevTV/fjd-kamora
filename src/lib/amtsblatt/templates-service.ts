@@ -5,14 +5,13 @@ import { formatDate, or, type Template } from "./template-kit";
 // discipline, weapons and orders. Every template names its legal basis and feeds the same certificate
 // layout as the others (certificate-preview.tsx, pdf.tsx).
 
-const JM_SIGNERS = ["Justizminister des Staates Kamora", "Staatssekretär im Föderalen Justizdepartement"];
-const COMMON = {
+const COMMON: Pick<Template, "formula" | "issuer" | "seal" | "roles"> = {
   formula: "Im Namen des Staates Kamora",
   issuer: "Der Justizminister",
   seal: "fjd",
-  role: "justizminister",
-  signerTitles: JM_SIGNERS,
-} as const;
+  // The Staatssekretär acts for the Justizminister (KV 13).
+  roles: ["justizminister", "staatssekretaer"],
+};
 
 const NAME = (label: string) =>
   ({ name: "name", label, type: "text", required: true, maxLength: 60, placeholder: "Vor- und Nachname" }) as const;
@@ -28,6 +27,7 @@ function addDays(value: string | undefined, days: number) {
 const ernennungStaatssekretaer: Template = {
   ...COMMON,
   id: "ernennung-staatssekretaer",
+  roles: ["justizminister"],
   group: "Ernennung",
   label: "Ernennung des Staatssekretärs",
   description: "Der Justizminister ernennt seinen Vertreter mit Zustimmung des Gouverneurs (§ 1 FJDS).",
@@ -35,12 +35,12 @@ const ernennungStaatssekretaer: Template = {
   legalBasis: "§ 1 des FJD-Statuts und Art. 13 der Verfassung",
   fields: [
     NAME("Name des Ernannten"),
-    { name: "gouverneur", label: "Gouverneur, der zugestimmt hat", type: "text", required: true, maxLength: 60, placeholder: "Vor- und Nachname" },
     { name: "wirksam", label: "Wirksam ab", type: "date", required: true },
   ],
-  sample: { name: "Theodor Meisner", gouverneur: "Konrad von Ellwangen", wirksam: "2026-11-01" },
+  sample: { name: "Theodor Meisner", wirksam: "2026-11-01" },
+  countersigns: () => [{ roles: ["gouverneur"], label: "Zustimmung des Gouverneurs", decisions: ["zugestimmt", "verweigert"] }],
   blocks: (fields) => [
-    { kind: "text", text: `Mit Zustimmung des Gouverneurs ${or(fields.gouverneur, "…")} ernennt der Justizminister` },
+    { kind: "text", text: "Mit Zustimmung des Gouverneurs ernennt der Justizminister" },
     { kind: "name", text: or(fields.name, "Name des Ernannten") },
     { kind: "text", text: `mit Wirkung vom ${or(formatDate(fields.wirksam), "…")} zum` },
     { kind: "office", text: STAATSSEKRETAER },
@@ -54,6 +54,7 @@ const ernennungStaatssekretaer: Template = {
 const ernennungAmtsleiter: Template = {
   ...COMMON,
   id: "ernennung-amtsleiter",
+  roles: ["justizminister"],
   group: "Ernennung",
   label: "Ernennung einer Amtsleitung",
   description: "Chief Marshal und Leiter der Inneren Revision ernennt der Justizminister (§ 11 FJDS).",
@@ -62,25 +63,18 @@ const ernennungAmtsleiter: Template = {
   fields: [
     NAME("Name des Ernannten"),
     { name: "amt", label: "Amt", type: "select", required: true, options: HEADS_APPOINTED_BY_JM },
-    {
-      name: "zustimmung",
-      label: "Zustimmung",
-      type: "select",
-      required: true,
-      options: ["nicht erforderlich", "Zustimmung des Senats liegt vor"],
-    },
     { name: "wirksam", label: "Wirksam ab", type: "date", required: true },
   ],
-  sample: { name: "Jonas Brandt", amt: "Chief Marshal", zustimmung: "nicht erforderlich", wirksam: "2026-11-01" },
-  check: (values) =>
-    values.amt === "Leiter der Inneren Revision" && values.zustimmung !== "Zustimmung des Senats liegt vor"
-      ? "Die Leitung der Inneren Revision ernennt der Justizminister nur mit Zustimmung des Senats (§ 2 FJDS)."
-      : null,
+  sample: { name: "Jonas Brandt", amt: "Chief Marshal", wirksam: "2026-11-01" },
+  countersigns: (values) =>
+    values.amt === "Leiter der Inneren Revision"
+      ? [{ roles: ["senatspraesident"], label: "Zustimmung des Senats", decisions: ["zugestimmt", "verweigert"] }]
+      : [],
   blocks: (fields) => [
     {
       kind: "text",
       text:
-        fields.zustimmung === "Zustimmung des Senats liegt vor"
+        fields.amt === "Leiter der Inneren Revision"
           ? "Mit Zustimmung des Senats ernennt der Justizminister"
           : "Im Föderalen Justizdepartement ernennt der Justizminister",
     },
@@ -270,6 +264,7 @@ const waffenscheinEntzug: Template = {
 const handelslizenz: Template = {
   ...COMMON,
   id: "handelslizenz",
+  roles: ["justizminister"],
   group: "Waffen",
   label: "Handelslizenz für Waffen",
   description: "Herstellung und Handel brauchen die Lizenz des Justizministers mit Zustimmung des Gouverneurs (§ 7 WaffG).",
@@ -277,14 +272,14 @@ const handelslizenz: Template = {
   legalBasis: "§ 7 des Waffengesetzes",
   fields: [
     NAME("Name des Lizenznehmers"),
-    { name: "gouverneur", label: "Gouverneur, der zugestimmt hat", type: "text", required: true, maxLength: 60, placeholder: "Vor- und Nachname" },
     { name: "beginn", label: "Gültig ab", type: "date", required: true },
     { name: "ende", label: "Gültig bis", type: "date", required: true },
   ],
-  sample: { name: "Marlene Hartenstein", gouverneur: "Konrad von Ellwangen", beginn: "2026-11-01", ende: "2027-04-30" },
+  sample: { name: "Marlene Hartenstein", beginn: "2026-11-01", ende: "2027-04-30" },
+  countersigns: () => [{ roles: ["gouverneur"], label: "Zustimmung des Gouverneurs", decisions: ["zugestimmt", "verweigert"] }],
   check: (values) => (values.beginn && values.ende && values.ende <= values.beginn ? "Das Ende muss nach dem Beginn liegen." : null),
   blocks: (fields) => [
-    { kind: "text", text: `Mit Zustimmung des Gouverneurs ${or(fields.gouverneur, "…")} erteilt der Justizminister` },
+    { kind: "text", text: "Mit Zustimmung des Gouverneurs erteilt der Justizminister" },
     { kind: "name", text: or(fields.name, "Name des Lizenznehmers") },
     { kind: "text", text: "die befristete Lizenz zur Herstellung und zum Handel mit Waffen. Gültig vom" },
     { kind: "office", text: `${or(formatDate(fields.beginn), "…")} bis ${or(formatDate(fields.ende), "…")}` },
@@ -295,6 +290,7 @@ const handelslizenz: Template = {
 const ermaechtigung: Template = {
   ...COMMON,
   id: "ermaechtigung",
+  roles: ["justizminister"],
   group: "Beschlüsse",
   label: "Ermächtigung nach KStGB 9",
   description: "Hochverrat und Landesverrat werden nur mit Ermächtigung des Justizministers verfolgt.",
@@ -330,6 +326,14 @@ const haftbefehl: Template = {
     { name: "datum", label: "Erlassen am", type: "date", required: true },
   ],
   sample: { name: "Jonas Brandt", tat: "Mord (§ 10 KStGB)", datum: "2026-11-01" },
+  countersigns: () => [
+    {
+      roles: ["richter", "oberster_richter"],
+      label: "Richterliche Prüfung",
+      decisions: ["bestätigt", "aufgehoben"],
+      note: "binnen 24 Stunden (§ 9 JO)",
+    },
+  ],
   blocks: (fields) => [
     { kind: "text", text: `Am ${or(formatDate(fields.datum), "…")} ordnet der Justizminister die Festnahme von` },
     { kind: "name", text: or(fields.name, "Name des Beschuldigten") },
@@ -352,6 +356,14 @@ const durchsuchungsbeschluss: Template = {
     { name: "datum", label: "Erlassen am", type: "date", required: true },
   ],
   sample: { objekt: "Hafenstraße 12", verdacht: "Waffenhandel (§ 52 KStGB)", datum: "2026-11-01" },
+  countersigns: () => [
+    {
+      roles: ["richter", "oberster_richter"],
+      label: "Richterliche Prüfung",
+      decisions: ["bestätigt", "aufgehoben"],
+      note: "binnen 24 Stunden (§ 9 JO)",
+    },
+  ],
   blocks: (fields) => [
     { kind: "text", text: `Am ${or(formatDate(fields.datum), "…")} ordnet der Justizminister die Durchsuchung von` },
     { kind: "name", text: or(fields.objekt, "Wohnung oder Firma") },

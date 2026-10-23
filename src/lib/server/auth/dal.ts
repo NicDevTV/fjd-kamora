@@ -6,6 +6,7 @@ import { cache } from "react";
 import { getStore } from "@/lib/server/db";
 import type { Role, User } from "@/lib/server/db/types";
 import { SESSION_COOKIE } from "./config";
+import { syncIfStale } from "@/lib/server/roles-sync";
 import { hashToken } from "./session";
 
 // Data access layer: the only place that turns the session cookie into a user. Pages, Server
@@ -26,6 +27,8 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
 
   const user = await store.getUser(session.userId);
   if (!user) return null;
+  // Roles come from the Discord guild too: re-read them every few minutes so a removed role does not outlive the session.
+  if (await syncIfStale(store, user)) return { ...user, roles: await store.listRoles(user.id) };
   return { ...user, roles: await store.listRoles(user.id) };
 });
 

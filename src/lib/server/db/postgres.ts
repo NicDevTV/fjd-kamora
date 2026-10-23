@@ -1,6 +1,6 @@
 import "server-only";
 import postgres from "postgres";
-import { ROLES, type DocumentRecord, type Role, type Store, type User } from "./types";
+import { ROLES, type DocumentRecord, type Role, type RoleMapEntry, type StampRecord, type Store, type User } from "./types";
 
 // Staging and production database: Supabase Postgres, reached through the transaction pooler.
 // The login role sees only its own schema (fjd_prod or fjd_staging, set as its search_path),
@@ -28,6 +28,32 @@ type DocumentRow = {
   issued_by: string;
   issued_at: Date;
 };
+
+type StampRow = {
+  id: string;
+  document_id: string;
+  role: string;
+  stamped_by: string;
+  decision: string;
+  signer_name: string;
+  signer_honorific: string | null;
+  signer_title: string;
+  signature_seed: number;
+  stamped_at: Date;
+};
+
+const toStamp = (row: StampRow): StampRecord => ({
+  id: row.id,
+  documentId: row.document_id,
+  role: row.role as Role,
+  stampedBy: row.stamped_by,
+  decision: row.decision,
+  signerName: row.signer_name,
+  signerHonorific: row.signer_honorific,
+  signerTitle: row.signer_title,
+  signatureSeed: row.signature_seed,
+  stampedAt: row.stamped_at.toISOString(),
+});
 
 const toUser = (row: UserRow): User => ({
   id: row.id,
@@ -87,6 +113,49 @@ export function createPostgresStore(url: string): Store {
       await sql`insert into roles (user_id, role, granted_by) values (${userId}, ${role}, ${grantedBy}) on conflict do nothing`;
     },
 
+    async revokeRole(userId, role) {
+      await sql`delete from roles where user_id = ${userId} and role = ${role}`;
+    },
+
+    async listUsers() {
+      const users = await sql<UserRow[]>`select * from users order by created_at`;
+      const roles = await sql<{ user_id: string; role: string }[]>`select user_id, role from roles`;
+      return users.map((row) => ({
+        ...toUser(row),
+        roles: roles
+          .filter((entry) => entry.user_id === row.id)
+          .map((entry) => entry.role)
+          .filter((role): role is Role => (ROLES as readonly string[]).includes(role)),
+      }));
+    },
+
+    async listRoleMap() {
+      const rows = await sql<{ discord_role_id: string; discord_role_name: string; role: string }[]>`
+        select * from discord_role_map order by discord_role_name`;
+      return rows
+        .filter((row) => (ROLES as readonly string[]).includes(row.role))
+        .map((row) => ({ discordRoleId: row.discord_role_id, discordRoleName: row.discord_role_name, role: row.role as Role }));
+    },
+
+    async replaceRoleMap(entries: RoleMapEntry[]) {
+      await sql.begin(async (tx) => {
+        await tx`delete from discord_role_map`;
+        for (const entry of entries) {
+          await tx`insert into discord_role_map (discord_role_id, discord_role_name, role) values (${entry.discordRoleId}, ${entry.discordRoleName}, ${entry.role})`;
+        }
+      });
+    },
+
+    async setRoles(userId, roles) {
+      await sql.begin(async (tx) => {
+        if (roles.length === 0) await tx`delete from roles where user_id = ${userId}`;
+        else await tx`delete from roles where user_id = ${userId} and role not in ${tx(roles)}`;
+        for (const role of roles) {
+          await tx`insert into roles (user_id, role, granted_by) values (${userId}, ${role}, null) on conflict do nothing`;
+        }
+      });
+    },
+
     async createSession(tokenHash, userId, expiresAt) {
       await sql`insert into sessions (token_hash, user_id, expires_at) values (${tokenHash}, ${userId}, ${expiresAt})`;
     },
@@ -119,6 +188,22 @@ export function createPostgresStore(url: string): Store {
           returning *`;
         return toDocument(row);
       });
+    },
+
+    async addStamp(input) {
+      const [row] = await sql<StampRow[]>`
+        insert into document_stamps (document_id, role, stamped_by, decision, signer_name, signer_honorific, signer_title, signature_seed)
+        values (${input.documentId}, ${input.role}, ${input.stampedBy}, ${input.decision}, ${input.signerName},
+                ${input.signerHonorific}, ${input.signerTitle}, ${input.signatureSeed})
+        returning *`;
+      return toStamp(row);
+    },
+
+    async listStamps(documentIds) {
+      const ids = documentIds.filter((id) => /^[0-9a-f-]{36}$/i.test(id));
+      if (ids.length === 0) return [];
+      const rows = await sql<StampRow[]>`select * from document_stamps where document_id in ${sql(ids)} order by stamped_at`;
+      return rows.map(toStamp);
     },
 
     async listDocuments(limit) {

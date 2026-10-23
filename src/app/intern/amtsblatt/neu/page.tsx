@@ -1,7 +1,8 @@
 import { randomInt } from "node:crypto";
 import Link from "next/link";
 import { CertificatePreview } from "@/components/certificate/certificate-preview";
-import { getTemplate, templatesFor } from "@/lib/amtsblatt/templates";
+import { getTemplate, templatesFor, titlesFor } from "@/lib/amtsblatt/templates";
+import { ROLE_TITLES } from "@/lib/server/db/types";
 import { requireUser } from "@/lib/server/auth/dal";
 import { IssueStudio } from "./issue-studio";
 
@@ -15,7 +16,12 @@ const GROUPS = [
   { name: "Beschlüsse", hint: "Haft, Durchsuchung und Ermächtigung durch den Justizminister." },
 ] as const;
 
-const ISSUER_LABEL = { foederation: "Sicherheitsrat", fjd: "Justizdepartement" } as const;
+const ISSUER_LABEL = {
+  sicherheitsrat: "Sicherheitsrat",
+  fjd: "Justizdepartement",
+  kamora: "Regierung",
+  gericht: "Gericht",
+} as const;
 
 export default async function NeuPage({ searchParams }: PageProps<"/intern/amtsblatt/neu">) {
   const user = await requireUser();
@@ -65,7 +71,7 @@ export default async function NeuPage({ searchParams }: PageProps<"/intern/amtsb
                         number: "AB-0000-0000",
                         signerName: user.serviceName ?? "Konrad von Ellwangen",
                         signerHonorific: user.honorific,
-                        signerTitle: item.signerTitles[0],
+                        signerTitle: ROLE_TITLES[item.roles[0]][0],
                         signerKey: user.id,
                         seed: 1000 + index * 7919,
                         issuedAt: today,
@@ -120,6 +126,7 @@ export default async function NeuPage({ searchParams }: PageProps<"/intern/amtsb
           signerName={user.serviceName}
           signerHonorific={user.honorific}
           signerKey={user.id}
+          titles={titlesFor(template, user.roles)}
           today={today}
           previewSeed={randomInt(1, 2 ** 31 - 1)}
         />

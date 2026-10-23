@@ -5,7 +5,18 @@
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 
-const ROLES = ["justizminister", "sicherheitsrat"];
+const ROLES = [
+  "sicherheitsrat",
+  "gouverneur",
+  "senatspraesident",
+  "justizminister",
+  "staatssekretaer",
+  "generalstaatsanwalt",
+  "richter",
+  "oberster_richter",
+  "chief_of_police",
+  "revisionsleiter",
+];
 const [discordId, role = "justizminister"] = process.argv.slice(2);
 
 if (!/^\d{5,25}$/.test(discordId ?? "") || !ROLES.includes(role)) {

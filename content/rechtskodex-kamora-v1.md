@@ -662,6 +662,15 @@ Der JM ernennt und befördert alle Ränge des FJD. Jede Maßnahme steht als Urku
 - **Ohne JM:** Der Staatssekretär darf ernennen und befördern, aber nie eine Amtsleitung (→ KV 13).
 - **Entlassung und Disziplin:** nach BeamtG 6 und 9. Den Leiter der Inneren Revision entlässt der JM nur mit Zustimmung des Senats (→ § 2).
 
+### § 12 Amtsblatt und Gegenzeichnung
+
+Das FJD führt das Amtsblatt und bindet alle Behörden an. Jede Urkunde trägt die Funktion ihres Ausstellers.
+
+- **Gegenzeichnung:** Wo das Gesetz die Zustimmung, Bestätigung oder Prüfung eines anderen Amtes verlangt, setzt dieses Amt seinen Stempel und seine Unterschrift unter die Urkunde. Eine Urkunde ist erst mit allen vorgeschriebenen Gegenzeichnungen gültig.
+- **Nie selbst:** Niemand zeichnet die eigene Urkunde gegen.
+- **Verweigert:** Das Amt kann die Zustimmung verweigern, bestätigen oder aufheben. Eine verweigerte oder aufgehobene Urkunde ist nichtig und bleibt im Amtsblatt sichtbar.
+- **Eigene Behörden:** KPD und andere Behörden ernennen und befördern ihre Leute selbst. Das FJD stellt dafür keine Urkunden aus.
+
 ## Teil 07 · Waffengesetz (WaffG)
 
 ### § 1 Grundsatz

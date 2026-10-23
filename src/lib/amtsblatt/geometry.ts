@@ -17,7 +17,9 @@ export const COLORS = {
 };
 
 export const SEAL_TEXT: Record<SealKind, string> = {
-  foederation: "SICHERHEITSRAT · FÖDERATION · ",
+  sicherheitsrat: "SICHERHEITSRAT · KAMORA · ",
+  kamora: "STAAT KAMORA · REGIERUNG · ",
+  gericht: "GERICHT · KAMORA · ",
   fjd: "JUSTIZDEPARTEMENT · KAMORA · ",
 };
 
@@ -66,6 +68,24 @@ function ribbon(c: number, angle: number, length: number, width: number) {
   const p = (s: number, t: number) =>
     `${(c + along[0] * s + across[0] * t).toFixed(2)} ${(c + along[1] * s + across[1] * t).toFixed(2)}`;
   return `M ${p(0, -width / 2)} L ${p(length, -width / 2)} L ${p(length - width * 0.55, 0)} L ${p(length, width / 2)} L ${p(0, width / 2)} Z`;
+}
+
+// A round ink stamp of an office: ring text on the edge, the decision in the middle.
+export const STAMP_SIZE = 64;
+export const STAMP_INK = { yes: "#2b3f73", no: "#9a1e2e" };
+
+// Font size of the decision in the middle: long words shrink so they stay inside the inner ring.
+export const stampDecisionSize = (decision: string) => Math.min(6.4, 29 / (Math.max(decision.length, 1) * 0.62));
+
+export function stampShape(ring: string, seed: number) {
+  const random = seededRandom(seed ^ 0x57a3);
+  return {
+    c: STAMP_SIZE / 2,
+    // Nobody presses a stamp perfectly straight.
+    rotation: -11 + random() * 22,
+    tilt: -9 + random() * 6,
+    letters: Array.from(`${ring} · KAMORA · `),
+  };
 }
 
 export const SEAL_SIZE = 168;

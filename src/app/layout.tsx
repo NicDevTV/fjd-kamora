@@ -23,6 +23,8 @@ export const metadata: Metadata = {
   title: "Federal Justice Department (FJD) | Kamora",
   description:
     "Fiktives Federal Justice Department des Rollenspielstaats Kamora. Keine Verbindung zu einer realen Behörde.",
+  // Also in the page head, for crawlers that ignore robots.txt.
+  robots: { index: false, follow: false },
 };
 
 // Runs before the first paint: the intro plays once per tab session, later full loads skip it.

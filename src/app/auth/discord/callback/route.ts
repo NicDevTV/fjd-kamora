@@ -9,6 +9,7 @@ import { fetchDiscordUser, sameState } from "@/lib/server/auth/discord";
 import { startSession } from "@/lib/server/auth/session";
 import { setFlash } from "@/lib/server/flash";
 import { getStore } from "@/lib/server/db";
+import { syncUserRoles } from "@/lib/server/roles-sync";
 
 function fail(reason: string) {
   const response = NextResponse.redirect(`${appUrl()}/login?fehler=${reason}`);
@@ -43,6 +44,8 @@ export async function GET(request: NextRequest) {
 
   const store = await getStore();
   const user = await store.upsertDiscordUser(profile);
+  // Roles follow the Discord roles of the guild (mapping kept by the Sicherheitsrat); no-op without the bot.
+  await syncUserRoles(store, user);
   // Roles are granted in the database by the Sicherheitsrat. Without one there is no session at
   // all: the account exists (so it can be granted later), but cannot enter.
   if ((await store.listRoles(user.id)).length === 0) return fail("keine-rolle");

@@ -17,6 +17,7 @@ export function IssueStudio({
   signerName,
   signerHonorific,
   signerKey,
+  titles,
   today,
   previewSeed,
 }: {
@@ -24,12 +25,14 @@ export function IssueStudio({
   signerName: string;
   signerHonorific: string | null;
   signerKey: string;
+  // Lines the user may print under the signature on this template.
+  titles: string[];
   today: string;
   previewSeed: number;
 }) {
   const template = getTemplate(templateId)!;
   const [values, setValues] = useState<Record<string, string>>({});
-  const [signerTitle, setSignerTitle] = useState(template.signerTitles[0]);
+  const [signerTitle, setSignerTitle] = useState(titles[0]);
   const [state, action, pending] = useActionState<FormState, FormData>(issueDocument, {});
 
   useEffect(() => {
@@ -105,7 +108,7 @@ export function IssueStudio({
           </div>
           <p className="mt-4 text-sm font-medium">Funktion unter der Unterschrift</p>
           <div className="mt-2 flex flex-wrap gap-2">
-            {template.signerTitles.map((title) => (
+            {titles.map((title) => (
               <label
                 key={title}
                 className={`cursor-pointer rounded-full border px-4 py-2.5 text-sm transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent/40 ${
@@ -151,6 +154,7 @@ export function IssueStudio({
               signerHonorific,
               signerKey,
               signerTitle,
+              pending: (template.countersigns?.(values) ?? []).map((request) => ({ label: request.label })),
               seed: previewSeed,
               issuedAt: today,
             }}

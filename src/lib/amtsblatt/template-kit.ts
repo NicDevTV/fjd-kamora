@@ -22,9 +22,21 @@ export type Block =
   | { kind: "name"; text: string }
   | { kind: "office"; text: string };
 
+// Another office stamps the document after it was issued: consent, review or objection. Any holder of
+// one of the roles may do it, except the issuer. The first decision is the approving one; the second,
+// if any, rejects and makes the document void.
+export type Countersign = {
+  roles: Role[];
+  label: string;
+  decisions: [string] | [string, string];
+  // Shown beside the open request, e.g. a deadline from the law.
+  note?: string;
+};
+
 export type TemplateGroup = "Ernennung" | "Dienstrecht" | "Waffen" | "Beschlüsse";
 
-export type SealKind = "foederation" | "fjd";
+// Whose seal the wax shows: the Sicherheitsrat, the FJD, the government or the courts.
+export type SealKind = "sicherheitsrat" | "fjd" | "kamora" | "gericht";
 
 export type Template = {
   id: string;
@@ -39,15 +51,15 @@ export type Template = {
   seal: SealKind;
   legalBasis: string;
   // Only holders of this role may issue the document.
-  role: Role;
-  // Fixed choices for the line under the signature, so nobody can sign with an invented office.
-  signerTitles: string[];
+  roles: Role[];
   fields: TemplateField[];
   // Values for the thumbnail and an empty form's preview.
   sample: Record<string, string>;
   blocks: (fields: Record<string, string>) => Block[];
   // Rules between fields that single-field validation cannot express; returns an error message.
   check?: (values: Record<string, string>) => string | null;
+  // Countersignatures the document needs, by its values. None means it is valid once issued.
+  countersigns?: (values: Record<string, string>) => Countersign[];
   // The one reason (option of "grund") that allows a dishonourable dismissal; chosen automatically.
   dishonourableReason?: string;
 };
@@ -61,5 +73,18 @@ export function formatDate(value: string) {
 }
 
 // Placeholder text in the preview while a field is still empty.
+// The person or object a document is about, for lists and messages.
+export const subjectOf = (fields: Record<string, string>) => fields.name || fields.objekt || "";
+
 export const or = (value: string | undefined, fallback: string) => (value && value.trim() ? value : fallback);
+
+export const DISMISSAL_KINDS = ["ehrenhaft", "unehrenhaft"];
+
+// "ehrenhaft" / "unehrenhaft" in the sentence of the certificate; the preview shows a placeholder until chosen.
+export const dismissalKind = (value: string | undefined) => (value === "unehrenhaft" ? "unehrenhaft" : value === "ehrenhaft" ? "ehrenhaft" : "…");
+
+export const dismissalNote = (value: string | undefined) =>
+  value === "unehrenhaft"
+    ? "Rang und Titel erlöschen (§ 9 BeamtG)."
+    : "Für die geleisteten Dienste wird gedankt. Rang und Titel dürfen mit dem Zusatz „a. D.“ geführt werden (§ 9 BeamtG).";
 

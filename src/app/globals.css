@@ -1316,6 +1316,7 @@ textarea:focus-visible {
 
 .cert-page {
   --u: calc(100cqw / 595.28);
+  --page-u: calc(100cqw / 595.28);
   position: absolute;
   inset: 0;
   color: #2b2116;
@@ -1595,4 +1596,83 @@ a[data-pending] .pending-mark {
   a[data-pending] .pending-mark {
     animation: none;
   }
+}
+
+/* Countersignatures: stamps of other offices in a row above the legal line. */
+.cert-stamps {
+  position: absolute;
+  right: calc(var(--u) * 70);
+  bottom: calc(var(--u) * 76);
+  left: calc(var(--u) * 70);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: calc(var(--u) * 14);
+}
+
+.cert-stamp {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 5);
+  width: calc(var(--u) * 205);
+}
+
+.cert-stamp-mark {
+  flex: none;
+  width: calc(var(--u) * 62);
+  height: calc(var(--u) * 62);
+}
+
+.cert-stamp-text {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.cert-stamp-sign {
+  --u: calc(var(--page-u) * 0.5);
+  width: calc(var(--page-u) * 120);
+  margin: 0 auto;
+}
+
+.cert-stamp-line {
+  display: block;
+  width: calc(var(--u) * 118);
+  margin: calc(var(--u) * 1) auto 0;
+  border-top: calc(var(--u) * 0.6) solid #2b2116;
+}
+
+.cert-stamp-name {
+  margin: calc(var(--u) * 3) 0 0 !important;
+  font-size: calc(var(--u) * 9);
+}
+
+.cert-stamp-title {
+  margin: calc(var(--u) * 1) 0 0 !important;
+  color: #6b5032;
+  font-size: calc(var(--u) * 7.5);
+  font-style: italic;
+}
+
+.cert-stamp-pending {
+  justify-content: center;
+  height: calc(var(--u) * 54);
+  border: calc(var(--u) * 0.8) dashed rgb(107 80 50 / 0.6);
+  border-radius: calc(var(--u) * 4);
+  color: #6b5032;
+  text-align: center;
+}
+
+.cert-stamp-pending p {
+  margin: 0;
+  font-size: calc(var(--u) * 8);
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.cert-stamp-pending b {
+  display: block;
+  font-style: normal;
+  font-weight: 500;
+  font-size: calc(var(--u) * 9);
 }

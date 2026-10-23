@@ -1,5 +1,7 @@
 import { fullName } from "@/lib/server/db/types";
 import Link from "next/link";
+import { countersignItems, STATUS_LABEL, stampStatus } from "@/lib/amtsblatt/countersign";
+import { subjectOf } from "@/lib/amtsblatt/template-kit";
 import { getTemplate } from "@/lib/amtsblatt/templates";
 import { requireUser } from "@/lib/server/auth/dal";
 import { getStore } from "@/lib/server/db";
@@ -11,7 +13,16 @@ export const instant = false;
 
 export default async function AmtsblattPage() {
   await requireUser();
-  const documents = await (await getStore()).listDocuments(200);
+  const store = await getStore();
+  const documents = await store.listDocuments(200);
+  const stamps = await store.listStamps(documents.map((document) => document.id));
+  // Open countersignatures show next to each document, so a pending one is never overlooked.
+  const statusOf = (document: (typeof documents)[number]) => {
+    const template = getTemplate(document.template);
+    if (!template) return "";
+    const items = countersignItems(template, document.fields, stamps.filter((stamp) => stamp.documentId === document.id));
+    return items.length === 0 ? "" : STATUS_LABEL[stampStatus(items)];
+  };
 
   return (
     <section className="glass-panel p-8 sm:p-10">
@@ -32,6 +43,7 @@ export default async function AmtsblattPage() {
                 <th className="px-4 py-3.5 text-xs font-medium">Nummer</th>
                 <th className="px-4 py-3.5 text-xs font-medium">Urkunde</th>
                 <th className="px-4 py-3.5 text-xs font-medium">Unterzeichnet</th>
+                <th className="px-4 py-3.5 text-xs font-medium">Stand</th>
                 <th className="px-4 py-3.5 text-xs font-medium">Ausgefertigt</th>
               </tr>
             </thead>
@@ -44,9 +56,10 @@ export default async function AmtsblattPage() {
                     </Link>
                   </td>
                   <td className="px-4 py-3.5">
-                    {getTemplate(document.template)?.title ?? document.template}: {document.fields.name}
+                    {getTemplate(document.template)?.title ?? document.template}: {subjectOf(document.fields)}
                   </td>
                   <td className="px-4 py-3.5">{fullName(document.signerHonorific, document.signerName)}</td>
+                  <td className="px-4 py-3.5 text-xs">{statusOf(document)}</td>
                   <td className="px-4 py-3.5 tabular-nums">{ISSUED.format(new Date(document.issuedAt))}</td>
                 </tr>
               ))}

@@ -18,7 +18,8 @@ import {
   View,
   renderToBuffer,
 } from "@react-pdf/renderer";
-import { fullName, type DocumentRecord } from "@/lib/server/db/types";
+import { fullName, ROLE_STAMP, type DocumentRecord } from "@/lib/server/db/types";
+import type { PendingView, StampView } from "./countersign";
 import {
   COLORS,
   LETTER_PATH,
@@ -30,6 +31,10 @@ import {
   SIGNATURE_BOX,
   signatureHand,
   signatureStyle,
+  STAMP_INK,
+  STAMP_SIZE,
+  stampDecisionSize,
+  stampShape,
   star,
 } from "./geometry";
 import { seededRandom } from "./random";
@@ -135,7 +140,7 @@ function Frame() {
 function Emblem({ kind }: { kind: SealKind }) {
   return (
     <Svg width={46} height={46} viewBox="0 0 96 96">
-      {kind === "foederation" ? (
+      {kind !== "fjd" ? (
         <G>
           <Circle cx={48} cy={48} r={44} fill="none" stroke={SEPIA} strokeWidth={2} />
           <Circle cx={48} cy={48} r={38} fill="none" stroke={SEPIA} strokeWidth={0.8} />
@@ -174,7 +179,7 @@ function Seal({ kind, seed }: { kind: SealKind; seed: number }) {
   );
 
   const emblem = (fill: string, dx = 0, dy = 0) =>
-    kind === "foederation" ? (
+    kind !== "fjd" ? (
       <G transform={`translate(${dx}, ${dy})`}>
         <Path d={shape.starPath} fill={fill} />
         <Circle cx={c} cy={c} r={4.6} fill="none" stroke={fill} strokeWidth={1.4} />
@@ -235,23 +240,24 @@ function Seal({ kind, seed }: { kind: SealKind; seed: number }) {
   );
 }
 
-function Signature({ name, seed, signerKey }: { name: string; seed: number; signerKey: string }) {
+function Signature({ name, seed, signerKey, scale = 1 }: { name: string; seed: number; signerKey: string; scale?: number }) {
   const style = signatureStyle(name, seed, signatureHand(signerKey));
+  const k = scale;
   return (
-    <View style={{ width: SIGNATURE_BOX.width, height: SIGNATURE_BOX.height, justifyContent: "flex-end", alignItems: "center" }}>
+    <View style={{ width: SIGNATURE_BOX.width * k, height: SIGNATURE_BOX.height * k, justifyContent: "flex-end", alignItems: "center" }}>
       <Text
         style={{
           fontFamily: style.family,
           lineHeight: 1,
           // Wider than the box so the name never wraps; it stays centred and overflows evenly.
-          width: 700,
+          width: 700 * k,
           textAlign: "center",
-          fontSize: style.size,
+          fontSize: style.size * k,
           color: style.ink,
-          letterSpacing: style.letterSpacing,
+          letterSpacing: style.letterSpacing * k,
           position: "relative",
-          left: style.shift,
-          marginBottom: style.drop + style.size * 0.2,
+          left: style.shift * k,
+          marginBottom: (style.drop + style.size * 0.2) * k,
           transform: `rotate(${style.rotate.toFixed(1)}deg) skewX(${style.skew.toFixed(1)}deg) scaleX(${style.stretch.toFixed(3)})`,
         }}
       >
@@ -260,11 +266,82 @@ function Signature({ name, seed, signerKey }: { name: string; seed: number; sign
       {style.flourish && (
         <Svg
           viewBox={`0 0 ${SIGNATURE_BOX.width} ${SIGNATURE_BOX.height}`}
-          style={{ position: "absolute", top: 0, left: 0, width: SIGNATURE_BOX.width, height: SIGNATURE_BOX.height }}
+          style={{ position: "absolute", top: 0, left: 0, width: SIGNATURE_BOX.width * k, height: SIGNATURE_BOX.height * k }}
         >
           <Path d={style.flourish} fill="none" stroke={style.ink} strokeWidth={style.weight} strokeLinecap="round" strokeLinejoin="round" />
         </Svg>
       )}
+    </View>
+  );
+}
+
+// A round ink stamp of an office, drawn like the one in the preview (stamp-mark.tsx).
+function StampDrawing({ stamp }: { stamp: StampView }) {
+  const shape = stampShape(ROLE_STAMP[stamp.role], stamp.seed);
+  const { c } = shape;
+  const ink = stamp.rejected ? STAMP_INK.no : STAMP_INK.yes;
+  return (
+    <Svg width={62} height={62} viewBox={`0 0 ${STAMP_SIZE} ${STAMP_SIZE}`}>
+      <G transform={`rotate(${shape.rotation.toFixed(1)}, ${c}, ${c})`} opacity={0.88}>
+        <Circle cx={c} cy={c} r={30.2} fill="none" stroke={ink} strokeWidth={1.1} />
+        <Circle cx={c} cy={c} r={19.5} fill="none" stroke={ink} strokeWidth={0.6} />
+        {shape.letters.map((letter, index) => (
+          <G key={index} transform={`rotate(${((360 / shape.letters.length) * index).toFixed(2)}, ${c}, ${c})`}>
+            <Text x={c} y={c - 22.6} fill={ink} textAnchor="middle" style={{ fontFamily: "FellSC", fontSize: 4.9 }}>
+              {letter}
+            </Text>
+          </G>
+        ))}
+        <G transform={`rotate(${shape.tilt.toFixed(1)}, ${c}, ${c})`}>
+          <Text x={c} y={c + 1.2} fill={ink} textAnchor="middle" style={{ fontFamily: "FellSC", fontSize: stampDecisionSize(stamp.decision) }}>
+            {stamp.decision.toUpperCase()}
+          </Text>
+        </G>
+        <Text x={c} y={c + 8.6} fill={ink} textAnchor="middle" style={{ fontFamily: "FellSC", fontSize: 4.2 }}>
+          {formatDate(stamp.stampedAt.slice(0, 10))}
+        </Text>
+      </G>
+    </Svg>
+  );
+}
+
+// Countersignatures in a row above the legal line; open requests as a dashed box.
+function Stamps({ stamps, pending }: { stamps: StampView[]; pending: PendingView[] }) {
+  if (stamps.length === 0 && pending.length === 0) return null;
+  return (
+    <View
+      style={{ position: "absolute", left: 70, right: 70, bottom: 76, flexDirection: "row", justifyContent: "center", alignItems: "flex-end" }}
+    >
+      {stamps.map((stamp, index) => (
+        <View key={`${stamp.role}-${stamp.stampedAt}`} style={{ width: 205, flexDirection: "row", alignItems: "center", marginLeft: index === 0 ? 0 : 14 }}>
+          <StampDrawing stamp={stamp} />
+          <View style={{ flex: 1, alignItems: "center", marginLeft: 5 }}>
+            <Signature name={stamp.signerName} seed={stamp.seed} signerKey={stamp.signerKey} scale={0.5} />
+            <View style={{ width: 118, borderTopWidth: 0.6, borderTopColor: INK, marginTop: 1 }} />
+            <Text style={{ fontSize: 9, marginTop: 3 }}>{fullName(stamp.signerHonorific, stamp.signerName)}</Text>
+            <Text style={{ fontSize: 7.5, fontStyle: "italic", color: SEPIA, marginTop: 1 }}>{stamp.signerTitle}</Text>
+          </View>
+        </View>
+      ))}
+      {pending.map((item, index) => (
+        <View
+          key={item.label}
+          style={{
+            width: 205,
+            height: 54,
+            marginLeft: stamps.length + index === 0 ? 0 : 14,
+            borderWidth: 0.8,
+            borderStyle: "dashed",
+            borderColor: SEPIA,
+            borderRadius: 4,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 8, fontStyle: "italic", color: SEPIA }}>Gegenzeichnung ausstehend</Text>
+          <Text style={{ fontSize: 9, color: SEPIA, marginTop: 2 }}>{item.label}</Text>
+        </View>
+      ))}
     </View>
   );
 }
@@ -285,7 +362,17 @@ const styles = {
   office: { fontFamily: "FellSC", fontSize: 17, letterSpacing: 1.5, textAlign: "center" as const, marginTop: 14 },
 };
 
-function Certificate({ document, template }: { document: DocumentRecord; template: Template }) {
+function Certificate({
+  document,
+  template,
+  stamps,
+  pending,
+}: {
+  document: DocumentRecord;
+  template: Template;
+  stamps: StampView[];
+  pending: PendingView[];
+}) {
   const issued = formatDate(document.issuedAt.slice(0, 10));
   return (
     <Page size="A4" style={styles.page}>
@@ -329,6 +416,8 @@ function Certificate({ document, template }: { document: DocumentRecord; templat
         </View>
       </View>
 
+      <Stamps stamps={stamps} pending={pending} />
+
       <Text style={{ position: "absolute", left: 80, right: 80, bottom: 54, fontSize: 7.5, textAlign: "center", color: SEPIA }}>
         Rechtsgrundlage: {template.legalBasis}. Veröffentlicht im Amtsblatt des Staates Kamora.
       </Text>
@@ -336,11 +425,16 @@ function Certificate({ document, template }: { document: DocumentRecord; templat
   );
 }
 
-export async function renderCertificate(document: DocumentRecord, template: Template) {
+export async function renderCertificate(
+  document: DocumentRecord,
+  template: Template,
+  stamps: StampView[] = [],
+  pending: PendingView[] = [],
+) {
   registerFonts();
   return renderToBuffer(
     <Document title={`${template.title} ${document.number}`} author="Föderales Justizdepartement" creator="FJD Amtsblatt">
-      <Certificate document={document} template={template} />
+      <Certificate document={document} template={template} stamps={stamps} pending={pending} />
     </Document>,
   );
 }

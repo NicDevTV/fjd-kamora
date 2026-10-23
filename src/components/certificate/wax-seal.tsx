@@ -32,7 +32,7 @@ export function WaxSeal({ kind, seed, className }: { kind: SealKind; seed: numbe
   );
 
   const emblem = (fill: string, dx = 0, dy = 0) =>
-    kind === "foederation" ? (
+    kind !== "fjd" ? (
       <g transform={`translate(${dx} ${dy})`}>
         <path d={shape.starPath} fill={fill} />
         <circle cx={c} cy={c} r={4.6} fill="none" stroke={fill} strokeWidth={1.4} />

@@ -10,7 +10,9 @@ import {
 import { COLORS, LETTER_PATH, SHIELD_PATH, star } from "@/lib/amtsblatt/geometry";
 import { formatDate, type SealKind, type Template } from "@/lib/amtsblatt/templates";
 import { SignatureMark } from "./signature-mark";
+import type { PendingView, StampView } from "@/lib/amtsblatt/countersign";
 import { fullName } from "@/lib/server/db/types";
+import { CertificateStamps } from "./stamp-mark";
 import { WaxSeal } from "./wax-seal";
 
 // The certificate in HTML, laid out like the PDF (pdf.tsx) on the same A4 grid in points.
@@ -34,7 +36,7 @@ const u = (value: number) => `calc(var(--u) * ${value})`;
 function Emblem({ kind }: { kind: SealKind }) {
   return (
     <svg viewBox="0 0 96 96" aria-hidden="true" style={{ width: u(46), height: u(46) }}>
-      {kind === "foederation" ? (
+      {kind !== "fjd" ? (
         <g>
           <circle cx={48} cy={48} r={44} fill="none" stroke={COLORS.sepia} strokeWidth={2} />
           <circle cx={48} cy={48} r={38} fill="none" stroke={COLORS.sepia} strokeWidth={0.8} />
@@ -64,10 +66,13 @@ export type CertificateData = {
   seed: number;
   // ISO date of issue; the preview of an unissued document shows today.
   issuedAt: string;
+  // Countersignatures already stamped, and the ones still open.
+  stamps?: StampView[];
+  pending?: PendingView[];
 };
 
 export function CertificatePreview({ data, className = "" }: { data: CertificateData; className?: string }) {
-  const { template, fields, number, signerName, signerHonorific, signerTitle, signerKey, seed, issuedAt } = data;
+  const { template, fields, number, signerName, signerHonorific, signerTitle, signerKey, seed, issuedAt, stamps = [], pending = [] } = data;
 
   return (
     <div
@@ -106,6 +111,8 @@ export function CertificatePreview({ data, className = "" }: { data: Certificate
             </div>
           </div>
         </div>
+
+        <CertificateStamps stamps={stamps} pending={pending} />
 
         <p className="cert-legal">
           Rechtsgrundlage: {template.legalBasis}. Veröffentlicht im Amtsblatt des Staates Kamora.

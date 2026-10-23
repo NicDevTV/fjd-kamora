@@ -2,14 +2,61 @@
 // staging and production on Supabase Postgres (postgres.ts), behind the same interface.
 // Every method is async so both backends fit behind it unchanged.
 
-// "sicherheitsrat" is the higher order (KV Art. 12), the server leadership in character:
-// it appoints and dismisses the Justizminister and grants roles.
-export const ROLES = ["justizminister", "sicherheitsrat"] as const;
+// Every office that signs or countersigns has its own role. "sicherheitsrat" is the server leadership
+// in character (KV Art. 12): it appoints and dismisses the Justizminister and grants roles.
+export const ROLES = [
+  "sicherheitsrat",
+  "gouverneur",
+  "senatspraesident",
+  "justizminister",
+  "staatssekretaer",
+  "generalstaatsanwalt",
+  "richter",
+  "oberster_richter",
+  "chief_of_police",
+  "revisionsleiter",
+] as const;
 export type Role = (typeof ROLES)[number];
 
 export const ROLE_LABEL: Record<Role, string> = {
-  justizminister: "Justizminister",
   sicherheitsrat: "Sicherheitsrat",
+  gouverneur: "Gouverneur",
+  senatspraesident: "Senatspräsident",
+  justizminister: "Justizminister",
+  staatssekretaer: "Staatssekretär",
+  generalstaatsanwalt: "Generalstaatsanwalt",
+  richter: "Richter",
+  oberster_richter: "Oberster Richter",
+  chief_of_police: "Chief of Police",
+  revisionsleiter: "Leiter der Inneren Revision",
+};
+
+// The line under a signature, by office. A user may only choose among the titles of the roles they hold.
+export const ROLE_TITLES: Record<Role, string[]> = {
+  sicherheitsrat: ["Vorsitzender des Sicherheitsrats", "Mitglied des Sicherheitsrats"],
+  gouverneur: ["Gouverneur von Kamora"],
+  senatspraesident: ["Präsident des Senats"],
+  justizminister: ["Justizminister des Staates Kamora"],
+  staatssekretaer: ["Staatssekretär im Föderalen Justizdepartement"],
+  generalstaatsanwalt: ["Generalstaatsanwalt von Kamora"],
+  richter: ["Richter am Bezirksgericht"],
+  oberster_richter: ["Oberster Richter von Kamora"],
+  chief_of_police: ["Chief of Police"],
+  revisionsleiter: ["Leiter der Inneren Revision"],
+};
+
+// Text on the ring of a stamp.
+export const ROLE_STAMP: Record<Role, string> = {
+  sicherheitsrat: "SICHERHEITSRAT",
+  gouverneur: "GOUVERNEUR",
+  senatspraesident: "SENAT",
+  justizminister: "JUSTIZMINISTER",
+  staatssekretaer: "STAATSSEKRETÄR",
+  generalstaatsanwalt: "STAATSANWALTSCHAFT",
+  richter: "BEZIRKSGERICHT",
+  oberster_richter: "OBERSTER GERICHTSHOF",
+  chief_of_police: "POLIZEI",
+  revisionsleiter: "INNERE REVISION",
 };
 
 // Titles an official may set in the profile. The title is printed before the name under the
@@ -50,6 +97,28 @@ export type DocumentRecord = {
   issuedAt: string;
 };
 
+// A countersignature: another office stamps a document after it was issued (consent, review, objection).
+export type StampRecord = {
+  id: string;
+  documentId: string;
+  role: Role;
+  stampedBy: string;
+  // What the stamp says, e.g. "zugestimmt", "bestätigt" or "aufgehoben".
+  decision: string;
+  signerName: string;
+  signerHonorific: string | null;
+  signerTitle: string;
+  signatureSeed: number;
+  stampedAt: string;
+};
+
+export type NewStamp = Omit<StampRecord, "id" | "stampedAt">;
+
+export type UserWithRoles = User & { roles: Role[] };
+
+// Which Discord role of the guild stands for which role of the dashboard.
+export type RoleMapEntry = { discordRoleId: string; discordRoleName: string; role: Role };
+
 export type NewDocument = Omit<DocumentRecord, "id" | "number" | "issuedAt">;
 
 export interface Store {
@@ -59,6 +128,13 @@ export interface Store {
 
   listRoles(userId: string): Promise<Role[]>;
   grantRole(userId: string, role: Role, grantedBy: string | null): Promise<void>;
+  revokeRole(userId: string, role: Role): Promise<void>;
+  listUsers(): Promise<UserWithRoles[]>;
+
+  listRoleMap(): Promise<RoleMapEntry[]>;
+  replaceRoleMap(entries: RoleMapEntry[]): Promise<void>;
+  // Makes the roles of a user exactly this set. Roles only ever come from the Discord role mapping.
+  setRoles(userId: string, roles: Role[]): Promise<void>;
 
   createSession(tokenHash: string, userId: string, expiresAt: Date): Promise<void>;
   getSession(tokenHash: string): Promise<Session | null>;
@@ -69,4 +145,8 @@ export interface Store {
   createDocument(input: NewDocument): Promise<DocumentRecord>;
   listDocuments(limit: number): Promise<DocumentRecord[]>;
   getDocument(id: string): Promise<DocumentRecord | null>;
+
+  // One stamp per office and document; stamping twice throws.
+  addStamp(input: NewStamp): Promise<StampRecord>;
+  listStamps(documentIds: string[]): Promise<StampRecord[]>;
 }

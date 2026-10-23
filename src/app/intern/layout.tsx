@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FjdLogo } from "@/components/fjd-logo";
 import { GlassBackdrop } from "@/components/glass-backdrop";
 import { requireUser } from "@/lib/server/auth/dal";
-import { fullName, ROLE_LABEL } from "@/lib/server/db/types";
+import { fullName, ROLE_LABEL, type Role } from "@/lib/server/db/types";
 
 export const metadata: Metadata = {
   title: "Intern | Federal Justice Department (FJD)",
@@ -12,6 +12,10 @@ export const metadata: Metadata = {
 
 // Every page here depends on the signed-in user, so the segment renders per request.
 export const instant = false;
+
+// A person with many offices (the local test account) would overflow the header line.
+const roleLine = (roles: Role[]) =>
+  roles.length > 3 ? `${roles.slice(0, 2).map((role) => ROLE_LABEL[role]).join(", ")} +${roles.length - 2}` : roles.map((role) => ROLE_LABEL[role]).join(", ");
 
 const NAV = [
   { href: "/intern", label: "Übersicht" },
@@ -22,6 +26,8 @@ const NAV = [
 
 export default async function InternLayout({ children }: LayoutProps<"/intern">) {
   const user = await requireUser();
+  // Only the Sicherheitsrat administers roles.
+  const nav = user.roles.includes("sicherheitsrat") ? [...NAV.slice(0, 3), { href: "/intern/rollen", label: "Rollen" }, ...NAV.slice(3)] : NAV;
 
   return (
     <div className="relative isolate min-h-screen overflow-clip bg-paper">
@@ -34,7 +40,7 @@ export default async function InternLayout({ children }: LayoutProps<"/intern">)
           </Link>
           <nav aria-label="Intern" className="order-3 w-full sm:order-none sm:w-auto">
             <ul className="flex gap-1 text-sm">
-              {NAV.map((item) => (
+              {nav.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="block rounded-full px-4 py-2.5 text-white/80 transition-colors hover:bg-white/10 hover:text-white">
                     {item.label}
@@ -46,7 +52,7 @@ export default async function InternLayout({ children }: LayoutProps<"/intern">)
           <div className="flex items-center gap-3">
             <div className="hidden text-right text-xs leading-tight sm:block">
               <p className="font-medium text-white">{user.serviceName ? fullName(user.honorific, user.serviceName) : user.discordName}</p>
-              <p className="text-white/60">{user.roles.map((role) => ROLE_LABEL[role]).join(", ")}</p>
+              <p className="text-white/60">{roleLine(user.roles)}</p>
             </div>
             <form action="/auth/logout" method="post">
               <button type="submit" className="rounded-full bg-white/10 px-4 py-2.5 text-sm transition-colors hover:bg-white/15">

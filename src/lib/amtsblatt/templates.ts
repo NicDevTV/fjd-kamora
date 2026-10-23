@@ -1,20 +1,11 @@
-import type { Role } from "@/lib/server/db/types";
+import { ROLE_TITLES, type Role } from "@/lib/server/db/types";
 import { fjdOffices } from "./ranks";
-import { formatDate, or, type Template } from "./template-kit";
+import { DISMISSAL_KINDS, dismissalKind, dismissalNote, formatDate, or, type Template } from "./template-kit";
+import { officeTemplates } from "./templates-offices";
 import { serviceTemplates } from "./templates-service";
 
 export { formatDate } from "./template-kit";
 export type { Block, FieldType, SealKind, Template, TemplateField, TemplateGroup } from "./template-kit";
-
-const DISMISSAL_KINDS = ["ehrenhaft", "unehrenhaft"];
-
-// "ehrenhaft" / "unehrenhaft" in the sentence of the certificate; the preview shows a placeholder until chosen.
-const dismissalKind = (value: string | undefined) => (value === "unehrenhaft" ? "unehrenhaft" : value === "ehrenhaft" ? "ehrenhaft" : "…");
-
-const dismissalNote = (value: string | undefined) =>
-  value === "unehrenhaft"
-    ? "Rang und Titel erlöschen (§ 9 BeamtG)."
-    : "Für die geleisteten Dienste wird gedankt. Rang und Titel dürfen mit dem Zusatz „a. D.“ geführt werden (§ 9 BeamtG).";
 
 const ernennungJm: Template = {
   id: "ernennung-jm",
@@ -24,10 +15,9 @@ const ernennungJm: Template = {
   title: "Ernennungsurkunde",
   formula: "Im Namen des Staates Kamora",
   issuer: "Der Sicherheitsrat",
-  seal: "foederation",
+  seal: "sicherheitsrat",
   legalBasis: "Art. 7 und Art. 12 der Verfassung des Staates Kamora",
-  role: "sicherheitsrat",
-  signerTitles: ["Vorsitzender des Sicherheitsrats", "Mitglied des Sicherheitsrats"],
+  roles: ["sicherheitsrat"],
   fields: [
     { name: "name", label: "Name des Ernannten", type: "text", required: true, maxLength: 60, placeholder: "Vor- und Nachname" },
     { name: "wirksam", label: "Wirksam ab", type: "date", required: true },
@@ -53,10 +43,9 @@ const entlassungJm: Template = {
   title: "Entlassungsurkunde",
   formula: "Im Namen des Staates Kamora",
   issuer: "Der Sicherheitsrat",
-  seal: "foederation",
+  seal: "sicherheitsrat",
   legalBasis: "Art. 7, Art. 12 und Art. 13 der Verfassung des Staates Kamora und § 9 des Beamtengesetzes",
-  role: "sicherheitsrat",
-  signerTitles: ["Vorsitzender des Sicherheitsrats", "Mitglied des Sicherheitsrats"],
+  roles: ["sicherheitsrat"],
   fields: [
     { name: "name", label: "Name des Entlassenen", type: "text", required: true, maxLength: 60, placeholder: "Vor- und Nachname" },
     { name: "wirksam", label: "Entlassen mit Ablauf des", type: "date", required: true },
@@ -97,8 +86,7 @@ const ernennungFjd: Template = {
   issuer: "Der Justizminister",
   seal: "fjd",
   legalBasis: "§ 2 des Beamtengesetzes und § 3 des FJD-Statuts",
-  role: "justizminister",
-  signerTitles: ["Justizminister des Staates Kamora", "Staatssekretär im Föderalen Justizdepartement"],
+  roles: ["justizminister", "staatssekretaer"],
   fields: [
     { name: "name", label: "Name des Ernannten", type: "text", required: true, maxLength: 60, placeholder: "Vor- und Nachname" },
     { name: "amt", label: "Amt", type: "select", required: true, options: fjdOffices },
@@ -127,8 +115,7 @@ const entlassungFjd: Template = {
   issuer: "Der Justizminister",
   seal: "fjd",
   legalBasis: "§§ 6 und 9 des Beamtengesetzes und § 9 des FJD-Statuts",
-  role: "justizminister",
-  signerTitles: ["Justizminister des Staates Kamora", "Staatssekretär im Föderalen Justizdepartement"],
+  roles: ["justizminister", "staatssekretaer"],
   fields: [
     { name: "name", label: "Name des Entlassenen", type: "text", required: true, maxLength: 60, placeholder: "Vor- und Nachname" },
     { name: "amt", label: "Bisheriges Amt", type: "select", required: true, options: [...fjdOffices, "Chief Marshal"] },
@@ -157,14 +144,24 @@ const entlassungFjd: Template = {
   ],
 };
 
-export const TEMPLATES: Template[] = [ernennungJm, ernennungFjd, ...serviceTemplates.filter((t) => t.group === "Ernennung"), entlassungJm, entlassungFjd, ...serviceTemplates.filter((t) => t.group !== "Ernennung")];
+const ALL = [ernennungJm, ernennungFjd, entlassungJm, entlassungFjd, ...serviceTemplates, ...officeTemplates];
+const GROUP_ORDER = ["Ernennung", "Dienstrecht", "Waffen", "Beschlüsse"];
+
+// Sorted by group for the gallery; inside a group the order above stays.
+export const TEMPLATES: Template[] = GROUP_ORDER.flatMap((group) => ALL.filter((template) => template.group === group));
 
 export function getTemplate(id: string) {
   return TEMPLATES.find((template) => template.id === id) ?? null;
 }
 
 export function templatesFor(roles: Role[]) {
-  return TEMPLATES.filter((template) => roles.includes(template.role));
+  return TEMPLATES.filter((template) => template.roles.some((role) => roles.includes(role)));
+}
+
+// The lines a user may print under their signature on this template: the titles of the roles they hold
+// that are allowed to issue it.
+export function titlesFor(template: Template, userRoles: Role[]) {
+  return template.roles.filter((role) => userRoles.includes(role)).flatMap((role) => ROLE_TITLES[role]);
 }
 
 // Checks the submitted values against the template: required, length, allowed options,
