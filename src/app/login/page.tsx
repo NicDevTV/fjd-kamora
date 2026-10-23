@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { FjdLogo } from "@/components/fjd-logo";
 import { GlassBackdrop } from "@/components/glass-backdrop";
 import { ToastOnLoad } from "@/components/toast-on-load";
@@ -32,7 +33,10 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
     <main id="inhalt" className="relative isolate flex min-h-screen items-center justify-center overflow-clip bg-paper px-4 py-16">
       <GlassBackdrop />
       <div className="glass-panel w-full max-w-md p-8 sm:p-10">
-        <FjdLogo className="h-14 w-auto text-navy" />
+        <Link href="/" className="-ml-3 -mt-3 mb-5 inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm text-ink/70 transition-colors hover:bg-white/70 hover:text-ink">
+          <span aria-hidden="true">←</span> Zur Hauptseite
+        </Link>
+        <FjdLogo className="block h-14 w-auto text-navy" />
         <h1 className="mt-8 font-serif text-4xl font-medium leading-tight">Interner Bereich</h1>
         <p className="mt-3 text-[1.0625rem] leading-relaxed text-ink/75">
           Für Amtsträger des Föderalen Justizdepartements. Du meldest dich mit deinem Discord-Konto an.

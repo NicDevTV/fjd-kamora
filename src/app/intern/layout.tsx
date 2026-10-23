@@ -17,6 +17,7 @@ const NAV = [
   { href: "/intern", label: "Übersicht" },
   { href: "/intern/amtsblatt", label: "Amtsblatt" },
   { href: "/intern/profil", label: "Profil" },
+  { href: "/", label: "Hauptseite" },
 ];
 
 export default async function InternLayout({ children }: LayoutProps<"/intern">) {
