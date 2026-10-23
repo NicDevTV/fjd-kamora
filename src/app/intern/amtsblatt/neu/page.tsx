@@ -8,6 +8,13 @@ import { IssueStudio } from "./issue-studio";
 // Depends on the signed-in user: rendered per request (see intern/layout.tsx).
 export const instant = false;
 
+const GROUPS = [
+  { name: "Ernennung", hint: "Wer ein Amt übernimmt: Amtsleitung, Ränge und der Justizminister selbst." },
+  { name: "Dienstrecht", hint: "Eid, Beförderung, Disziplin und Entlassung im Departement." },
+  { name: "Waffen", hint: "Waffenschein, Entzug und Handelslizenz nach dem Waffengesetz." },
+  { name: "Beschlüsse", hint: "Haft, Durchsuchung und Ermächtigung durch den Justizminister." },
+] as const;
+
 const ISSUER_LABEL = { foederation: "Sicherheitsrat", fjd: "Justizdepartement" } as const;
 
 export default async function NeuPage({ searchParams }: PageProps<"/intern/amtsblatt/neu">) {
@@ -31,9 +38,21 @@ export default async function NeuPage({ searchParams }: PageProps<"/intern/amtsb
         {available.length === 0 ? (
           <p className="glass-panel p-8 text-ink/75">Für deine Rolle gibt es noch keine Vorlagen.</p>
         ) : (
-          <ul className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            {available.map((item, index) => (
-              <li key={item.id}>
+          <div className="space-y-12">
+            {GROUPS.map((group) => {
+              const items = available.filter((item) => item.group === group.name);
+              if (items.length === 0) return null;
+              return (
+                <section key={group.name} aria-labelledby={`gruppe-${group.name}`}>
+                  <h2 id={`gruppe-${group.name}`} className="font-serif text-2xl font-medium">
+                    {group.name}
+                  </h2>
+                  <p className="mt-1 text-sm text-ink/65">{group.hint}</p>
+                  <ul className="mt-5 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                    {items.map((item) => {
+                      const index = available.indexOf(item);
+                      return (
+              <li key={item.id} className="[content-visibility:auto] [contain-intrinsic-size:auto_34rem]">
                 <Link
                   href={`/intern/amtsblatt/neu?vorlage=${item.id}`}
                   className="tpl-card glass-panel group flex h-full flex-col p-4"
@@ -62,8 +81,13 @@ export default async function NeuPage({ searchParams }: PageProps<"/intern/amtsb
                   </div>
                 </Link>
               </li>
-            ))}
-          </ul>
+                      );
+                    })}
+                  </ul>
+                </section>
+              );
+            })}
+          </div>
         )}
       </div>
     );

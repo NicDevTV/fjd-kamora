@@ -40,6 +40,7 @@ Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 | Stichentscheid in der Disziplinarkammer | Nie in eigener Sache oder bei FJD-Fällen | BeamtG 6 |
 | Vorschläge für Richter, GStA, Gnade | Der Gouverneur entscheidet; Richter und GStA bestätigt der Senat; schlägt der JM binnen 7 Tagen keinen Richter vor, schlägt der Oberste Richter vor | KV 5 · JO 13 |
 | Waffenerlaubnisse erteilen | Ablehnung mit Begründung; der OGH prüft Beschwerden; die Freigabeliste setzt der Gouverneur | WaffG 3–4 |
+| Ernennungen im FJD | Staatssekretär nur mit dem Gouverneur, Leiter der Inneren Revision nur mit dem Senat; den GStA ernennt der Gouverneur | FJDS 11 |
 | Immunität | Gilt bis zur Aufhebung; Eilaufhebung binnen 30 Min. möglich | ImmG 2–4 |
 | Notstands-Sofortmaßnahmen bis 48 h | Erlöschen ohne Zustimmung des Gouverneurs binnen 2 h; Verlängerung nur durch den Senat; OGH prüft danach jede Anordnung | KV 11 |
 | Das Amt selbst | Ernennung und Entlassung nur durch den Sicherheitsrat; Amtsenthebung durch Senat und OGH | KV 6 · KV 12 |
@@ -594,7 +595,15 @@ Das FJD ist die oberste Justizbehörde, geleitet vom JM (→ KV 7). Den Staatsse
 
 ### § 3 Ränge
 
-JM · Staatssekretär · GStA bzw. Amtsleiter · Oberstaatsanwalt bzw. Deputy · Staatsanwalt bzw. Marshal · Deputy Marshal · Anwärter. Mehrere Ämter in einer Hand sind erlaubt, außer bei AIR und Richteramt.
+Über allen stehen der JM und, als sein Vertreter, der Staatssekretär. Darunter gliedert sich das FJD in drei Ämter. Die Innere Revision gehört zum FJD, berichtet aber direkt an den Senat (→ § 2).
+
+| Amt | Leitung | Stellvertretung | Dienst | Nachwuchs |
+| --- | --- | --- | --- | --- |
+| Staatsanwaltschaft | Generalstaatsanwalt | Oberstaatsanwalt | Staatsanwalt | Anwärter der Staatsanwaltschaft |
+| Justizmarschalldienst | Chief Marshal | Deputy Chief Marshal | Marshal, Deputy Marshal | Anwärter des Justizmarschalldienstes |
+| Innere Revision | Leiter der Inneren Revision | Stellvertretender Leiter | Revisor | Anwärter der Inneren Revision |
+
+Mehrere Ämter in einer Hand sind erlaubt, außer bei AIR und Richteramt.
 
 ### § 4 Weisungen an das KPD
 
@@ -641,6 +650,17 @@ Er schützt, er ermittelt nicht. Er hat keine Polizeibefugnisse (→ PolG 1), nu
 - **Verboten:** Ermittlungen, Vernehmungen, Verkehrskontrollen, Tickets, Strafbefehle, Durchsuchung von Wohnungen und Fahrzeugen, Vollstreckung von Haftbefehlen (→ PolG 7).
 - **Amtshilfe:** Fehlt dem KPD Personal, kann der Ranghöchste im KPD-Dienst ab Lieutenant Marshals für einen bestimmten Einsatz anfordern. Sie haben dafür die Befugnisse des PolG unter KPD-Führung. Anforderung und Ende kommen ins MDT. Das FJD kann sich nicht selbst einsetzen; eine Weisung nach § 4 ersetzt die Anforderung nicht.
 - **Kontrolle:** Bodycam beim Festhalten, Bericht im MDT vor Schichtende (→ PolG 11). Beschwerden gehen an die AIR (→ PolG 12); Überschreiten der Befugnisse ist Amtsmissbrauch (→ KStGB 47).
+
+### § 11 Ernennung und Beförderung
+
+Der JM ernennt und befördert alle Ränge des FJD. Jede Maßnahme steht als Urkunde im Amtsblatt (→ BeamtG 2).
+
+- **Ernennung:** wirksam erst mit dem Diensteid, nach 14 Tagen Probezeit (→ BeamtG 2).
+- **Nur mit Zustimmung:** der Staatssekretär mit dem Gouverneur (→ § 1), der Leiter der Inneren Revision mit dem Senat (→ § 2). Den Generalstaatsanwalt ernennt der Gouverneur auf Vorschlag des JM, der Senat bestätigt (→ KV 5).
+- **Vorschlag:** Die Amtsleitung schlägt vor, ohne Leitung der Stellvertreter. Der JM entscheidet.
+- **Beförderung:** immer nur in den nächsthöheren Rang desselben Amtes, frühestens nach 14 Tagen im bisherigen Rang. Amtsleitungen werden ernannt, nicht befördert.
+- **Ohne JM:** Der Staatssekretär darf ernennen und befördern, aber nie eine Amtsleitung (→ KV 13).
+- **Entlassung und Disziplin:** nach BeamtG 6 und 9. Den Leiter der Inneren Revision entlässt der JM nur mit Zustimmung des Senats (→ § 2).
 
 ## Teil 07 · Waffengesetz (WaffG)
 
