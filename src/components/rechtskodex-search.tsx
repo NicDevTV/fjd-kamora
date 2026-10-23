@@ -2,6 +2,7 @@
 
 import {
   useEffect,
+  useCallback,
   useMemo,
   useRef,
   useState,
@@ -13,146 +14,7 @@ import {
 import { createPortal } from "react-dom";
 import { flashTarget } from "@/lib/flash-target";
 import type { SearchEntry } from "@/lib/rechtskodex-index";
-
-const CODE_ORDER = ["KV", "KStGB", "JO", "PolG", "BeamtG", "ImmG", "FJDS"];
-
-// Folds umlauts and accents while keeping the length, so match positions stay aligned.
-const FOLD: Record<string, string> = {
-  ä: "a", ö: "o", ü: "u", ß: "s", à: "a", á: "a", â: "a", è: "e", é: "e", ê: "e",
-  ì: "i", í: "i", î: "i", ò: "o", ó: "o", ô: "o", ù: "u", ú: "u", û: "u", ç: "c",
-};
-
-function fold(input: string): string {
-  return input.toLowerCase().replace(/[^\x00-\x7F]/g, (char) => FOLD[char] ?? char);
-}
-
-// Maps the abbreviations used in codex references to their code.
-// „Art. 5“ refers to an article of the constitution.
-const ALIAS: Record<string, string> = {
-  art: "KV",
-  kv: "KV",
-  kstgb: "KStGB",
-  jo: "JO",
-  polg: "PolG",
-  beamtg: "BeamtG",
-  immg: "ImmG",
-  fjds: "FJDS",
-};
-
-type Indexed = { entry: SearchEntry; haystack: string; body: string };
-
-// Filler words of natural questions such as "Strafe für Diebstahl" or "wer entscheidet über Gnade".
-const STOPWORDS = new Set([
-  "strafe", "strafen", "bestraft", "wer", "was", "wie", "wann", "wo", "darf", "kann", "muss", "entscheidet",
-  "fur", "uber", "der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "und", "oder", "bei",
-  "im", "in", "zu", "zum", "zur", "ist", "von", "mit", "auf", "gibt", "es", "man",
-]);
-
-// Spellings people type that the codex writes differently.
-const SYNONYMS: Record<string, string[]> = {
-  marshal: ["marschall"],
-  marshals: ["marschall"],
-  polizei: ["kpd"],
-  minister: ["jm"],
-  justizminister: ["jm"],
-  todesstrafe: ["hinrichtung"],
-};
-
-function variants(token: string): string[] {
-  return [token, ...(SYNONYMS[token] ?? [])];
-}
-
-type Ref = { code: string | null; num: string };
-
-function parseRef(query: string): Ref | null {
-  const match = /^([a-z]+)?\s*(\d+)$/.exec(query);
-  if (!match) return null;
-  if (!match[1]) return { code: null, num: match[2] };
-  const code = ALIAS[match[1]];
-  return code ? { code, num: match[2] } : null;
-}
-
-function isWordStart(text: string, index: number) {
-  return index === 0 || !/[a-z0-9]/.test(text[index - 1]);
-}
-
-// Scores one entry. With requireAll, every token must match; otherwise any token is enough.
-function scoreEntry(item: Indexed, tokens: string[], phrase: string, requireAll: boolean): number {
-  let score = 0;
-  for (const token of tokens) {
-    let best = 0;
-    for (const variant of variants(token)) {
-      const inHead = item.haystack.indexOf(variant);
-      const inBody = item.body.indexOf(variant);
-      let value = 0;
-      // A hit in the title outweighs any number of hits in the text.
-      if (inHead >= 0) value += isWordStart(item.haystack, inHead) ? 20 : 12;
-      if (inBody >= 0) value += 3;
-      best = Math.max(best, value);
-    }
-    if (best === 0 && requireAll) return 0;
-    score += best;
-  }
-  if (phrase && item.haystack.includes(phrase)) score += 15;
-  if (phrase && item.body.includes(phrase)) score += 6;
-  if (tokens.length && item.haystack.startsWith(tokens[0])) score += 4;
-  return score;
-}
-
-function search(items: Indexed[], rawQuery: string, code: string | null): SearchEntry[] {
-  const query = fold(rawQuery).replace(/[§.]/g, " ").replace(/\s+/g, " ").trim();
-  if (!query) return [];
-
-  const kindOrder: Record<string, number> = { par: 0, art: 0, row: 1, entry: 2, heading: 3 };
-  const byKind = (a: Indexed, b: Indexed) => kindOrder[a.entry.kind] - kindOrder[b.entry.kind];
-
-  // A recognised norm such as „KStGB 10“ or „Art 5“ shows exactly that passage.
-  const ref = parseRef(query);
-  if (ref) {
-    const exact = items
-      .filter((item) => item.entry.num === ref.num)
-      .filter((item) => !ref.code || item.entry.code === ref.code)
-      .filter((item) => !code || item.entry.code === code)
-      .sort(byKind);
-    if (exact.length) return exact.slice(0, 30).map((item) => item.entry);
-  }
-
-  const tokens = meaningfulTokens(query);
-  const phrase = tokens.join(" ");
-  const scores = new Map<string, number>();
-
-  // First every word must match; if nothing does, any matching word counts.
-  for (const requireAll of [true, false]) {
-    for (const item of items) {
-      if (code && item.entry.code !== code) continue;
-      const score = scoreEntry(item, tokens, phrase, requireAll);
-      if (score > 0) scores.set(item.entry.id, score);
-    }
-    if (scores.size) break;
-  }
-
-  return items
-    .filter((item) => scores.has(item.entry.id))
-    .filter((item) => !code || item.entry.code === code)
-    .sort((a, b) => {
-      const diff = (scores.get(b.entry.id) ?? 0) - (scores.get(a.entry.id) ?? 0);
-      return diff !== 0 ? diff : byKind(a, b);
-    })
-    .slice(0, 30)
-    .map((item) => item.entry);
-}
-
-// Tokens without filler words; a query made only of filler words keeps them.
-function meaningfulTokens(query: string): string[] {
-  const all = query.split(/[^a-z0-9]+/).filter(Boolean);
-  const kept = all.filter((token) => !STOPWORDS.has(token));
-  return kept.length ? kept : all;
-}
-
-function queryTokens(rawQuery: string): string[] {
-  const query = fold(rawQuery).replace(/[§.]/g, " ");
-  return meaningfulTokens(query).flatMap(variants);
-}
+import { CODE_ORDER, POPULAR_SEARCHES, createSearchIndex, fold, searchCodex } from "@/lib/rechtskodex-search";
 
 // Marks every occurrence of the search terms. Returns React nodes, never HTML.
 function highlight(text: string, tokens: string[]): ReactNode[] {
@@ -224,12 +86,62 @@ function SearchIcon() {
   );
 }
 
+const RECENT_KEY = "fjd-recent-searches";
+
+function readRecent(): string[] {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(RECENT_KEY) ?? "[]");
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === "string").slice(0, 5) : [];
+  } catch {
+    return [];
+  }
+}
+
+function rememberSearch(query: string) {
+  const text = query.trim();
+  if (text.length < 2) return;
+  try {
+    const next = [text, ...readRecent().filter((item) => fold(item) !== fold(text))].slice(0, 5);
+    localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+  } catch {
+    // Storage blocked: the search still works, it just forgets.
+  }
+}
+
+function forgetSearches() {
+  try {
+    localStorage.removeItem(RECENT_KEY);
+  } catch {
+    // Nothing to clear.
+  }
+}
+
+const KIND_LABEL: Record<string, string> = { row: "Strafkatalog", entry: "Abschnitt", heading: "Teil" };
+
 const subscribeNothing = () => () => {};
 
-export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
+// The index is fetched once, on first hover, focus or open, and then shared by every instance.
+let indexRequest: Promise<SearchEntry[]> | null = null;
+
+function loadIndex(): Promise<SearchEntry[]> {
+  indexRequest ??= fetch("/rechtskodex/suchindex")
+    .then((response) => (response.ok ? (response.json() as Promise<SearchEntry[]>) : Promise.reject(new Error(String(response.status)))))
+    .catch((error) => {
+      indexRequest = null;
+      throw error;
+    });
+  return indexRequest;
+}
+
+const NO_ENTRIES: SearchEntry[] = [];
+
+export function RechtskodexSearch() {
+  const [entries, setEntries] = useState<SearchEntry[]>(NO_ENTRIES);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [code, setCode] = useState<string | null>(null);
+  const [recent, setRecent] = useState<string[]>([]);
   const [active, setActive] = useState(0);
   const [inlineVisible, setInlineVisible] = useState(true);
   // True only in the browser, where document.body exists for the portal.
@@ -238,23 +150,43 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
   const inlineRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
-  const items = useMemo<Indexed[]>(
-    () =>
-      entries.map((entry) => ({
-        entry,
-        haystack: fold(`${entry.code} ${entry.label} ${entry.heading}`),
-        body: fold(entry.text),
-      })),
-    [entries],
-  );
+  const searchIndex = useMemo(() => createSearchIndex(entries), [entries]);
+  const outcome = useMemo(() => searchCodex(searchIndex, query), [searchIndex, query]);
 
-  const codes = useMemo(
-    () => CODE_ORDER.filter((c) => entries.some((entry) => entry.code === c)),
-    [entries],
+  // A law chosen by chip wins; otherwise a law named in the query („jo haft“) narrows the search.
+  const scope = code ?? outcome.scope;
+  const results = useMemo(
+    () => outcome.hits.filter((entry) => !scope || entry.code === scope).slice(0, 40),
+    [outcome, scope],
   );
+  const counts = useMemo(() => {
+    const found = new Map<string, number>();
+    for (const entry of outcome.hits) found.set(entry.code, (found.get(entry.code) ?? 0) + 1);
+    return found;
+  }, [outcome]);
 
-  const results = useMemo(() => search(items, query, code), [items, query, code]);
-  const tokens = useMemo(() => queryTokens(query), [query]);
+  // Opens the search and reads the last searches. Storage can be blocked, then there are none.
+  const openSearch = useCallback(() => {
+    setRecent(readRecent());
+    setOpen(true);
+  }, []);
+
+  // Loads the index shortly before it is needed; a failed request can be retried on the next try.
+  function warmUp() {
+    loadIndex().then(setEntries, () => setLoadFailed(true));
+  }
+
+  // Warm up while the browser is idle, so the first search is instant without slowing the page.
+  useEffect(() => {
+    const idle = window.requestIdleCallback ?? ((callback: () => void) => window.setTimeout(callback, 2000));
+    const cancel = window.cancelIdleCallback ?? window.clearTimeout;
+    const handle = idle(() => {
+      loadIndex().then(setEntries, () => setLoadFailed(true));
+    });
+    return () => cancel(handle);
+  }, []);
+
+  const tokens = outcome.marks;
 
   // "/" or Ctrl+K opens the search, unless the user is typing in a field.
   useEffect(() => {
@@ -266,12 +198,12 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
         // Open natively right away: after Esc, React may not have seen the close event yet.
         const dialog = dialogRef.current;
         if (dialog && !dialog.open) dialog.showModal();
-        setOpen(true);
+        openSearch();
       }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [openSearch]);
 
   // Open and close the dialog natively so the focus trap and Escape work.
   useEffect(() => {
@@ -301,6 +233,7 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
   // Close the dialog right away, then glide to the passage and let it light up briefly.
   function openResult(event: ReactMouseEvent<HTMLAnchorElement>, entry: SearchEntry) {
     event.preventDefault();
+    rememberSearch(query);
     dialogRef.current?.close();
     setOpen(false);
     window.history.pushState(null, "", entry.href);
@@ -319,8 +252,20 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
     }
   }
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // A suggestion fills the field and keeps the cursor there, ready to refine.
+  function pick(text: string) {
+    setQuery(text);
+    setActive(0);
+    inputRef.current?.focus();
+  }
+
+  const suggestionClass =
+    "rounded-full border border-ink/12 bg-white/55 px-4 py-2 text-sm text-ink/80 transition-colors hover:border-ink/25 hover:bg-white [@media(pointer:coarse)]:min-h-11";
+
   const chipClass = (selected: boolean) =>
-    `rounded-full px-3.5 py-1.5 text-sm transition-all duration-200 [@media(pointer:coarse)]:min-h-11 ${
+    `shrink-0 rounded-full px-3.5 py-1.5 text-sm transition-all duration-200 [@media(pointer:coarse)]:min-h-11 ${
       selected
         ? "bg-navy text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_6px_16px_-8px_rgb(22_38_58/0.8)]"
         : "text-ink/70 hover:bg-white/70 hover:text-ink"
@@ -331,7 +276,9 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
       <button
         ref={inlineRef}
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={openSearch}
+        onPointerEnter={warmUp}
+        onFocus={warmUp}
         className="liquid-solid inline-flex items-center gap-3 rounded-full px-5 py-3 text-sm font-medium text-white"
       >
         Im Kodex suchen
@@ -351,7 +298,7 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
             <button
               type="button"
               tabIndex={inlineVisible ? -1 : undefined}
-              onClick={() => setOpen(true)}
+              onClick={openSearch}
               aria-label="Im Kodex suchen"
               className="liquid-solid flex size-14 items-center justify-center rounded-full text-white"
             >
@@ -383,6 +330,7 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
               <SearchIcon />
               <input
                 id="rk-search"
+                ref={inputRef}
                 type="text"
                 autoComplete="off"
                 spellCheck={false}
@@ -408,54 +356,120 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
               </button>
             </div>
 
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="-mx-5 mt-4 flex gap-2 overflow-x-auto px-5 [mask-image:linear-gradient(to_right,transparent,black_1.25rem,black_calc(100%-1.75rem),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:[mask-image:none]">
               <button
                 type="button"
-                aria-pressed={code === null}
+                aria-pressed={scope === null}
                 onClick={() => {
                   setCode(null);
                   setActive(0);
                 }}
-                className={chipClass(code === null)}
+                className={chipClass(scope === null)}
               >
                 Alle
               </button>
-              {codes.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  aria-pressed={code === item}
-                  onClick={() => {
-                    setCode(item);
-                    setActive(0);
-                  }}
-                  className={`${chipClass(code === item)} font-mono text-xs`}
-                >
-                  {item}
-                </button>
-              ))}
+              {CODE_ORDER.map((item) => {
+                const count = query.trim() ? (counts.get(item) ?? 0) : null;
+                return (
+                  <button
+                    key={item}
+                    type="button"
+                    aria-pressed={scope === item}
+                    disabled={count === 0 && scope !== item}
+                    onClick={() => {
+                      setCode(code === item ? null : item);
+                      setActive(0);
+                    }}
+                    className={`${chipClass(scope === item)} font-mono text-xs disabled:pointer-events-none disabled:opacity-35`}
+                  >
+                    {item}
+                    {count ? <span className="ml-1.5 tabular-nums opacity-60">{count}</span> : null}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           <div className="rk-scroll min-h-0 flex-1 overflow-y-auto">
             {query.trim() === "" ? (
-              <div className="space-y-3 px-5 py-10 text-sm text-ink/70 sm:px-7">
-                <p className="font-serif text-xl text-ink">Gezielt suchen</p>
-                <p>
-                  „KStGB 10“ oder einfach „10“ finden den Paragraphen. „Art 5“ findet einen
-                  Verfassungsartikel. Begriffe wie „Mord“, „Notstand“ oder „Immunität“ finden
-                  den passenden Text und Strafkatalog.
+              <div className="space-y-7 px-5 py-8 text-sm text-ink/70 sm:px-7">
+                {recent.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <p className="font-serif text-lg text-ink">Zuletzt gesucht</p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          forgetSearches();
+                          setRecent([]);
+                        }}
+                        className="rounded-full px-3 py-1.5 text-xs text-ink/60 transition-colors hover:bg-ink/5 hover:text-ink"
+                      >
+                        Löschen
+                      </button>
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {recent.map((item) => (
+                        <button key={item} type="button" onClick={() => pick(item)} className={suggestionClass}>
+                          {item}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div>
+                  <p className="font-serif text-lg text-ink">Häufig gefragt</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {POPULAR_SEARCHES.map((item) => (
+                      <button key={item} type="button" onClick={() => pick(item)} className={suggestionClass}>
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <p className="max-w-prose leading-relaxed">
+                  Eine Norm findest du direkt mit „KStGB 10“, „Art 5“ oder nur „10“. Ein Gesetz vor dem Begriff
+                  begrenzt die Suche, zum Beispiel „JO Haft“. Auch Umgangssprache wie „Knast“ oder „Bußgeld“ führt
+                  zum passenden Paragraphen.
                 </p>
               </div>
             ) : results.length === 0 ? (
               <div className="px-5 py-10 text-sm sm:px-7">
-                <p className="font-serif text-xl">Keine Treffer für „{query.trim()}“.</p>
-                <p className="mt-2 text-ink/70">Probier einen kürzeren Begriff oder eine Norm wie „JO 4“.</p>
+                <p className="font-serif text-xl">
+                  {entries.length === 0
+                    ? loadFailed
+                      ? "Der Suchindex konnte nicht geladen werden."
+                      : "Suchindex wird geladen …"
+                    : `Keine Treffer für „${query.trim()}“.`}
+                </p>
+                <p className="mt-2 text-ink/70">
+                  {scope && !code
+                    ? `Gesucht wurde nur in ${scope}. Nimm „Alle“, um das ganze Gesetzbuch zu durchsuchen.`
+                    : "Probier einen kürzeren Begriff, ein Stichwort wie „Haft“ oder eine Norm wie „JO 4“."}
+                </p>
+                {scope && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCode(null);
+                      setQuery(query.trim().split(/\s+/).slice(1).join(" "));
+                    }}
+                    className={`${suggestionClass} mt-4`}
+                  >
+                    In allen Gesetzen suchen
+                  </button>
+                )}
               </div>
             ) : (
               <>
                 <p className="px-5 pt-5 text-xs text-ink/60 sm:px-7" aria-live="polite">
-                  {results.length} Treffer
+                  {outcome.correction ? (
+                    <>
+                      Statt „{query.trim()}“ zeigt die Suche{" "}
+                      <strong className="font-medium text-ink">„{outcome.correction}“</strong>.{" "}
+                    </>
+                  ) : null}
+                  {results.length} Treffer{scope ? ` in ${scope}` : ""}
                 </p>
                 <ul id="rk-results" ref={listRef} role="listbox" className="space-y-1.5 p-3 sm:p-4">
                   {results.map((entry, index) => {
@@ -483,6 +497,11 @@ export function RechtskodexSearch({ entries }: { entries: SearchEntry[] }) {
                             </span>
                             {entry.label && (
                               <span className={`text-ink/60 ${isActive ? "[@media(pointer:fine)]:text-white/70" : ""}`}>{entry.label}</span>
+                            )}
+                            {KIND_LABEL[entry.kind] && (
+                              <span className={`ml-auto text-ink/65 ${isActive ? "[@media(pointer:fine)]:text-white/75" : ""}`}>
+                                {KIND_LABEL[entry.kind]}
+                              </span>
                             )}
                           </div>
                           <p className="mt-2 font-serif text-lg font-medium leading-snug">

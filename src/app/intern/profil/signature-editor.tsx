@@ -160,7 +160,7 @@ export function SignatureEditor({ initial, name }: { initial: DrawnSignature | n
 
       <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-[#c7bda8]/65 bg-[#fffdf7] shadow-[inset_0_1px_0_white,0_8px_24px_-20px_rgb(22_38_58/0.2)]">
         <div className="flex flex-wrap items-center justify-between gap-1 border-b border-ink/8 px-2 py-1.5">
-          <span className="inline-flex items-center gap-2 px-2 text-xs text-ink/50"><ToolIcon kind="pen" />Blaue Tinte</span>
+          <span className="inline-flex items-center gap-2 px-2 text-xs text-ink/65"><ToolIcon kind="pen" />Blaue Tinte</span>
           <div className="flex flex-wrap gap-0.5">
             <button type="button" disabled={pending || !strokes.length} className={tool} onClick={undo} title="Letzten Strich rückgängig machen"><ToolIcon kind="undo" /><span>Zurück</span></button>
             <button type="button" disabled={pending || !redo.length} className={tool} onClick={() => { update([...live.current, redo.at(-1)!]); setRedo(redo.slice(0, -1)); }} title="Strich wiederherstellen"><ToolIcon kind="redo" /><span>Vor</span></button>
@@ -178,7 +178,7 @@ export function SignatureEditor({ initial, name }: { initial: DrawnSignature | n
           {!strokes.length && !keyboard && <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center pb-4 text-ink/30"><span className="font-serif text-2xl italic">Hier unterschreiben</span><span className="mt-2 text-xs">So, wie du es auf Papier tun würdest.</span></div>}
         </div>
         <div className="flex flex-wrap items-center justify-between gap-2 border-t border-ink/8 bg-white/70 px-4 py-3">
-          <p id={helpId} className="text-xs leading-relaxed text-ink/50">{keyboard ? "Pfeiltasten bewegen · Leertaste hebt/senkt den Stift · Esc beendet den Strich" : "Mehrere Striche sind möglich. Die Linie hilft nur beim Zeichnen."}</p>
+          <p id={helpId} className="text-xs leading-relaxed text-ink/65">{keyboard ? "Pfeiltasten bewegen · Leertaste hebt/senkt den Stift · Esc beendet den Strich" : "Mehrere Striche sind möglich. Die Linie hilft nur beim Zeichnen."}</p>
           <button type="button" aria-pressed={keyboard} disabled={pending} className="rounded-lg px-1 py-1 text-xs font-medium text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy" onClick={() => { setKeyboard(!keyboard); setPenDown(false); if (!keyboard) { setCursor([220, height / 2]); svg.current?.focus(); } }}>Mit Tastatur zeichnen</button>
         </div>
       </div>

@@ -46,7 +46,7 @@ function headingId(section: RechtskodexSection, text: string) {
 }
 
 // References such as „JO 5“, „KStGB 10“ or „Art. 11“ become links to the cited passage.
-const REF = /((?:KV|KStGB|JO|PolG|BeamtG|ImmG|FJDS|Art\.)\s?\d+(?:[–-]\d+)?)/;
+const REF = /((?:KV|KStGB|JO|PolG|WaffG|BeamtG|ImmG|FJDS|Art\.)\s?\d+(?:[–-]\d+)?)/;
 
 function linkRefs(children: ReactNode, refs: Map<string, string>): ReactNode {
   if (typeof children === "string") {
@@ -54,7 +54,7 @@ function linkRefs(children: ReactNode, refs: Map<string, string>): ReactNode {
     return children.split(REF).map((part, index) => {
       const text = <Fragment key={index}>{withAbbreviations(part)}</Fragment>;
       if (index % 2 === 0) return text;
-      const match = /^(KV|KStGB|JO|PolG|BeamtG|ImmG|FJDS|Art\.)\s?(\d+)/.exec(part);
+      const match = /^(KV|KStGB|JO|PolG|WaffG|BeamtG|ImmG|FJDS|Art\.)\s?(\d+)/.exec(part);
       if (!match) return text;
       const code = match[1] === "Art." ? "KV" : match[1];
       const href = refs.get(`${code} ${match[2]}`);
@@ -258,7 +258,7 @@ export default function RechtskodexPage() {
                   {doc.meta.titel}
                 </h1>
                 <div className="mt-10">
-                  <RechtskodexSearch entries={searchIndex} />
+                  <RechtskodexSearch />
                 </div>
               </div>
 

@@ -258,7 +258,7 @@ Illegales, Tatwerkzeuge und Erlöse werden eingezogen; Opfer werden zuerst entsc
 Hochverrat (§ 80) und Landesverrat (§ 81) werden nur mit Ermächtigung des JM verfolgt.
 
 - **Antrag:** KPD oder StA beantragen sie schriftlich mit Begründung und Beweisen im MDT.
-- **Entscheidung:** Der JM erteilt oder versagt sie binnen 24 h schriftlich in der Akte; Versagung mit Begründung. Schweigt er, entscheidet der OGH. Alles kommt ins Weisungsregister, das Senat und OGH jederzeit sehen (→ FJDS 8).
+- **Entscheidung:** Der JM erteilt oder versagt sie binnen 24 h schriftlich in der Akte; Versagung mit Begründung. Schweigt er, entscheidet der OGH. Alles kommt ins Weisungsregister, in das der Senat und der OGH jederzeit Einsicht haben (→ FJDS 8).
 - **Bis dahin:** Gefahrenabwehr, Festnahme, Gewahrsam und Beweissicherung bleiben erlaubt (→ JO 10). Andere Taten wie Terror (§ 46) oder Mord (§ 10) brauchen keine Ermächtigung.
 - **Befangenheit:** Richtet sich der Verdacht gegen JM, FJD oder Angehörige, oder ist der JM befangen, entscheidet der OGH auf Antrag des Sonderermittlers (→ JO 6).
 - **Verfahren:** Der GStA klagt an, immer vor dem OGH (→ JO 1).

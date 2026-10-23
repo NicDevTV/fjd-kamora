@@ -308,7 +308,7 @@ const ermaechtigung: Template = {
     { kind: "text", text: `Die Ermächtigung zur Verfolgung von` },
     { kind: "name", text: or(fields.name, "Name des Beschuldigten") },
     { kind: "text", text: `wegen ${or(fields.tat, "…")} wird ${or(fields.entscheidung, "…")}.${fields.entscheidung === "versagt" && fields.begruendung ? ` Begründung: ${fields.begruendung.replace(/[.\s]+$/, "")}.` : ""}` },
-    { kind: "text", text: "Die Entscheidung steht im Weisungsregister, das Senat und OGH jederzeit einsehen. Gefahrenabwehr, Festnahme und Beweissicherung bleiben bis dahin erlaubt." },
+    { kind: "text", text: "Die Entscheidung steht im Weisungsregister, in das der Senat und der OGH jederzeit Einsicht haben. Gefahrenabwehr, Festnahme und Beweissicherung bleiben bis zur Entscheidung auch ohne Ermächtigung erlaubt." },
   ],
 };
 

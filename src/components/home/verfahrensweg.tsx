@@ -145,7 +145,7 @@ export function Verfahrensweg({ steps }: { steps: Step[] }) {
                     />
                     <span
                       className={`flex items-baseline justify-between gap-6 transition-colors duration-300 ${
-                        index === active ? "text-ink" : "text-ink/45"
+                        index === active ? "text-ink" : "text-ink/65"
                       }`}
                     >
                       <span className="font-serif text-xl font-medium">{withAbbreviations(step.instance)}</span>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { CertificatePreview, certificateFonts } from "@/components/certificate/certificate-preview";
 import { SignatureSample } from "@/components/certificate/signature-mark";
 import { getTemplate } from "@/lib/amtsblatt/templates";
@@ -40,6 +40,17 @@ export function IssueStudio({
   const [values, setValues] = useState<Record<string, string>>(fixedFields);
   const [signerTitle, setSignerTitle] = useState(titles[0]);
   const [state, action, pending] = useActionState<FormState, FormData>(issueDocument, {});
+  const previewRef = useRef<HTMLElement>(null);
+  const [previewVisible, setPreviewVisible] = useState(false);
+
+  // On narrow screens the preview sits below the long form; a button keeps it one tap away until it is in view.
+  useEffect(() => {
+    const section = previewRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(([entry]) => setPreviewVisible(entry.isIntersecting));
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (state.at && state.error) toast.error("Nicht ausgefertigt", { description: state.error });
@@ -154,7 +165,23 @@ export function IssueStudio({
         </div>
       </form>
 
-      <section aria-label="Vorschau" className="lg:sticky lg:top-6">
+      {/* The glass button sets position: relative itself, so the fixed placement lives on a wrapper. */}
+      <div
+        className={`fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 z-30 -translate-x-1/2 transition-[opacity,translate] duration-300 lg:hidden ${
+          previewVisible ? "pointer-events-none translate-y-4 opacity-0" : ""
+        }`}
+      >
+        <button
+          type="button"
+          onClick={() => previewRef.current?.scrollIntoView({ block: "start" })}
+          tabIndex={previewVisible ? -1 : undefined}
+          className="liquid-solid whitespace-nowrap rounded-full px-6 py-3.5 text-sm font-medium text-white"
+        >
+          Vorschau ansehen
+        </button>
+      </div>
+
+      <section ref={previewRef} aria-label="Vorschau" className="scroll-mt-4 lg:sticky lg:top-6">
         <div className="mx-auto max-w-[36rem]">
           <CertificatePreview
             data={{

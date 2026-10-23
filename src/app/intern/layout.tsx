@@ -39,10 +39,10 @@ export default async function InternLayout({ children }: LayoutProps<"/intern">)
             <span className="font-serif text-[0.9375rem] font-medium leading-tight">FJD Intern</span>
           </Link>
           <nav aria-label="Intern" className="order-3 w-full sm:order-none sm:w-auto">
-            <ul className="flex flex-wrap gap-1 text-sm">
+            <ul className="-mx-1 flex gap-0.5 overflow-x-auto px-1 text-sm [mask-image:linear-gradient(to_right,black_calc(100%-1.75rem),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:[mask-image:none]">
               {nav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="block rounded-full px-4 py-2.5 text-white/80 transition-colors hover:bg-white/10 hover:text-white">
+                  <Link href={item.href} className="block whitespace-nowrap rounded-full px-3.5 py-2.5 text-white/80 sm:px-4 transition-colors hover:bg-white/10 hover:text-white">
                     {item.label}
                   </Link>
                 </li>
