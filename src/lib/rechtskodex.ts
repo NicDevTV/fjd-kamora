@@ -20,7 +20,8 @@ export type RechtskodexDocument = {
 export { slugify };
 
 export function getRechtskodex(): RechtskodexDocument {
-  const raw = readFileSync(SOURCE, "utf8");
+  // Windows checkouts may use CRLF; every parser below expects plain line feeds.
+  const raw = readFileSync(SOURCE, "utf8").replace(/\r\n/g, "\n");
 
   const frontmatter = /^---\n([\s\S]*?)\n---\n/.exec(raw);
   const meta = Object.fromEntries(

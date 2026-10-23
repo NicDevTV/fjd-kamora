@@ -46,14 +46,32 @@ function headingId(section: RechtskodexSection, text: string) {
 }
 
 // References such as „JO 5“, „KStGB 10“ or „Art. 11“ become links to the cited passage.
-const REF = /((?:KV|KStGB|JO|PolG|WaffG|BeamtG|ImmG|FJDS|Art\.)\s?\d+(?:[–-]\d+)?)/;
+// A bare „§ 7“ or „§§ 5–10“ cites a norm of the law it stands in; the first number is the link target.
+const BARE_REF = /((?:KV|KStGB|JO|PolG|WaffG|BeamtG|ImmG|FJDS|Art\.)\s?\d+(?:[–-]\d+)?|§§?\s?\d+(?:[–-]\d+)?)/;
+const LAW_CODE = /\((KStGB|JO|PolG|WaffG|BeamtG|ImmG|FJDS|KV)\)/;
 
-function linkRefs(children: ReactNode, refs: Map<string, string>): ReactNode {
+// Part 05 holds two laws, so the heading decides which one a bare „§ 7“ belongs to.
+function lawOf(text: string, fallback: string) {
+  return LAW_CODE.exec(text)?.[1] ?? fallback;
+}
+
+function linkRefs(children: ReactNode, refs: Map<string, string>, law: { code: string }): ReactNode {
   if (typeof children === "string") {
     // Plain text and link text both get abbreviation tooltips, so „JO“ in „JO 5“ explains itself too.
-    return children.split(REF).map((part, index) => {
+    return children.split(BARE_REF).map((part, index) => {
       const text = <Fragment key={index}>{withAbbreviations(part)}</Fragment>;
       if (index % 2 === 0) return text;
+      const bare = /^§§?\s?(\d+)/.exec(part);
+      if (bare) {
+        const href = refs.get(`${law.code} ${bare[1]}`);
+        return href ? (
+          <a key={index} href={href} className="rk-ref">
+            {part}
+          </a>
+        ) : (
+          text
+        );
+      }
       const match = /^(KV|KStGB|JO|PolG|WaffG|BeamtG|ImmG|FJDS|Art\.)\s?(\d+)/.exec(part);
       if (!match) return text;
       const code = match[1] === "Art." ? "KV" : match[1];
@@ -67,7 +85,7 @@ function linkRefs(children: ReactNode, refs: Map<string, string>): ReactNode {
       );
     });
   }
-  if (Array.isArray(children)) return children.map((child) => linkRefs(child, refs));
+  if (Array.isArray(children)) return children.map((child) => linkRefs(child, refs, law));
   return children;
 }
 
@@ -88,10 +106,13 @@ function markdownComponents(
   refs: Map<string, string>,
   definitions: Map<string, string>,
 ): Components {
-  const withRefs = (children: ReactNode) => linkRefs(children, refs);
+  // Headings come first in document order, so a heading that names a law switches the context for what follows.
+  const law = { code: lawOf(section.title, "KV") };
+  const withRefs = (children: ReactNode) => linkRefs(children, refs, law);
 
   return {
     h3: ({ children }) => {
+      law.code = lawOf(textOf(children), law.code);
       const parts = splitNumber(textOf(children));
       return (
         <h3
@@ -110,6 +131,7 @@ function markdownComponents(
       );
     },
     h4: ({ children }) => {
+      law.code = lawOf(textOf(children), law.code);
       const parts = splitNumber(textOf(children));
       return (
         <h4
