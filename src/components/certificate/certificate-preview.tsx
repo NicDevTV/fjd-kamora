@@ -1,7 +1,15 @@
-import { EB_Garamond, Herr_Von_Muellerhoff, IM_Fell_English_SC, UnifrakturMaguntia } from "next/font/google";
-import type { CSSProperties } from "react";
-import { COLORS, LETTER_PATH, SHIELD_PATH, signatureStyle, star } from "@/lib/amtsblatt/geometry";
+import {
+  EB_Garamond,
+  Herr_Von_Muellerhoff,
+  IM_Fell_English_SC,
+  Mr_De_Haviland,
+  Monsieur_La_Doulaise,
+  Mrs_Saint_Delafield,
+  UnifrakturMaguntia,
+} from "next/font/google";
+import { COLORS, LETTER_PATH, SHIELD_PATH, star } from "@/lib/amtsblatt/geometry";
 import { formatDate, type SealKind, type Template } from "@/lib/amtsblatt/templates";
+import { SignatureMark } from "./signature-mark";
 import { WaxSeal } from "./wax-seal";
 
 // The certificate in HTML, laid out like the PDF (pdf.tsx) on the same A4 grid in points.
@@ -11,10 +19,14 @@ import { WaxSeal } from "./wax-seal";
 const fraktur = UnifrakturMaguntia({ weight: "400", subsets: ["latin"], variable: "--font-cert-fraktur" });
 const garamond = EB_Garamond({ subsets: ["latin", "latin-ext"], style: ["normal", "italic"], variable: "--font-cert-garamond" });
 const fell = IM_Fell_English_SC({ weight: "400", subsets: ["latin"], variable: "--font-cert-fell" });
-const hand = Herr_Von_Muellerhoff({ weight: "400", subsets: ["latin", "latin-ext"], variable: "--font-cert-hand" });
+// Four scripts for the officials' personal hands (signatureHand in geometry.ts).
+const sigHand = Herr_Von_Muellerhoff({ weight: "400", subsets: ["latin", "latin-ext"], variable: "--font-cert-sig-hand" });
+const sigDelafield = Mrs_Saint_Delafield({ weight: "400", subsets: ["latin", "latin-ext"], variable: "--font-cert-sig-delafield" });
+const sigDoulaise = Monsieur_La_Doulaise({ weight: "400", subsets: ["latin", "latin-ext"], variable: "--font-cert-sig-doulaise" });
+const sigHaviland = Mr_De_Haviland({ weight: "400", subsets: ["latin", "latin-ext"], variable: "--font-cert-sig-haviland" });
 
 // Font variables for anything outside the page that shows the same faces (signature sample).
-export const certificateFonts = `${fraktur.variable} ${garamond.variable} ${fell.variable} ${hand.variable}`;
+export const certificateFonts = `${fraktur.variable} ${garamond.variable} ${fell.variable} ${sigHand.variable} ${sigDelafield.variable} ${sigDoulaise.variable} ${sigHaviland.variable}`;
 
 const u = (value: number) => `calc(var(--u) * ${value})`;
 
@@ -44,14 +56,15 @@ export type CertificateData = {
   number: string | null;
   signerName: string;
   signerTitle: string;
+  // Id of the official whose personal hand signs (see signatureHand).
+  signerKey: string;
   seed: number;
   // ISO date of issue; the preview of an unissued document shows today.
   issuedAt: string;
 };
 
 export function CertificatePreview({ data, className = "" }: { data: CertificateData; className?: string }) {
-  const { template, fields, number, signerName, signerTitle, seed, issuedAt } = data;
-  const signature = signatureStyle(signerName || "Unterschrift", seed);
+  const { template, fields, number, signerName, signerTitle, signerKey, seed, issuedAt } = data;
 
   return (
     <div
@@ -83,21 +96,7 @@ export function CertificatePreview({ data, className = "" }: { data: Certificate
             <WaxSeal kind={template.seal} seed={seed} className="cert-seal" />
             <div className="cert-signing">
               <p className="cert-date">Kamora, den {formatDate(issuedAt.slice(0, 10))}</p>
-              <div className="cert-signature">
-                <span
-                  style={
-                    {
-                      fontSize: u(signature.size),
-                      letterSpacing: u(signature.letterSpacing),
-                      marginLeft: u(signature.shift),
-                      marginBottom: u(signature.drop),
-                      transform: `rotate(${signature.rotate.toFixed(1)}deg)`,
-                    } as CSSProperties
-                  }
-                >
-                  {signerName || "Dein Dienstname"}
-                </span>
-              </div>
+              <SignatureMark name={signerName || "Dein Dienstname"} seed={seed} signerKey={signerKey} />
               <span className="cert-line" />
               <p className="cert-signer">{signerName || "Dein Dienstname"}</p>
               <p className="cert-signer-title">{signerTitle}</p>

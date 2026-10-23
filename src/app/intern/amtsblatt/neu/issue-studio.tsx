@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { CertificatePreview, certificateFonts } from "@/components/certificate/certificate-preview";
+import { SignatureSample } from "@/components/certificate/signature-mark";
 import { getTemplate } from "@/lib/amtsblatt/templates";
 import { toast } from "@/lib/toast";
 import { issueDocument, type FormState } from "../../actions";
@@ -14,11 +15,13 @@ const input =
 export function IssueStudio({
   templateId,
   signerName,
+  signerKey,
   today,
   previewSeed,
 }: {
   templateId: string;
   signerName: string;
+  signerKey: string;
   today: string;
   previewSeed: number;
 }) {
@@ -82,7 +85,7 @@ export function IssueStudio({
         <fieldset>
           <legend className="font-serif text-xl font-medium">Unterschrift</legend>
           <div className="mt-3 rounded-2xl border border-ink/10 bg-white/60 px-4 py-3">
-            <p className="font-[family-name:var(--font-cert-hand)] text-3xl leading-none text-[#1d2b66]">{signerName}</p>
+            <SignatureSample name={signerName} seed={previewSeed} signerKey={signerKey} scale={1.15} />
             <p className="mt-2 text-xs text-muted">Du unterschreibst immer mit deinem eigenen Dienstnamen.</p>
           </div>
           <p className="mt-4 text-sm font-medium">Funktion unter der Unterschrift</p>
@@ -130,6 +133,7 @@ export function IssueStudio({
               fields: values,
               number: null,
               signerName,
+              signerKey,
               signerTitle,
               seed: previewSeed,
               issuedAt: today,

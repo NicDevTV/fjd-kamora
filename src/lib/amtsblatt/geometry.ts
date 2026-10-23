@@ -1,4 +1,4 @@
-import { seededRandom } from "./random";
+import { hashString, seededRandom } from "./random";
 import type { SealKind } from "./templates";
 
 // Shapes shared by the PDF (pdf.tsx) and the live preview (certificate-preview.tsx). Both draw
@@ -85,16 +85,89 @@ export function sealShape(kind: SealKind, seed: number) {
   };
 }
 
-// The handwritten signature varies a little per document: size, angle, spacing and position.
-export function signatureStyle(name: string, seed: number) {
+// Every official gets a personal hand when they first sign: which script, how it leans, how wide
+// and large it runs, the ink and the flourish under the name. It is derived from the user's id, so
+// it is random per person, never changes and needs no storage. Each document then varies that
+// hand a little, the way nobody signs twice exactly the same.
+export const SIGNATURE_FONTS = [
+  { key: "hand", family: "Signature", size: 31 },
+  { key: "delafield", family: "SignatureDelafield", size: 34 },
+  { key: "doulaise", family: "SignatureDoulaise", size: 32 },
+  { key: "haviland", family: "SignatureHaviland", size: 31 },
+] as const;
+
+const INKS = ["#1d2b66", "#1a2754", "#232c5a", "#2a2f55", "#17306b"];
+
+export type SignatureHand = {
+  font: (typeof SIGNATURE_FONTS)[number];
+  slant: number;
+  stretch: number;
+  scale: number;
+  spacing: number;
+  tilt: number;
+  ink: string;
+  flourish: 0 | 1 | 2 | 3;
+  weight: number;
+  seed: number;
+};
+
+export function signatureHand(key: string): SignatureHand {
+  const seed = hashString(`hand:${key}`);
+  const random = seededRandom(seed);
+  return {
+    font: SIGNATURE_FONTS[Math.floor(random() * SIGNATURE_FONTS.length)],
+    slant: -16 + random() * 18,
+    stretch: 0.88 + random() * 0.27,
+    scale: 0.9 + random() * 0.22,
+    spacing: -0.5 + random() * 1,
+    tilt: -6 + random() * 5,
+    ink: INKS[Math.floor(random() * INKS.length)],
+    // Roughly one in five signs without a flourish at all.
+    flourish: random() < 0.2 ? 0 : ((1 + Math.floor(random() * 3)) as 1 | 2 | 3),
+    weight: 0.9 + random() * 0.8,
+    seed,
+  };
+}
+
+// The signature box is 240 x 54 pt; the flourish is drawn in the same space under the name.
+export const SIGNATURE_BOX = { width: 240, height: 54 };
+
+function flourishPath(hand: SignatureHand, random: () => number) {
+  const j = (range: number) => (random() - 0.5) * range;
+  // Below the name: the text baseline sits around y 44, the signature line just under the box.
+  const y = 51 + j(2);
+  switch (hand.flourish) {
+    case 1:
+      // One long swash under the name, rising a little towards the end.
+      return `M ${22 + j(10)} ${y} C ${80 + j(20)} ${y - 4 + j(3)} ${150 + j(20)} ${y + 2 + j(3)} ${222 + j(8)} ${y - 6 + j(3)}`;
+    case 2:
+      // A sweep that ends in a small loop.
+      return `M ${26 + j(10)} ${y} C ${90 + j(20)} ${y + 2} ${165 + j(15)} ${y + 1} ${208 + j(8)} ${y - 3} C ${228 + j(6)} ${y - 7} ${234} ${y - 17 + j(3)} ${224 + j(3)} ${y - 19 + j(2)} C ${214} ${y - 21} ${210 + j(4)} ${y - 8} ${230 + j(5)} ${y - 3}`;
+    default:
+      // A rising dash with a short tick below it.
+      return `M ${44 + j(14)} ${y} Q ${120 + j(20)} ${y - 4} ${208 + j(10)} ${y - 9 + j(2)} M ${182 + j(10)} ${y + 1} L ${216 + j(8)} ${y - 2 + j(2)}`;
+  }
+}
+
+// One document's version of the official's hand. The same seed always gives the same result,
+// so the preview, the stored document and the PDF agree.
+export function signatureStyle(name: string, seed: number, hand: SignatureHand) {
   const random = seededRandom(seed ^ 0x51a9);
+  const wobble = (range: number) => (random() - 0.5) * range;
   const fit = Math.min(1, 20 / Math.max(name.length, 1));
   return {
-    size: (32 + random() * 5) * Math.max(fit, 0.62),
-    letterSpacing: -0.3 + random() * 0.6,
-    shift: -14 + random() * 28,
-    drop: -10 + random() * 4,
-    rotate: -7 + random() * 5,
+    family: hand.font.family,
+    key: hand.font.key,
+    ink: hand.ink,
+    size: hand.font.size * hand.scale * (1 + wobble(0.08)) * Math.max(fit, 0.62),
+    letterSpacing: hand.spacing + wobble(0.5),
+    shift: -12 + random() * 24,
+    drop: 7 + random() * 5,
+    rotate: hand.tilt + wobble(3.2),
+    skew: hand.slant + wobble(4),
+    stretch: hand.stretch * (1 + wobble(0.05)),
+    flourish: hand.flourish ? flourishPath(hand, random) : null,
+    weight: hand.weight * (1 + wobble(0.25)),
   };
 }
 

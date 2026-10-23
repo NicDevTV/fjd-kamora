@@ -1,3 +1,5 @@
+import { certificateFonts } from "@/components/certificate/certificate-preview";
+import { SignatureSample } from "@/components/certificate/signature-mark";
 import { requireUser } from "@/lib/server/auth/dal";
 import { ROLE_LABEL } from "@/lib/server/db/types";
 import { ServiceNameForm } from "../forms";
@@ -18,6 +20,17 @@ export default async function ProfilPage() {
         <dd>{user.roles.map((role) => ROLE_LABEL[role]).join(", ")}</dd>
       </dl>
       <ServiceNameForm current={user.serviceName ?? ""} />
+
+      <div className={`mt-10 max-w-md border-t border-ink/10 pt-8 ${certificateFonts}`}>
+        <h2 className="font-serif text-2xl font-medium">Deine Unterschrift</h2>
+        <p className="mt-2 text-sm leading-relaxed text-ink/70">
+          Jeder Amtsträger hat eine eigene Handschrift. Auf jeder Urkunde fällt sie ein wenig anders aus, so wie niemand
+          zweimal genau gleich unterschreibt.
+        </p>
+        <div className="mt-4 rounded-2xl border border-ink/10 bg-white/60 px-4 py-4">
+          <SignatureSample name={user.serviceName ?? "Dein Dienstname"} seed={user.id.length * 977 + 11} signerKey={user.id} scale={1.2} />
+        </div>
+      </div>
     </section>
   );
 }

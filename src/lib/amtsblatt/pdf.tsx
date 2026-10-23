@@ -27,6 +27,8 @@ import {
   SHIELD_PATH,
   guillocheStrands,
   sealShape,
+  SIGNATURE_BOX,
+  signatureHand,
   signatureStyle,
   star,
 } from "./geometry";
@@ -52,6 +54,9 @@ function registerFonts() {
   Font.register({ family: "Fraktur", src: path.join(FONTS, "UnifrakturMaguntia.ttf") });
   Font.register({ family: "FellSC", src: path.join(FONTS, "IMFellEnglishSC.ttf") });
   Font.register({ family: "Signature", src: path.join(FONTS, "HerrVonMuellerhoff.ttf") });
+  Font.register({ family: "SignatureDelafield", src: path.join(FONTS, "MrsSaintDelafield.ttf") });
+  Font.register({ family: "SignatureDoulaise", src: path.join(FONTS, "MonsieurLaDoulaise.ttf") });
+  Font.register({ family: "SignatureHaviland", src: path.join(FONTS, "MrDeHaviland.ttf") });
   // German words must not be split with English hyphenation rules.
   Font.registerHyphenationCallback((word) => [word]);
   fontsReady = true;
@@ -230,23 +235,35 @@ function Seal({ kind, seed }: { kind: SealKind; seed: number }) {
   );
 }
 
-function Signature({ name, seed }: { name: string; seed: number }) {
-  const style = signatureStyle(name, seed);
+function Signature({ name, seed, signerKey }: { name: string; seed: number; signerKey: string }) {
+  const style = signatureStyle(name, seed, signatureHand(signerKey));
   return (
-    <View style={{ width: 240, height: 54, justifyContent: "flex-end", alignItems: "center" }}>
+    <View style={{ width: SIGNATURE_BOX.width, height: SIGNATURE_BOX.height, justifyContent: "flex-end", alignItems: "center" }}>
       <Text
         style={{
-          fontFamily: "Signature",
+          fontFamily: style.family,
+          lineHeight: 1,
+          // Wider than the box so the name never wraps; it stays centred and overflows evenly.
+          width: 700,
+          textAlign: "center",
           fontSize: style.size,
-          color: COLORS.signature,
+          color: style.ink,
           letterSpacing: style.letterSpacing,
           marginLeft: style.shift,
           marginBottom: style.drop,
-          transform: `rotate(${style.rotate.toFixed(1)}deg)`,
+          transform: `rotate(${style.rotate.toFixed(1)}deg) skewX(${style.skew.toFixed(1)}deg) scaleX(${style.stretch.toFixed(3)})`,
         }}
       >
         {name}
       </Text>
+      {style.flourish && (
+        <Svg
+          viewBox={`0 0 ${SIGNATURE_BOX.width} ${SIGNATURE_BOX.height}`}
+          style={{ position: "absolute", top: 0, left: 0, width: SIGNATURE_BOX.width, height: SIGNATURE_BOX.height }}
+        >
+          <Path d={style.flourish} fill="none" stroke={style.ink} strokeWidth={style.weight} strokeLinecap="round" strokeLinejoin="round" />
+        </Svg>
+      )}
     </View>
   );
 }
@@ -303,7 +320,7 @@ function Certificate({ document, template }: { document: DocumentRecord; templat
           </View>
           <View style={{ width: 240, alignItems: "center" }}>
             <Text style={{ fontSize: 12.5, fontStyle: "italic" }}>Kamora, den {issued}</Text>
-            <Signature name={document.signerName} seed={document.signatureSeed} />
+            <Signature name={document.signerName} seed={document.signatureSeed} signerKey={document.issuedBy} />
             <View style={{ width: 210, borderTopWidth: 0.7, borderTopColor: INK, marginTop: 2 }} />
             <Text style={{ fontSize: 12, marginTop: 5 }}>{document.signerName}</Text>
             <Text style={{ fontSize: 10, fontStyle: "italic", color: SEPIA, marginTop: 1 }}>{document.signerTitle}</Text>

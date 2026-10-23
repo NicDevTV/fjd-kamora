@@ -1444,10 +1444,20 @@ textarea:focus-visible {
   justify-content: center;
   width: 100%;
   height: calc(var(--u) * 54);
+  position: relative;
   color: #1d2b66;
-  font-family: var(--font-cert-hand), cursive;
   line-height: 1;
   white-space: nowrap;
+}
+
+/* The flourish sits over the signature box, in the same 240 x 54 pt space. */
+.cert-flourish {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
 }
 
 .cert-signature span {

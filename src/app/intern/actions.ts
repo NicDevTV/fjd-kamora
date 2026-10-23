@@ -3,8 +3,10 @@
 import { randomInt } from "node:crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 import { getTemplate, validateFields } from "@/lib/amtsblatt/templates";
 import { requireUser } from "@/lib/server/auth/dal";
+import { announceDocument } from "@/lib/server/discord/amtsblatt";
 import { getStore } from "@/lib/server/db";
 import { setFlash } from "@/lib/server/flash";
 
@@ -58,6 +60,8 @@ export async function issueDocument(_state: FormState, formData: FormData): Prom
     signatureSeed: seedFrom(formData.get("seed")),
     issuedBy: user.id,
   });
+  // Announce in the Amtsblatt channel once the response is out; a Discord outage never blocks issuing.
+  after(() => announceDocument(document, template).catch((error) => console.error("[discord] announcement failed:", error)));
   setFlash(await cookies(), {
     tone: "success",
     title: `${template.title} ausgefertigt`,

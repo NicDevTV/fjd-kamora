@@ -32,6 +32,7 @@ export default async function DokumentPage({ params }: PageProps<"/intern/amtsbl
               number: document.number,
               signerName: document.signerName,
               signerTitle: document.signerTitle,
+              signerKey: document.issuedBy,
               seed: document.signatureSeed,
               issuedAt: document.issuedAt,
             }}
