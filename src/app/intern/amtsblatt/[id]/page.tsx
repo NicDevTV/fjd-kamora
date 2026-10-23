@@ -2,13 +2,15 @@ import { fullName } from "@/lib/server/db/types";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CertificatePreview } from "@/components/certificate/certificate-preview";
-import { certificateStamps, countersignItems, openRequestFor, STATUS_LABEL, stampStatus } from "@/lib/amtsblatt/countersign";
+import { certificateStamps, countersignItems, judicialProgress, openRequestFor, STATUS_LABEL, stampStatus } from "@/lib/amtsblatt/countersign";
 import { formatDate, getTemplate } from "@/lib/amtsblatt/templates";
 import { devLoginEnabled } from "@/lib/server/auth/config";
 import { requireUser } from "@/lib/server/auth/dal";
 import { getStore } from "@/lib/server/db";
 import { stampDocument } from "../../actions";
 import { DownloadLink } from "../../download-link";
+import { PublicationBadge } from "@/components/publication-badge";
+import { isPublicTemplate, PUBLICATION_HINT } from "@/lib/amtsblatt/publication";
 
 const ISSUED = new Intl.DateTimeFormat("de-DE", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Berlin" });
 
@@ -26,7 +28,7 @@ export default async function DokumentPage({ params }: PageProps<"/intern/amtsbl
   const items = countersignItems(template, document.fields, await store.listStamps([document.id]));
   const status = stampStatus(items);
   const view = certificateStamps(items);
-  const request = openRequestFor(items, user.roles);
+  const request = openRequestFor(items, user.roles, user.id);
   const pdf = `/intern/amtsblatt/${document.id}/pdf`;
 
   return (
@@ -40,6 +42,7 @@ export default async function DokumentPage({ params }: PageProps<"/intern/amtsbl
               fields: document.fields,
               number: document.number,
               signerName: document.signerName,
+              signerSignature: document.signerSignature,
               signerHonorific: document.signerHonorific,
               signerTitle: document.signerTitle,
               signerKey: document.issuedBy,
@@ -54,7 +57,10 @@ export default async function DokumentPage({ params }: PageProps<"/intern/amtsbl
 
       <aside className="glass-panel p-7 lg:sticky lg:top-6">
         <p className="text-sm tabular-nums text-muted">{document.number}</p>
+        <div className="mt-3"><PublicationBadge templateId={template.id} /></div>
         <h1 className="mt-1 font-serif text-[1.75rem] font-medium leading-tight">{template.title}</h1>
+        {judicialProgress(template, items) && <p className="mt-3 text-sm font-medium text-navy">{judicialProgress(template, items)}</p>}
+        <p className="mt-3 text-xs leading-relaxed text-muted">{isPublicTemplate(template.id) ? PUBLICATION_HINT.public : PUBLICATION_HINT.internal}</p>
         {items.length > 0 && (
           <p
             className={`mt-3 w-fit rounded-full px-3 py-1 text-xs font-medium ${
@@ -96,7 +102,8 @@ export default async function DokumentPage({ params }: PageProps<"/intern/amtsbl
                 </li>
               ))}
             </ul>
-            {request && (document.issuedBy !== user.id || devLoginEnabled()) && (
+            {request && !user.signature && <p className="pt-3 text-sm"><Link href="/intern/profil" className="rk-ref">Unterschrift im Profil hinterlegen</Link>, um gegenzuzeichnen.</p>}
+            {request && user.signature && (document.issuedBy !== user.id || (!template.judicialQuorum && devLoginEnabled())) && (
               <form action={stampDocument} className="flex flex-wrap gap-2 pt-2">
                 <input type="hidden" name="document" value={document.id} />
                 {request.item.requirement.decisions.map((decision, index) => (

@@ -1,36 +1,27 @@
-import { certificateFonts } from "@/components/certificate/certificate-preview";
-import { SignatureSample } from "@/components/certificate/signature-mark";
 import { requireUser } from "@/lib/server/auth/dal";
 import { ROLE_LABEL } from "@/lib/server/db/types";
 import { ServiceNameForm } from "../forms";
+import { SignatureEditor } from "./signature-editor";
 
-// Depends on the signed-in user: rendered per request (see intern/layout.tsx).
 export const instant = false;
 
 export default async function ProfilPage() {
   const user = await requireUser();
-
   return (
-    <section className="glass-panel p-8 sm:p-10">
-      <h1 className="font-serif text-4xl font-medium">Profil</h1>
-      <dl className="mt-6 grid max-w-md grid-cols-[auto_minmax(0,1fr)] gap-x-6 gap-y-2 text-[0.9375rem]">
-        <dt className="text-muted">Discord</dt>
-        <dd>{user.discordName}</dd>
-        <dt className="text-muted">Rolle</dt>
-        <dd>{user.roles.map((role) => ROLE_LABEL[role]).join(", ")}</dd>
-      </dl>
-      <ServiceNameForm current={user.serviceName ?? ""} honorific={user.honorific ?? ""} />
-
-      <div className={`mt-10 max-w-md border-t border-ink/10 pt-8 ${certificateFonts}`}>
-        <h2 className="font-serif text-2xl font-medium">Deine Unterschrift</h2>
-        <p className="mt-2 text-sm leading-relaxed text-ink/70">
-          Jeder Amtsträger hat eine eigene Handschrift. Auf jeder Urkunde fällt sie ein wenig anders aus, so wie niemand
-          zweimal genau gleich unterschreibt.
-        </p>
-        <div className="mt-4 rounded-2xl border border-ink/10 bg-white/60 px-4 py-4">
-          <SignatureSample name={user.serviceName ?? "Dein Dienstname"} seed={user.id.length * 977 + 11} signerKey={user.id} scale={1.2} />
-        </div>
+    <div className="space-y-7">
+      <header>
+        <h1 className="font-serif text-4xl font-medium">Dein Profil</h1>
+        <p className="mt-3 text-sm text-ink/65">Dein Dienstname und deine persönliche Unterschrift.</p>
+      </header>
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,21rem)_minmax(0,1fr)]">
+        <section className="glass-panel min-w-0 p-6 sm:p-7">
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Dienstausweis</p>
+          <h2 className="mt-2 font-serif text-2xl font-medium">{user.discordName}</h2>
+          <div className="mt-4 flex flex-wrap gap-1.5">{user.roles.map((role) => <span key={role} className="rounded-full bg-navy/7 px-2.5 py-1 text-xs text-navy">{ROLE_LABEL[role]}</span>)}</div>
+          <div className="mt-6 border-t border-ink/10 pt-1"><ServiceNameForm current={user.serviceName ?? ""} honorific={user.honorific ?? ""} /></div>
+        </section>
+        <SignatureEditor initial={user.signature} name={user.serviceName ?? ""} />
       </div>
-    </section>
+    </div>
   );
 }

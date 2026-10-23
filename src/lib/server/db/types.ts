@@ -1,3 +1,5 @@
+import type { DrawnSignature } from "@/lib/amtsblatt/drawn-signature";
+
 // Storage contract of the internal area. Local development runs on SQLite (sqlite.ts),
 // staging and production on Supabase Postgres (postgres.ts), behind the same interface.
 // Every method is async so both backends fit behind it unchanged.
@@ -12,6 +14,7 @@ export const ROLES = [
   "staatssekretaer",
   "generalstaatsanwalt",
   "richter",
+  "ogh_richter",
   "oberster_richter",
   "chief_of_police",
   "revisionsleiter",
@@ -26,6 +29,7 @@ export const ROLE_LABEL: Record<Role, string> = {
   staatssekretaer: "Staatssekretär",
   generalstaatsanwalt: "Generalstaatsanwalt",
   richter: "Richter",
+  ogh_richter: "OGH-Richter",
   oberster_richter: "Oberster Richter",
   chief_of_police: "Chief of Police",
   revisionsleiter: "Leiter der Inneren Revision",
@@ -40,6 +44,7 @@ export const ROLE_TITLES: Record<Role, string[]> = {
   staatssekretaer: ["Staatssekretär im Föderalen Justizdepartement"],
   generalstaatsanwalt: ["Generalstaatsanwalt von Kamora"],
   richter: ["Richter am Bezirksgericht"],
+  ogh_richter: ["Richter am Obersten Gerichtshof"],
   oberster_richter: ["Oberster Richter von Kamora"],
   chief_of_police: ["Chief of Police"],
   revisionsleiter: ["Leiter der Inneren Revision"],
@@ -54,6 +59,7 @@ export const ROLE_STAMP: Record<Role, string> = {
   staatssekretaer: "STAATSSEKRETÄR",
   generalstaatsanwalt: "STAATSANWALTSCHAFT",
   richter: "BEZIRKSGERICHT",
+  ogh_richter: "OBERSTER GERICHTSHOF",
   oberster_richter: "OBERSTER GERICHTSHOF",
   chief_of_police: "POLIZEI",
   revisionsleiter: "INNERE REVISION",
@@ -74,6 +80,7 @@ export type User = {
   serviceName: string | null;
   // Optional title, one of HONORIFICS.
   honorific: string | null;
+  signature: DrawnSignature | null;
   createdAt: string;
 };
 
@@ -93,6 +100,7 @@ export type DocumentRecord = {
   signerTitle: string;
   // Varies the handwritten signature slightly from document to document.
   signatureSeed: number;
+  signerSignature: DrawnSignature | null;
   issuedBy: string;
   issuedAt: string;
 };
@@ -101,6 +109,8 @@ export type DocumentRecord = {
 export type StampRecord = {
   id: string;
   documentId: string;
+  // The approval position, independent of the role (several OGH judges share it).
+  slot: string;
   role: Role;
   stampedBy: string;
   // What the stamp says, e.g. "zugestimmt", "bestätigt" or "aufgehoben".
@@ -109,6 +119,7 @@ export type StampRecord = {
   signerHonorific: string | null;
   signerTitle: string;
   signatureSeed: number;
+  signerSignature: DrawnSignature | null;
   stampedAt: string;
 };
 
@@ -125,6 +136,7 @@ export interface Store {
   upsertDiscordUser(input: { discordId: string; discordName: string; avatarUrl: string | null }): Promise<User>;
   getUser(id: string): Promise<User | null>;
   setServiceName(userId: string, serviceName: string, honorific: string | null): Promise<void>;
+  setSignature(userId: string, signature: DrawnSignature): Promise<void>;
 
   listRoles(userId: string): Promise<Role[]>;
   grantRole(userId: string, role: Role, grantedBy: string | null): Promise<void>;
@@ -146,7 +158,10 @@ export interface Store {
   listDocuments(limit: number): Promise<DocumentRecord[]>;
   getDocument(id: string): Promise<DocumentRecord | null>;
 
-  // One stamp per office and document; stamping twice throws.
+  // One stamp per approval position and per person; races are rejected by the database.
   addStamp(input: NewStamp): Promise<StampRecord>;
   listStamps(documentIds: string[]): Promise<StampRecord[]>;
+  // Atomic claim keeps concurrent final signatures from announcing twice.
+  claimAnnouncement(documentId: string): Promise<boolean>;
+  releaseAnnouncement(documentId: string): Promise<void>;
 }

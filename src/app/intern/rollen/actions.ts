@@ -15,7 +15,7 @@ import { syncAllUsers } from "@/lib/server/roles-sync";
 const BACK = "/intern/rollen";
 const isRole = (value: string): value is Role => (ROLES as readonly string[]).includes(value);
 
-async function done(tone: "success" | "error", title: string, description?: string): Promise<never> {
+async function done(tone: "success" | "error" | "info", title: string, description?: string): Promise<never> {
   setFlash(await cookies(), { tone, title, description });
   redirect(BACK);
 }
@@ -43,14 +43,32 @@ export async function saveRoleMap(formData: FormData) {
     return done("error", "Nicht gespeichert", "Mindestens eine Discord-Rolle muss für den Sicherheitsrat stehen.");
   }
 
-  const store = await getStore();
-  await store.replaceRoleMap(entries);
-  const result = await syncAllUsers(store);
-  return done("success", "Zuordnung gespeichert", `${entries.length} Discord-Rollen verknüpft, ${result.changed} von ${result.users} Konten angepasst.`);
+  let store;
+  try {
+    store = await getStore();
+    await store.replaceRoleMap(entries);
+  } catch (error) {
+    console.error("[roles] saving role mapping failed:", error);
+    return done("error", "Nicht gespeichert", "Die Zuordnung konnte nicht gespeichert werden. Bitte versuche es erneut.");
+  }
+  let result;
+  try {
+    result = await syncAllUsers(store);
+  } catch (error) {
+    console.error("[roles] sync after saving failed:", error);
+    return done("info", "Zuordnung gespeichert", "Der anschließende Abgleich ist fehlgeschlagen. Bitte starte „Alle jetzt abgleichen“ erneut.");
+  }
+  return done(result.skipped ? "info" : "success", "Zuordnung gespeichert", `${entries.length} Discord-Rollen verknüpft, ${result.changed} von ${result.users} Konten angepasst${result.skipped ? `, ${result.skipped} nicht abgeglichen. Bitte erneut abgleichen` : ""}.`);
 }
 
 export async function syncNow() {
   await requireUser("sicherheitsrat");
-  const result = await syncAllUsers(await getStore());
-  return done("success", "Abgleich fertig", `${result.changed} von ${result.users} Konten angepasst${result.skipped ? `, ${result.skipped} übersprungen` : ""}.`);
+  let result;
+  try {
+    result = await syncAllUsers(await getStore());
+  } catch (error) {
+    console.error("[roles] sync failed:", error);
+    return done("error", "Abgleich fehlgeschlagen", "Die Konten konnten nicht vollständig abgeglichen werden. Bitte versuche es erneut.");
+  }
+  return done(result.skipped ? "info" : "success", result.skipped ? "Abgleich unvollständig" : "Abgleich fertig", `${result.changed} von ${result.users} Konten angepasst${result.skipped ? `, ${result.skipped} nicht abgeglichen. Bitte erneut versuchen` : ""}.`);
 }

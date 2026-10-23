@@ -1,4 +1,5 @@
 import "server-only";
+import { randomUUID } from "node:crypto";
 import { FLASH_COOKIE, type Flash } from "@/lib/toast";
 
 type CookieTarget = {
@@ -10,7 +11,8 @@ type CookieTarget = {
 // Base64url, because cookie libraries percent-encode values on their own and would otherwise
 // encode the JSON a second time.
 export function setFlash(cookies: CookieTarget, flash: Flash) {
-  cookies.set(FLASH_COOKIE, Buffer.from(JSON.stringify(flash), "utf8").toString("base64url"), {
+  // Identical consecutive results must also retrigger the client's effect.
+  cookies.set(FLASH_COOKIE, Buffer.from(JSON.stringify({ ...flash, id: randomUUID() }), "utf8").toString("base64url"), {
     path: "/",
     maxAge: 60,
     sameSite: "lax",

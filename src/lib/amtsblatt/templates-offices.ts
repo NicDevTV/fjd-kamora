@@ -134,7 +134,7 @@ const court: Pick<Template, "formula" | "issuer" | "seal" | "roles"> = {
   formula: FORMULA,
   issuer: "Das Gericht",
   seal: "gericht",
-  roles: ["richter", "oberster_richter"],
+  roles: ["richter", "ogh_richter", "oberster_richter"],
 };
 
 const haftbefehlRichter: Template = {

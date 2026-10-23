@@ -209,7 +209,7 @@ function consumeFlash() {
   if (flash) toastStore[flash.tone](flash.title, { description: flash.description });
 }
 
-export function Toaster() {
+export function Toaster({ flash }: { flash?: string }) {
   const toasts = useSyncExternalStore(subscribeToasts, getToasts, getServerToasts);
   const pathname = usePathname();
   const [heights, setHeights] = useState<Record<number, number>>({});
@@ -220,7 +220,7 @@ export function Toaster() {
 
   useEffect(() => {
     consumeFlash();
-  }, [pathname]);
+  }, [pathname, flash]);
 
   useEffect(() => {
     const onVisibility = () => setPageHidden(document.hidden);

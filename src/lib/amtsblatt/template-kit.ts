@@ -26,6 +26,8 @@ export type Block =
 // one of the roles may do it, except the issuer. The first decision is the approving one; the second,
 // if any, rejects and makes the document void.
 export type Countersign = {
+  key?: string;
+  afterPrevious?: boolean;
   roles: Role[];
   label: string;
   decisions: [string] | [string, string];
@@ -33,7 +35,7 @@ export type Countersign = {
   note?: string;
 };
 
-export type TemplateGroup = "Ernennung" | "Dienstrecht" | "Waffen" | "Beschlüsse";
+export type TemplateGroup = "Amtsleitungen" | "Ernennung" | "Dienstrecht" | "Waffen" | "Beschlüsse";
 
 // Whose seal the wax shows: the Sicherheitsrat, the FJD, the government or the courts.
 export type SealKind = "sicherheitsrat" | "fjd" | "kamora" | "gericht";
@@ -60,6 +62,8 @@ export type Template = {
   check?: (values: Record<string, string>) => string | null;
   // Countersignatures the document needs, by its values. None means it is valid once issued.
   countersigns?: (values: Record<string, string>) => Countersign[];
+  // The issuer is the first judge; two other people must countersign.
+  judicialQuorum?: 3;
   // The one reason (option of "grund") that allows a dishonourable dismissal; chosen automatically.
   dishonourableReason?: string;
 };

@@ -1,5 +1,6 @@
 import "server-only";
 import postgres from "postgres";
+import { parseSignature } from "@/lib/amtsblatt/drawn-signature";
 import { ROLES, type DocumentRecord, type Role, type RoleMapEntry, type StampRecord, type Store, type User } from "./types";
 
 // Staging and production database: Supabase Postgres, reached through the transaction pooler.
@@ -7,6 +8,7 @@ import { ROLES, type DocumentRecord, type Role, type RoleMapEntry, type StampRec
 // so the queries use plain table names and can never reach the other environment.
 
 type UserRow = {
+  signature: unknown;
   id: string;
   discord_id: string;
   discord_name: string;
@@ -17,6 +19,7 @@ type UserRow = {
 };
 
 type DocumentRow = {
+  signer_signature: unknown;
   id: string;
   number: string;
   template: string;
@@ -30,8 +33,10 @@ type DocumentRow = {
 };
 
 type StampRow = {
+  signer_signature: unknown;
   id: string;
   document_id: string;
+  slot: string;
   role: string;
   stamped_by: string;
   decision: string;
@@ -45,6 +50,7 @@ type StampRow = {
 const toStamp = (row: StampRow): StampRecord => ({
   id: row.id,
   documentId: row.document_id,
+  slot: row.slot,
   role: row.role as Role,
   stampedBy: row.stamped_by,
   decision: row.decision,
@@ -52,6 +58,7 @@ const toStamp = (row: StampRow): StampRecord => ({
   signerHonorific: row.signer_honorific,
   signerTitle: row.signer_title,
   signatureSeed: row.signature_seed,
+  signerSignature: parseSignature(row.signer_signature),
   stampedAt: row.stamped_at.toISOString(),
 });
 
@@ -62,6 +69,7 @@ const toUser = (row: UserRow): User => ({
   avatarUrl: row.avatar_url,
   serviceName: row.service_name,
   honorific: row.honorific,
+  signature: parseSignature(row.signature),
   createdAt: row.created_at.toISOString(),
 });
 
@@ -74,6 +82,7 @@ const toDocument = (row: DocumentRow): DocumentRecord => ({
   signerHonorific: row.signer_honorific,
   signerTitle: row.signer_title,
   signatureSeed: row.signature_seed,
+  signerSignature: parseSignature(row.signer_signature),
   issuedBy: row.issued_by,
   issuedAt: row.issued_at.toISOString(),
 });
@@ -83,6 +92,16 @@ export function createPostgresStore(url: string): Store {
   const sql = postgres(url, { ssl: "require", prepare: false, max: 3, idle_timeout: 20, connect_timeout: 10 });
 
   return {
+    async setSignature(userId, signature) {
+      await sql`update users set signature = ${sql.json(signature)} where id = ${userId}`;
+    },
+    async claimAnnouncement(documentId) {
+      const rows = await sql`insert into document_announcements (document_id) values (${documentId}) on conflict do nothing returning document_id`;
+      return rows.length === 1;
+    },
+    async releaseAnnouncement(documentId) {
+      await sql`delete from document_announcements where document_id = ${documentId}`;
+    },
     async upsertDiscordUser({ discordId, discordName, avatarUrl }) {
       const [row] = await sql<UserRow[]>`
         insert into users (discord_id, discord_name, avatar_url)
@@ -182,9 +201,9 @@ export function createPostgresStore(url: string): Store {
         const [{ next }] = await tx<{ next: number }[]>`
           select coalesce(max(sequence), 0) + 1 as next from documents where year = ${year}`;
         const [row] = await tx<DocumentRow[]>`
-          insert into documents (number, year, sequence, template, fields, signer_name, signer_honorific, signer_title, signature_seed, issued_by)
+          insert into documents (number, year, sequence, template, fields, signer_name, signer_honorific, signer_title, signature_seed, issued_by, signer_signature)
           values (${`AB-${year}-${String(next).padStart(4, "0")}`}, ${year}, ${next}, ${input.template},
-                  ${tx.json(input.fields)}, ${input.signerName}, ${input.signerHonorific}, ${input.signerTitle}, ${input.signatureSeed}, ${input.issuedBy})
+                  ${tx.json(input.fields)}, ${input.signerName}, ${input.signerHonorific}, ${input.signerTitle}, ${input.signatureSeed}, ${input.issuedBy}, ${input.signerSignature ? tx.json(input.signerSignature) : null})
           returning *`;
         return toDocument(row);
       });
@@ -192,9 +211,9 @@ export function createPostgresStore(url: string): Store {
 
     async addStamp(input) {
       const [row] = await sql<StampRow[]>`
-        insert into document_stamps (document_id, role, stamped_by, decision, signer_name, signer_honorific, signer_title, signature_seed)
-        values (${input.documentId}, ${input.role}, ${input.stampedBy}, ${input.decision}, ${input.signerName},
-                ${input.signerHonorific}, ${input.signerTitle}, ${input.signatureSeed})
+        insert into document_stamps (document_id, slot, role, stamped_by, decision, signer_name, signer_honorific, signer_title, signature_seed, signer_signature)
+        values (${input.documentId}, ${input.slot}, ${input.role}, ${input.stampedBy}, ${input.decision}, ${input.signerName},
+                ${input.signerHonorific}, ${input.signerTitle}, ${input.signatureSeed}, ${input.signerSignature ? sql.json(input.signerSignature) : null})
         returning *`;
       return toStamp(row);
     },

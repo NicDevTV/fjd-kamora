@@ -34,6 +34,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: ["pdfjs-dist", "@napi-rs/canvas"],
   poweredByHeader: false,
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
@@ -41,6 +42,7 @@ const nextConfig: NextConfig = {
   // The certificate PDF reads its fonts from disk; ship them with that route.
   outputFileTracingIncludes: {
     "/intern/amtsblatt/[id]/pdf": ["./src/assets/fonts/**"],
+    "/intern/**": ["./src/assets/fonts/**", "./node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs"],
   },
   cacheComponents: true,
   partialPrefetching: true,

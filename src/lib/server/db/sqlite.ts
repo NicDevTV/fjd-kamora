@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
+import { parseSignature } from "@/lib/amtsblatt/drawn-signature";
 import {
   ROLES,
   type DocumentRecord,
@@ -25,6 +26,7 @@ const SCHEMA = `
     avatar_url text,
     service_name text,
     honorific text,
+    signature text,
     created_at text not null,
     last_login_at text not null
   );
@@ -58,6 +60,7 @@ const SCHEMA = `
     signer_honorific text,
     signer_title text not null,
     signature_seed integer not null,
+    signer_signature text,
     issued_by text not null references users(id),
     issued_at text not null,
     unique (year, sequence)
@@ -65,6 +68,7 @@ const SCHEMA = `
   create table if not exists document_stamps (
     id text primary key,
     document_id text not null references documents(id) on delete cascade,
+    slot text not null,
     role text not null,
     stamped_by text not null references users(id),
     decision text not null,
@@ -72,8 +76,13 @@ const SCHEMA = `
     signer_honorific text,
     signer_title text not null,
     signature_seed integer not null,
+    signer_signature text,
     stamped_at text not null,
-    unique (document_id, role)
+    unique (document_id, slot),
+    unique (document_id, stamped_by)
+  );
+  create table if not exists document_announcements (
+    document_id text primary key references documents(id) on delete cascade
   );
 `;
 
@@ -87,6 +96,7 @@ function toUser(row: Row): User {
     avatarUrl: row.avatar_url === null ? null : String(row.avatar_url),
     serviceName: row.service_name === null ? null : String(row.service_name),
     honorific: row.honorific == null ? null : String(row.honorific),
+    signature: parseSignature(row.signature),
     createdAt: String(row.created_at),
   };
 }
@@ -101,6 +111,7 @@ function toDocument(row: Row): DocumentRecord {
     signerHonorific: row.signer_honorific == null ? null : String(row.signer_honorific),
     signerTitle: String(row.signer_title),
     signatureSeed: Number(row.signature_seed),
+    signerSignature: parseSignature(row.signer_signature),
     issuedBy: String(row.issued_by),
     issuedAt: String(row.issued_at),
   };
@@ -115,6 +126,7 @@ function toStamp(row: Row): StampRecord {
   return {
     id: String(row.id),
     documentId: String(row.document_id),
+    slot: String(row.slot ?? row.role),
     role: String(row.role) as Role,
     stampedBy: String(row.stamped_by),
     decision: String(row.decision),
@@ -122,6 +134,7 @@ function toStamp(row: Row): StampRecord {
     signerHonorific: row.signer_honorific == null ? null : String(row.signer_honorific),
     signerTitle: String(row.signer_title),
     signatureSeed: Number(row.signature_seed),
+    signerSignature: parseSignature(row.signer_signature),
     stampedAt: String(row.stamped_at),
   };
 }
@@ -134,14 +147,61 @@ function open(file: string) {
   // Columns added after the first release: older local files get them on the next start.
   addColumn(db, "users", "honorific", "text");
   addColumn(db, "documents", "signer_honorific", "text");
+  // SQLite cannot drop an inline unique constraint: rebuild only the old stamp
+  // table inside one transaction, preserving every historical signature.
+  const stampColumns = db.prepare("pragma table_info(document_stamps)").all() as Row[];
+  if (!stampColumns.some((entry) => entry.name === "slot")) {
+    db.exec("begin immediate;");
+    try {
+      db.exec(`
+      alter table document_stamps rename to document_stamps_legacy;
+      create table document_stamps (
+        id text primary key,
+        document_id text not null references documents(id) on delete cascade,
+        slot text not null,
+        role text not null,
+        stamped_by text not null references users(id),
+        decision text not null,
+        signer_name text not null,
+        signer_honorific text,
+        signer_title text not null,
+        signature_seed integer not null,
+        stamped_at text not null,
+        unique (document_id, slot),
+        unique (document_id, stamped_by)
+      );
+      insert into document_stamps
+        select id, document_id, role, role, stamped_by, decision, signer_name,
+          signer_honorific, signer_title, signature_seed, stamped_at from document_stamps_legacy;
+      drop table document_stamps_legacy;`);
+      db.exec("commit;");
+    } catch (error) {
+      db.exec("rollback;");
+      db.close();
+      throw error;
+    }
+  }
+  addColumn(db, "users", "signature", "text");
+  addColumn(db, "documents", "signer_signature", "text");
+  addColumn(db, "document_stamps", "signer_signature", "text");
   return db;
 }
 
-export function createSqliteStore(file = path.join(process.cwd(), ".data", "fjd.sqlite")): Store {
+export function createSqliteStore(file = path.join(process.cwd(), ".data", "fjd.sqlite")): Store & { close(): void } {
   const db = open(file);
   const now = () => new Date().toISOString();
 
   return {
+    close() { db.close(); },
+    async setSignature(userId, signature) {
+      db.prepare("update users set signature = ? where id = ?").run(JSON.stringify(signature), userId);
+    },
+    async claimAnnouncement(documentId) {
+      return db.prepare("insert into document_announcements (document_id) values (?) on conflict do nothing").run(documentId).changes === 1;
+    },
+    async releaseAnnouncement(documentId) {
+      db.prepare("delete from document_announcements where document_id = ?").run(documentId);
+    },
     async upsertDiscordUser({ discordId, discordName, avatarUrl }) {
       const at = now();
       db.prepare(
@@ -261,8 +321,8 @@ export function createSqliteStore(file = path.join(process.cwd(), ".data", "fjd.
         const number = `AB-${year}-${String(sequence).padStart(4, "0")}`;
         db.prepare(
           `insert into documents (id, number, year, sequence, template, fields, signer_name, signer_honorific,
-             signer_title, signature_seed, issued_by, issued_at)
-           values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             signer_title, signature_seed, issued_by, issued_at, signer_signature)
+           values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         ).run(
           id,
           number,
@@ -276,6 +336,7 @@ export function createSqliteStore(file = path.join(process.cwd(), ".data", "fjd.
           input.signatureSeed,
           input.issuedBy,
           issuedAt,
+          input.signerSignature ? JSON.stringify(input.signerSignature) : null,
         );
         db.exec("commit");
       } catch (error) {
@@ -288,12 +349,13 @@ export function createSqliteStore(file = path.join(process.cwd(), ".data", "fjd.
     async addStamp(input: NewStamp) {
       const id = randomUUID();
       db.prepare(
-        `insert into document_stamps (id, document_id, role, stamped_by, decision, signer_name, signer_honorific,
-           signer_title, signature_seed, stamped_at)
-         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `insert into document_stamps (id, document_id, slot, role, stamped_by, decision, signer_name, signer_honorific,
+           signer_title, signature_seed, stamped_at, signer_signature)
+         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       ).run(
         id,
         input.documentId,
+        input.slot,
         input.role,
         input.stampedBy,
         input.decision,
@@ -302,6 +364,7 @@ export function createSqliteStore(file = path.join(process.cwd(), ".data", "fjd.
         input.signerTitle,
         input.signatureSeed,
         now(),
+        input.signerSignature ? JSON.stringify(input.signerSignature) : null,
       );
       return toStamp(db.prepare("select * from document_stamps where id = ?").get(id) as Row);
     },

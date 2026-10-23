@@ -23,7 +23,7 @@ export default async function InternPage({ searchParams }: PageProps<"/intern">)
     const template = getTemplate(document.template);
     if (!template || document.issuedBy === user.id) return false;
     const items = countersignItems(template, document.fields, stamps.filter((stamp) => stamp.documentId === document.id));
-    return openRequestFor(items, user.roles) !== null;
+    return openRequestFor(items, user.roles, user.id) !== null;
   });
 
   return (

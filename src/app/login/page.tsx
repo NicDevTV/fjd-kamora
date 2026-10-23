@@ -68,6 +68,10 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
             >
               Testzugang 2 (Gouverneur, Senat, Gericht, Polizei)
             </button>
+            <div className="grid grid-cols-2 gap-2">
+              <button type="submit" name="who" value="3" className="rounded-2xl border border-dashed border-ink/30 px-3 py-3 text-sm text-ink/70 transition-colors hover:bg-white/60">OGH: Clara Dornfeld</button>
+              <button type="submit" name="who" value="4" className="rounded-2xl border border-dashed border-ink/30 px-3 py-3 text-sm text-ink/70 transition-colors hover:bg-white/60">OGH: Viktor Seidel</button>
+            </div>
           </form>
         )}
 

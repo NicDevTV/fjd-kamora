@@ -1605,9 +1605,34 @@ a[data-pending] .pending-mark {
   bottom: calc(var(--u) * 76);
   left: calc(var(--u) * 70);
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   justify-content: center;
   gap: calc(var(--u) * 14);
+}
+
+.cert[data-quorum="3"] .cert-text {
+  margin-top: calc(var(--u) * 10) !important;
+  font-size: calc(var(--u) * 12);
+}
+
+.cert[data-quorum="3"] .cert-name {
+  margin-top: calc(var(--u) * 10) !important;
+  font-size: calc(var(--u) * 23);
+}
+
+.cert[data-quorum="3"] .cert-office {
+  margin-top: calc(var(--u) * 10) !important;
+  font-size: calc(var(--u) * 14);
+}
+
+.cert[data-quorum="3"] .cert-closing {
+  margin-top: calc(var(--u) * 18);
+}
+
+.cert[data-quorum="3"] .cert-seal {
+  width: calc(var(--u) * 105);
+  height: calc(var(--u) * 105);
 }
 
 .cert-stamp {

@@ -4,6 +4,8 @@ import { randomInt } from "node:crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { after } from "next/server";
+import { refresh } from "next/cache";
+import { parseSignature, SIGNATURE_LIMITS, type DrawnSignature } from "@/lib/amtsblatt/drawn-signature";
 import { countersignItems, openRequestFor } from "@/lib/amtsblatt/countersign";
 import { subjectOf } from "@/lib/amtsblatt/template-kit";
 import { getTemplate, titlesFor, validateFields } from "@/lib/amtsblatt/templates";
@@ -24,6 +26,22 @@ function seedFrom(value: FormDataEntryValue | null) {
 
 // "at" changes with every submission, so the form shows a toast even for a repeated result.
 export type FormState = { error?: string; saved?: boolean; at?: number };
+export type SignatureFormState = FormState & { signature?: DrawnSignature };
+
+export async function saveSignature(_state: SignatureFormState, formData: FormData): Promise<SignatureFormState> {
+  const user = await requireUser();
+  const at = Date.now();
+  const raw = formData.get("signature");
+  const signature = typeof raw === "string" && raw.length <= SIGNATURE_LIMITS.bytes ? parseSignature(raw) : null;
+  if (!signature) return { error: "Zeichne bitte eine erkennbare Unterschrift in das Feld.", at };
+  try {
+    await (await getStore()).setSignature(user.id, signature);
+  } catch {
+    return { error: "Deine Unterschrift konnte nicht gespeichert werden. Bitte versuche es erneut.", at };
+  }
+  refresh();
+  return { saved: true, signature, at };
+}
 
 export async function saveServiceName(_state: FormState, formData: FormData): Promise<FormState> {
   const user = await requireUser();
@@ -56,21 +74,22 @@ export async function stampDocument(formData: FormData) {
   };
 
   if (!user.serviceName) return fail("Dienstnamen fehlt", "Lege zuerst im Profil deinen Dienstnamen fest.");
+  if (!user.signature) return fail("Unterschrift fehlt", "Zeichne und speichere zuerst deine Unterschrift im Profil.");
   // Nobody countersigns their own document. The local test accounts are the one exception, so the flow can be tried.
-  if (document.issuedBy === user.id && !devLoginEnabled()) return fail("Nicht möglich", "Die eigene Urkunde zeichnest du nicht selbst gegen.");
+  if (document.issuedBy === user.id && (template.judicialQuorum || !devLoginEnabled())) return fail("Nicht möglich", "Die eigene Urkunde zeichnest du nicht selbst gegen.");
 
   const stamps = await store.listStamps([document.id]);
-  const open = openRequestFor(countersignItems(template, document.fields, stamps), user.roles);
+  const open = openRequestFor(countersignItems(template, document.fields, stamps), user.roles, user.id);
   if (!open) return fail("Nicht möglich", "Für diese Urkunde ist keine Gegenzeichnung von deinem Amt offen.");
 
   const decision = String(formData.get("decision") ?? "");
   if (!open.item.requirement.decisions.includes(decision)) return fail("Nicht möglich", "Unbekannte Entscheidung.");
 
-  // Two offices answering at the same moment: the unique (document, role) key lets only one stamp through.
-  let stamp;
+  // A position and a person can each sign only once, including concurrent requests.
   try {
-    stamp = await store.addStamp({
+    await store.addStamp({
       documentId: document.id,
+      slot: open.item.slot,
       role: open.role,
       stampedBy: user.id,
       decision,
@@ -78,11 +97,12 @@ export async function stampDocument(formData: FormData) {
       signerHonorific: user.honorific,
       signerTitle: ROLE_TITLES[open.role][0],
       signatureSeed: seedFrom(null),
+      signerSignature: user.signature,
     });
   } catch {
     return fail("Schon gezeichnet", "Für diese Urkunde liegt diese Gegenzeichnung bereits vor.");
   }
-  after(() => announceStamp(document, template, stamp).catch((error) => console.error("[discord] stamp announcement failed:", error)));
+  after(() => announceStamp(document, template).catch((error) => console.error("[discord] stamp announcement failed:", error)));
   setFlash(await cookies(), { tone: "success", title: `${open.item.requirement.label}: ${decision}`, description: `Amtsblatt Nr. ${document.number}.` });
   redirect(back);
 }
@@ -91,6 +111,7 @@ export async function issueDocument(_state: FormState, formData: FormData): Prom
   const user = await requireUser();
   const at = Date.now();
   if (!user.serviceName) return { error: "Lege zuerst im Profil deinen Dienstnamen fest; mit ihm wird unterschrieben.", at };
+  if (!user.signature) return { error: "Zeichne und speichere zuerst deine Unterschrift im Profil.", at };
 
   const template = getTemplate(String(formData.get("template") ?? ""));
   if (!template) return { error: "Unbekannte Vorlage.", at };
@@ -113,6 +134,7 @@ export async function issueDocument(_state: FormState, formData: FormData): Prom
     signerTitle,
     // The seed only shapes seal and signature; a tampered value changes looks, nothing else.
     signatureSeed: seedFrom(formData.get("seed")),
+    signerSignature: user.signature,
     issuedBy: user.id,
   });
   // Announce in the Amtsblatt channel once the response is out; a Discord outage never blocks issuing.

@@ -1,11 +1,14 @@
 import type { CSSProperties } from "react";
 import { SIGNATURE_BOX, signatureHand, signatureStyle } from "@/lib/amtsblatt/geometry";
+import type { DrawnSignature } from "@/lib/amtsblatt/drawn-signature";
+import { SignatureVector } from "./signature-vector";
 
 // The handwritten signature of one official on one document, as HTML. Sizes are in points of the
 // certificate grid (var(--u)); outside a certificate the wrapper sets --u itself (see SignatureSample).
 const u = (value: number) => `calc(var(--u) * ${value})`;
 
-export function SignatureMark({ name, seed, signerKey }: { name: string; seed: number; signerKey: string }) {
+export function SignatureMark({ name, seed, signerKey, signature }: { name: string; seed: number; signerKey: string; signature?: DrawnSignature | null }) {
+  if (signature) return <div className="cert-signature"><SignatureVector signature={signature} /></div>;
   const style = signatureStyle(name, seed, signatureHand(signerKey));
   return (
     <div className="cert-signature" style={{ color: style.ink }}>
@@ -49,15 +52,17 @@ export function SignatureSample({
   seed,
   signerKey,
   scale = 1,
+  signature,
 }: {
   name: string;
   seed: number;
   signerKey: string;
   scale?: number;
+  signature?: DrawnSignature | null;
 }) {
   return (
     <div style={{ "--u": `${scale}px`, width: u(SIGNATURE_BOX.width), maxWidth: "100%" } as CSSProperties}>
-      <SignatureMark name={name} seed={seed} signerKey={signerKey} />
+      <SignatureMark name={name} seed={seed} signerKey={signerKey} signature={signature} />
     </div>
   );
 }

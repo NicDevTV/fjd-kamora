@@ -2,13 +2,14 @@ import { requireUser } from "@/lib/server/auth/dal";
 import { getStore } from "@/lib/server/db";
 import { fullName, ROLE_LABEL, ROLES } from "@/lib/server/db/types";
 import { fetchGuildRoles, guildConfig, type GuildRole } from "@/lib/server/discord/guild";
-import { saveRoleMap, syncNow } from "./actions";
+import { saveRoleMap } from "./actions";
+import { RoleMapFields } from "./role-map-fields";
 
 // Depends on the signed-in user: rendered per request (see intern/layout.tsx).
 export const instant = false;
 
 const select =
-  "rounded-full border border-ink/15 bg-white/85 px-4 py-2 text-sm outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/25";
+  "min-w-0 max-w-full rounded-full border border-ink/15 bg-white/85 px-4 py-2 text-sm outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/25";
 
 export default async function RollenPage() {
   await requireUser("sicherheitsrat");
@@ -48,40 +49,30 @@ export default async function RollenPage() {
           <p className="mt-4 max-w-prose rounded-2xl bg-accent/5 px-4 py-3 text-[0.9375rem] leading-relaxed text-accent">{guildError}</p>
         ) : (
           <form action={saveRoleMap} className="mt-5">
-            <ul className="divide-y divide-ink/10">
-              {guildRoles.map((guildRole) => (
-                <li key={guildRole.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
-                  <span className="flex items-center gap-2.5">
-                    <span
-                      aria-hidden="true"
-                      className="size-3 rounded-full border border-ink/15"
-                      style={{ background: guildRole.color ? `#${guildRole.color.toString(16).padStart(6, "0")}` : "transparent" }}
-                    />
-                    {guildRole.name}
-                  </span>
-                  <select name={`map:${guildRole.id}`} defaultValue={chosen.get(guildRole.id) ?? ""} className={select} aria-label={`Rolle für ${guildRole.name}`}>
-                    <option value="">kein Amt</option>
-                    {ROLES.map((role) => (
-                      <option key={role} value={role}>
-                        {ROLE_LABEL[role]}
-                      </option>
-                    ))}
-                  </select>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button type="submit" className="liquid-solid rounded-full px-6 py-3 text-sm font-medium text-white">
-                Zuordnung speichern
-              </button>
-              <button
-                type="submit"
-                formAction={syncNow}
-                className="rounded-full border border-ink/15 px-6 py-3 text-sm font-medium text-ink/80 transition-colors hover:bg-white/70"
-              >
-                Alle jetzt abgleichen
-              </button>
-            </div>
+            <RoleMapFields>
+              <ul className="divide-y divide-ink/10">
+                {guildRoles.map((guildRole) => (
+                  <li key={guildRole.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
+                    <span className="flex min-w-0 items-center gap-2.5 [overflow-wrap:anywhere]">
+                      <span
+                        aria-hidden="true"
+                        className="size-3 shrink-0 rounded-full border border-ink/15"
+                        style={{ background: guildRole.color ? `#${guildRole.color.toString(16).padStart(6, "0")}` : "transparent" }}
+                      />
+                      {guildRole.name}
+                    </span>
+                    <select name={`map:${guildRole.id}`} defaultValue={chosen.get(guildRole.id) ?? ""} className={select} aria-label={`Rolle für ${guildRole.name}`}>
+                      <option value="">kein Amt</option>
+                      {ROLES.map((role) => (
+                        <option key={role} value={role}>
+                          {ROLE_LABEL[role]}
+                        </option>
+                      ))}
+                    </select>
+                  </li>
+                ))}
+              </ul>
+            </RoleMapFields>
           </form>
         )}
       </section>

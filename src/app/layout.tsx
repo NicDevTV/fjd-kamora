@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { IBM_Plex_Sans, IBM_Plex_Serif } from "next/font/google";
 import { AbbrTooltip } from "@/components/abbr-tooltip";
 import { GlassPointer } from "@/components/glass-pointer";
 import { IntroScreen } from "@/components/intro-screen";
 import { NavProgress } from "@/components/nav-progress";
 import { Toaster } from "@/components/toaster";
+import { FlashFeedback } from "@/components/flash-feedback";
 import "./globals.css";
 
 const plexSerif = IBM_Plex_Serif({
@@ -55,7 +57,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <NavProgress />
         <GlassPointer />
         <AbbrTooltip />
-        <Toaster />
+        <Suspense fallback={<Toaster />}>
+          <FlashFeedback />
+        </Suspense>
         {children}
       </body>
     </html>

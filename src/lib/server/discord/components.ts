@@ -30,6 +30,11 @@ export const section = (lines: string[], thumbnailUrl: string, description?: str
 // A file that was uploaded together with the message (see sendWebhook).
 export const attachedFile = (name: string): DiscordComponent => ({ type: 13, file: { url: `attachment://${name}` } });
 
+export const documentImage = (name: string, description: string): DiscordComponent => ({
+  type: 12,
+  items: [{ media: { url: `attachment://${name}` }, description }],
+});
+
 // Webhooks that no application owns can only use link buttons.
 export const linkButtons = (...buttons: { label: string; url: string }[]): DiscordComponent => ({
   type: 1,

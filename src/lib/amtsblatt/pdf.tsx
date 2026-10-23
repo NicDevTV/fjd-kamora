@@ -20,6 +20,8 @@ import {
 } from "@react-pdf/renderer";
 import { fullName, ROLE_STAMP, type DocumentRecord } from "@/lib/server/db/types";
 import type { PendingView, StampView } from "./countersign";
+import { isPublicTemplate } from "./publication";
+import { signatureGeometry, SIGNATURE_PAD, type DrawnSignature } from "./drawn-signature";
 import {
   COLORS,
   LETTER_PATH,
@@ -160,7 +162,7 @@ function Emblem({ kind }: { kind: SealKind }) {
 // A wax seal pressed onto two ribbons. Everything raised by the stamp (rim, letters, emblem) is
 // drawn three times: a dark copy shifted down-right as shadow, a pale copy up-left as the light
 // catching the edge, and the wax colour on top. That reads as relief even on flat paper.
-function Seal({ kind, seed }: { kind: SealKind; seed: number }) {
+function Seal({ kind, seed, size = 150 }: { kind: SealKind; seed: number; size?: number }) {
   const shape = sealShape(kind, seed);
   const { c, letters } = shape;
 
@@ -192,7 +194,7 @@ function Seal({ kind, seed }: { kind: SealKind; seed: number }) {
     );
 
   return (
-    <Svg width={150} height={150} viewBox={`0 0 ${SEAL_SIZE} ${SEAL_SIZE}`}>
+    <Svg width={size} height={size} viewBox={`0 0 ${SEAL_SIZE} ${SEAL_SIZE}`}>
       <Defs>
         <RadialGradient id="wax" cx="38%" cy="32%" r="72%">
           <Stop offset="0%" stopColor={WAX.light} />
@@ -240,7 +242,11 @@ function Seal({ kind, seed }: { kind: SealKind; seed: number }) {
   );
 }
 
-function Signature({ name, seed, signerKey, scale = 1 }: { name: string; seed: number; signerKey: string; scale?: number }) {
+function Signature({ name, seed, signerKey, scale = 1, signature }: { name: string; seed: number; signerKey: string; scale?: number; signature?: DrawnSignature | null }) {
+  if (signature) {
+    const geometry = signatureGeometry(signature);
+    return <Svg width={SIGNATURE_BOX.width * scale} height={SIGNATURE_BOX.height * scale} viewBox="0 0 240 54"><G transform={geometry.transform}>{geometry.paths.map((path, index) => <Path key={index} d={path} fill="none" stroke={SIGNATURE_PAD.ink} strokeWidth={SIGNATURE_PAD.weight} strokeLinecap="round" strokeLinejoin="round" />)}</G></Svg>;
+  }
   const style = signatureStyle(name, seed, signatureHand(signerKey));
   const k = scale;
   return (
@@ -310,26 +316,25 @@ function Stamps({ stamps, pending }: { stamps: StampView[]; pending: PendingView
   if (stamps.length === 0 && pending.length === 0) return null;
   return (
     <View
-      style={{ position: "absolute", left: 70, right: 70, bottom: 76, flexDirection: "row", justifyContent: "center", alignItems: "flex-end" }}
+      style={{ position: "absolute", left: 70, right: 70, bottom: 76, flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "flex-end", gap: 14 }}
     >
-      {stamps.map((stamp, index) => (
-        <View key={`${stamp.role}-${stamp.stampedAt}`} style={{ width: 205, flexDirection: "row", alignItems: "center", marginLeft: index === 0 ? 0 : 14 }}>
+      {stamps.map((stamp) => (
+        <View key={`${stamp.signerKey}-${stamp.stampedAt}`} style={{ width: 205, flexDirection: "row", alignItems: "center" }}>
           <StampDrawing stamp={stamp} />
           <View style={{ flex: 1, alignItems: "center", marginLeft: 5 }}>
-            <Signature name={stamp.signerName} seed={stamp.seed} signerKey={stamp.signerKey} scale={0.5} />
+            <Signature name={stamp.signerName} seed={stamp.seed} signerKey={stamp.signerKey} scale={0.5} signature={stamp.signerSignature} />
             <View style={{ width: 118, borderTopWidth: 0.6, borderTopColor: INK, marginTop: 1 }} />
             <Text style={{ fontSize: 9, marginTop: 3 }}>{fullName(stamp.signerHonorific, stamp.signerName)}</Text>
             <Text style={{ fontSize: 7.5, fontStyle: "italic", color: SEPIA, marginTop: 1 }}>{stamp.signerTitle}</Text>
           </View>
         </View>
       ))}
-      {pending.map((item, index) => (
+      {pending.map((item) => (
         <View
           key={item.label}
           style={{
             width: 205,
             height: 54,
-            marginLeft: stamps.length + index === 0 ? 0 : 14,
             borderWidth: 0.8,
             borderStyle: "dashed",
             borderColor: SEPIA,
@@ -394,7 +399,7 @@ function Certificate({
 
         <View style={{ marginTop: 14, alignSelf: "stretch" }}>
           {template.blocks(document.fields).map((block, index) => (
-            <Text key={index} style={block.kind === "name" ? styles.name : block.kind === "office" ? styles.office : styles.text}>
+            <Text key={index} style={[block.kind === "name" ? styles.name : block.kind === "office" ? styles.office : styles.text, ...(template.judicialQuorum ? [{ marginTop: 10, fontSize: block.kind === "name" ? 23 : block.kind === "office" ? 14 : 12 }] : [])]}>
               {block.text}
             </Text>
           ))}
@@ -402,13 +407,13 @@ function Certificate({
 
         {/* Closing block: the seal stands on its own on the left, nothing printed under it;
             place, date and signature on the right, as on a real certificate. */}
-        <View style={{ marginTop: 52, alignSelf: "stretch", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end" }}>
-          <View style={{ width: 150, alignItems: "center" }}>
-            <Seal kind={template.seal} seed={document.signatureSeed} />
+        <View style={{ marginTop: template.judicialQuorum ? 18 : 52, alignSelf: "stretch", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <View style={{ width: template.judicialQuorum ? 105 : 150, height: template.judicialQuorum ? 105 : 150, alignItems: "center" }}>
+            <Seal kind={template.seal} seed={document.signatureSeed} size={template.judicialQuorum ? 105 : 150} />
           </View>
           <View style={{ width: 240, alignItems: "center" }}>
             <Text style={{ fontSize: 12.5, fontStyle: "italic" }}>Kamora, den {issued}</Text>
-            <Signature name={document.signerName} seed={document.signatureSeed} signerKey={document.issuedBy} />
+            <Signature name={document.signerName} seed={document.signatureSeed} signerKey={document.issuedBy} signature={document.signerSignature} />
             <View style={{ width: 210, borderTopWidth: 0.7, borderTopColor: INK, marginTop: 2 }} />
             <Text style={{ fontSize: 12, marginTop: 5 }}>{fullName(document.signerHonorific, document.signerName)}</Text>
             <Text style={{ fontSize: 10, fontStyle: "italic", color: SEPIA, marginTop: 1 }}>{document.signerTitle}</Text>
@@ -419,7 +424,7 @@ function Certificate({
       <Stamps stamps={stamps} pending={pending} />
 
       <Text style={{ position: "absolute", left: 80, right: 80, bottom: 54, fontSize: 7.5, textAlign: "center", color: SEPIA }}>
-        Rechtsgrundlage: {template.legalBasis}. Veröffentlicht im Amtsblatt des Staates Kamora.
+        Rechtsgrundlage: {template.legalBasis}. {isPublicTemplate(template.id) ? "Öffentliche Bekanntmachung erst nach vollständiger Gegenzeichnung." : "Vertrauliche Urkunde · nur für den internen Dienstgebrauch."}
       </Text>
     </Page>
   );

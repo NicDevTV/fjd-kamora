@@ -13,6 +13,7 @@ const ROLES = [
   "staatssekretaer",
   "generalstaatsanwalt",
   "richter",
+  "ogh_richter",
   "oberster_richter",
   "chief_of_police",
   "revisionsleiter",

@@ -14,6 +14,8 @@ import type { PendingView, StampView } from "@/lib/amtsblatt/countersign";
 import { fullName } from "@/lib/server/db/types";
 import { CertificateStamps } from "./stamp-mark";
 import { WaxSeal } from "./wax-seal";
+import { isPublicTemplate } from "@/lib/amtsblatt/publication";
+import type { DrawnSignature } from "@/lib/amtsblatt/drawn-signature";
 
 // The certificate in HTML, laid out like the PDF (pdf.tsx) on the same A4 grid in points.
 // One point is var(--u), a fraction of the preview's width, so the page scales to any size
@@ -58,6 +60,7 @@ export type CertificateData = {
   fields: Record<string, string>;
   number: string | null;
   signerName: string;
+  signerSignature?: DrawnSignature | null;
   // Printed before the name under the signature, never inside it.
   signerHonorific?: string | null;
   signerTitle: string;
@@ -72,11 +75,12 @@ export type CertificateData = {
 };
 
 export function CertificatePreview({ data, className = "" }: { data: CertificateData; className?: string }) {
-  const { template, fields, number, signerName, signerHonorific, signerTitle, signerKey, seed, issuedAt, stamps = [], pending = [] } = data;
+  const { template, fields, number, signerName, signerHonorific, signerTitle, signerKey, signerSignature, seed, issuedAt, stamps = [], pending = [] } = data;
 
   return (
     <div
       className={`cert ${certificateFonts} ${className}`}
+      data-quorum={template.judicialQuorum ?? undefined}
       role="img"
       aria-label={`${template.title}${fields.name ? ` für ${fields.name}` : ""}`}
     >
@@ -104,7 +108,7 @@ export function CertificatePreview({ data, className = "" }: { data: Certificate
             <WaxSeal kind={template.seal} seed={seed} className="cert-seal" />
             <div className="cert-signing">
               <p className="cert-date">Kamora, den {formatDate(issuedAt.slice(0, 10))}</p>
-              <SignatureMark name={signerName || "Dein Dienstname"} seed={seed} signerKey={signerKey} />
+              <SignatureMark name={signerName || "Dein Dienstname"} seed={seed} signerKey={signerKey} signature={signerSignature} />
               <span className="cert-line" />
               <p className="cert-signer">{fullName(signerHonorific, signerName || "Dein Dienstname")}</p>
               <p className="cert-signer-title">{signerTitle}</p>
@@ -115,7 +119,7 @@ export function CertificatePreview({ data, className = "" }: { data: Certificate
         <CertificateStamps stamps={stamps} pending={pending} />
 
         <p className="cert-legal">
-          Rechtsgrundlage: {template.legalBasis}. Veröffentlicht im Amtsblatt des Staates Kamora.
+          Rechtsgrundlage: {template.legalBasis}. {isPublicTemplate(template.id) ? "Öffentliche Bekanntmachung erst nach vollständiger Gegenzeichnung." : "Vertrauliche Urkunde · nur für den internen Dienstgebrauch."}
         </p>
       </div>
     </div>

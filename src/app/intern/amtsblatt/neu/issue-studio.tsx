@@ -6,6 +6,8 @@ import { SignatureSample } from "@/components/certificate/signature-mark";
 import { getTemplate } from "@/lib/amtsblatt/templates";
 import { toast } from "@/lib/toast";
 import { issueDocument, type FormState } from "../../actions";
+import { isPublicTemplate, PUBLICATION_HINT } from "@/lib/amtsblatt/publication";
+import type { DrawnSignature } from "@/lib/amtsblatt/drawn-signature";
 
 const input =
   "mt-2 block min-h-[3.25rem] w-full min-w-0 max-w-full rounded-2xl [&::-webkit-date-and-time-value]:text-left [&[type=date]]:h-[3.25rem] [&[type=date]]:appearance-none [&[type=date]]:overflow-hidden [&[type=date]]:leading-[1.5] border border-ink/15 bg-white/85 px-4 py-3 text-[1.0625rem] outline-none transition-shadow placeholder:text-ink/35 focus:border-accent/50 focus:ring-2 focus:ring-accent/25";
@@ -15,23 +17,27 @@ const input =
 export function IssueStudio({
   templateId,
   signerName,
+  signerSignature,
   signerHonorific,
   signerKey,
   titles,
   today,
   previewSeed,
+  fixedFields = {},
 }: {
   templateId: string;
   signerName: string;
+  signerSignature: DrawnSignature;
   signerHonorific: string | null;
   signerKey: string;
   // Lines the user may print under the signature on this template.
   titles: string[];
   today: string;
   previewSeed: number;
+  fixedFields?: Record<string, string>;
 }) {
   const template = getTemplate(templateId)!;
-  const [values, setValues] = useState<Record<string, string>>({});
+  const [values, setValues] = useState<Record<string, string>>(fixedFields);
   const [signerTitle, setSignerTitle] = useState(titles[0]);
   const [state, action, pending] = useActionState<FormState, FormData>(issueDocument, {});
 
@@ -57,13 +63,18 @@ export function IssueStudio({
   return (
     <div className={`grid items-start gap-8 lg:grid-cols-[minmax(0,25rem)_minmax(0,1fr)] ${certificateFonts}`}>
       <form action={action} className="glass-panel space-y-6 p-6 sm:p-8">
+        <p className="rounded-2xl bg-navy/5 px-4 py-3 text-sm leading-relaxed text-navy">
+          {isPublicTemplate(template.id) ? PUBLICATION_HINT.public : PUBLICATION_HINT.internal}
+        </p>
+        {template.judicialQuorum && <p className="text-sm leading-relaxed text-ink/75">Deine Unterschrift ist die erste richterliche Stimme. Zwei weitere OGH-Richter müssen persönlich zustimmen. Eine Person kann nur einmal unterschreiben; eine Ablehnung verhindert die Freigabe.</p>}
         <input type="hidden" name="template" value={template.id} />
         {/* The preview's seed becomes the document's: what you see is exactly what gets filed. */}
         <input type="hidden" name="seed" value={previewSeed} />
+        {Object.entries(fixedFields).map(([name, value]) => <input key={name} type="hidden" name={name} value={value} />)}
 
         <fieldset className="space-y-5">
           <legend className="font-serif text-xl font-medium">Angaben</legend>
-          {template.fields.map((field) => (
+          {template.fields.filter((field) => !Object.hasOwn(fixedFields, field.name)).map((field) => (
             <label key={field.name} className="block">
               <span className="text-sm font-medium">{field.label}</span>
               {field.type === "select" ? (
@@ -103,7 +114,7 @@ export function IssueStudio({
         <fieldset>
           <legend className="font-serif text-xl font-medium">Unterschrift</legend>
           <div className="mt-3 rounded-2xl border border-ink/10 bg-white/60 px-4 py-3">
-            <SignatureSample name={signerName} seed={previewSeed} signerKey={signerKey} scale={1.15} />
+            <SignatureSample name={signerName} seed={previewSeed} signerKey={signerKey} scale={1.15} signature={signerSignature} />
             <p className="mt-2 text-xs text-muted">Du unterschreibst immer mit deinem eigenen Dienstnamen.</p>
           </div>
           <p className="mt-4 text-sm font-medium">Funktion unter der Unterschrift</p>
@@ -151,6 +162,7 @@ export function IssueStudio({
               fields: values,
               number: null,
               signerName,
+              signerSignature,
               signerHonorific,
               signerKey,
               signerTitle,

@@ -3,6 +3,7 @@ import { fjdOffices } from "./ranks";
 import { DISMISSAL_KINDS, dismissalKind, dismissalNote, formatDate, or, type Template } from "./template-kit";
 import { officeTemplates } from "./templates-offices";
 import { serviceTemplates } from "./templates-service";
+import { judicialTemplates } from "./templates-judicial";
 
 export { formatDate } from "./template-kit";
 export type { Block, FieldType, SealKind, Template, TemplateField, TemplateGroup } from "./template-kit";
@@ -144,11 +145,26 @@ const entlassungFjd: Template = {
   ],
 };
 
-const ALL = [ernennungJm, ernennungFjd, entlassungJm, entlassungFjd, ...serviceTemplates, ...officeTemplates];
-const GROUP_ORDER = ["Ernennung", "Dienstrecht", "Waffen", "Beschlüsse"];
+const ALL = [ernennungJm, ernennungFjd, entlassungJm, entlassungFjd, ...serviceTemplates, ...officeTemplates, ...judicialTemplates];
+const GROUP_ORDER = ["Amtsleitungen", "Ernennung", "Dienstrecht", "Waffen", "Beschlüsse"];
 
 // Sorted by group for the gallery; inside a group the order above stays.
-export const TEMPLATES: Template[] = GROUP_ORDER.flatMap((group) => ALL.filter((template) => template.group === group));
+const LEADERSHIP = new Set(["ernennung-amtsleiter", "ernennung-chief", "ernennung-gsta"]);
+const prepared = ALL.map((template): Template => ({
+  ...template,
+  group: LEADERSHIP.has(template.id) ? "Amtsleitungen" : template.group,
+  // Appointments share the same sequence and effective-date wording. Preserve
+  // each authority's introductory conditions and statutory closing paragraph.
+  blocks: template.id.startsWith("ernennung-") ? (fields) => {
+    const blocks = template.blocks(fields);
+    return blocks.map((block, index) => {
+      if (index === 2) return { kind: "text", text: `mit Wirkung vom ${or(formatDate(fields.wirksam), "…")} zum` };
+      if (index === 3 && template.id === "ernennung-richter") return { kind: "office", text: `Richter am ${or(fields.gericht, "Gericht")}` };
+      return block;
+    });
+  } : template.blocks,
+}));
+export const TEMPLATES: Template[] = GROUP_ORDER.flatMap((group) => prepared.filter((template) => template.group === group));
 
 export function getTemplate(id: string) {
   return TEMPLATES.find((template) => template.id === id) ?? null;

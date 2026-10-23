@@ -57,7 +57,7 @@ export function CertificateStamps({ stamps, pending }: { stamps: StampView[]; pe
           <StampMark stamp={stamp} />
           <div className="cert-stamp-text">
             <div className="cert-stamp-sign">
-              <SignatureMark name={stamp.signerName} seed={stamp.seed} signerKey={stamp.signerKey} />
+              <SignatureMark name={stamp.signerName} seed={stamp.seed} signerKey={stamp.signerKey} signature={stamp.signerSignature} />
             </div>
             <span className="cert-stamp-line" />
             <p className="cert-stamp-name">{fullName(stamp.signerHonorific, stamp.signerName)}</p>

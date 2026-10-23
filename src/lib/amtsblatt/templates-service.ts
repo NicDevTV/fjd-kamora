@@ -328,7 +328,7 @@ const haftbefehl: Template = {
   sample: { name: "Jonas Brandt", tat: "Mord (§ 10 KStGB)", datum: "2026-11-01" },
   countersigns: () => [
     {
-      roles: ["richter", "oberster_richter"],
+      roles: ["richter", "ogh_richter", "oberster_richter"],
       label: "Richterliche Prüfung",
       decisions: ["bestätigt", "aufgehoben"],
       note: "binnen 24 Stunden (§ 9 JO)",
@@ -358,7 +358,7 @@ const durchsuchungsbeschluss: Template = {
   sample: { objekt: "Hafenstraße 12", verdacht: "Waffenhandel (§ 52 KStGB)", datum: "2026-11-01" },
   countersigns: () => [
     {
-      roles: ["richter", "oberster_richter"],
+      roles: ["richter", "ogh_richter", "oberster_richter"],
       label: "Richterliche Prüfung",
       decisions: ["bestätigt", "aufgehoben"],
       note: "binnen 24 Stunden (§ 9 JO)",
