@@ -214,7 +214,7 @@ describe("outbound announcements", () => {
     expect(sent[0][2]).toHaveLength(1);
     expect(sent[0][2][0].type).toBe("image/png");
     expect(JSON.stringify(sent[0][1])).toContain("Ernennung");
-  });
+  }, 20000);
   test("private documents stop before store or webhook work", async () => {
     const { announceDocument, announceStamp } = await import("../src/lib/server/discord/amtsblatt");
     for (const t of TEMPLATES.filter((t) => !isPublicTemplate(t.id))) {
@@ -238,7 +238,7 @@ describe("outbound announcements", () => {
     deliveryOk = true;
     await announceStamp(d, t);
     expect(claims.size).toBe(1);
-  });
+  }, 20000);
 });
 
 describe("document search", () => {

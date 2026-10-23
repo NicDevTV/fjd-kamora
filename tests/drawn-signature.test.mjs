@@ -72,8 +72,8 @@ describe("public document image", () => {
     test(`${template.id}: completed certificate renders as one image`, async () => {
       const document = documentFor(template);
       const image = await renderPublicCertificate(document, template, approvals(template, document));
-      expect((await sharp(image).metadata()).height).toBe(1684);
-    });
+      expect((await sharp(image).metadata()).height).toBe(3368);
+    }, 15000);
   }
   for (const template of TEMPLATES) {
     test(`${template.id}: private fields cannot affect public pixels`, () => {
@@ -100,10 +100,8 @@ describe("public document image", () => {
     const png = await renderPublicCertificate(d, t, approvals(t, d));
     const metadata = await sharp(png).metadata();
     expect(metadata.format).toBe("png");
-    expect(metadata.width).toBe(1191);
-    expect(metadata.height).toBe(1684);
+    expect(metadata.width).toBe(2382);
+    expect(metadata.height).toBe(3368);
     expect(png.byteLength).toBeLessThan(8000000);
-
-  });
+  }, 15000);
 });
-

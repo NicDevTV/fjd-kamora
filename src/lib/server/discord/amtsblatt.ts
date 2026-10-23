@@ -24,10 +24,18 @@ async function announceIfComplete(document: DocumentRecord, template: Template) 
   const stamps = await store.listStamps([document.id]);
   const message = amtsblattMessage(document, template, stamps, messageOptions());
   if (!message) return;
-  const preview = await renderPublicCertificate(document, template, stamps);
-  if (!preview || !(await store.claimAnnouncement(document.id))) return;
-  const result = await sendWebhook("amtsblatt", message, [{ name: `${document.number}.png`, data: preview, type: "image/png" }]);
-  if (!result.ok) await store.releaseAnnouncement(document.id);
+  if (!(await store.claimAnnouncement(document.id))) return;
+  let delivered = false;
+  try {
+    const preview = await renderPublicCertificate(document, template, stamps);
+    if (!preview) return;
+    const result = await sendWebhook("amtsblatt", message, [{ name: `${document.number}.png`, data: preview, type: "image/png" }]);
+    delivered = result.ok;
+  } catch {
+    console.error("[discord] Certificate preview could not be rendered; announcement remains retryable.");
+  } finally {
+    if (!delivered) await store.releaseAnnouncement(document.id);
+  }
 }
 
 export const announceDocument = announceIfComplete;

@@ -18,7 +18,9 @@ export async function renderPublicCertificate(document: DocumentRecord, template
     const pdf = await task.promise;
     if (pdf.numPages !== 1) throw new Error("Public certificate must fit on one page");
     const page = await pdf.getPage(1);
-    const viewport = page.getViewport({ scale: 2 });
+    // 288 dpi keeps fine print and signature strokes sharp when opened from
+    // Discord. Encode directly as lossless PNG without an intermediate resize.
+    const viewport = page.getViewport({ scale: 4 });
     const canvas = createCanvas(Math.ceil(viewport.width), Math.ceil(viewport.height));
     await page.render({ canvas: canvas as unknown as HTMLCanvasElement, canvasContext: canvas.getContext("2d") as unknown as CanvasRenderingContext2D, viewport }).promise;
     return canvas.toBuffer("image/png");
@@ -26,4 +28,3 @@ export async function renderPublicCertificate(document: DocumentRecord, template
     await task.destroy();
   }
 }
-
