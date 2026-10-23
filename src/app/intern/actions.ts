@@ -66,16 +66,22 @@ export async function stampDocument(formData: FormData) {
   const decision = String(formData.get("decision") ?? "");
   if (!open.item.requirement.decisions.includes(decision)) return fail("Nicht möglich", "Unbekannte Entscheidung.");
 
-  const stamp = await store.addStamp({
-    documentId: document.id,
-    role: open.role,
-    stampedBy: user.id,
-    decision,
-    signerName: user.serviceName,
-    signerHonorific: user.honorific,
-    signerTitle: ROLE_TITLES[open.role][0],
-    signatureSeed: seedFrom(null),
-  });
+  // Two offices answering at the same moment: the unique (document, role) key lets only one stamp through.
+  let stamp;
+  try {
+    stamp = await store.addStamp({
+      documentId: document.id,
+      role: open.role,
+      stampedBy: user.id,
+      decision,
+      signerName: user.serviceName,
+      signerHonorific: user.honorific,
+      signerTitle: ROLE_TITLES[open.role][0],
+      signatureSeed: seedFrom(null),
+    });
+  } catch {
+    return fail("Schon gezeichnet", "Für diese Urkunde liegt diese Gegenzeichnung bereits vor.");
+  }
   after(() => announceStamp(document, template, stamp).catch((error) => console.error("[discord] stamp announcement failed:", error)));
   setFlash(await cookies(), { tone: "success", title: `${open.item.requirement.label}: ${decision}`, description: `Amtsblatt Nr. ${document.number}.` });
   redirect(back);
