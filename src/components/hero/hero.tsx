@@ -58,6 +58,9 @@ export function Hero() {
   useEffect(() => {
     const device = navigator as Navigator & { connection?: { saveData?: boolean }; deviceMemory?: number };
     if (device.connection?.saveData || (device.deviceMemory ?? 8) <= 2) return;
+    // Phones and tablets keep the flat emblem: the transmission glass needs several full-size render
+    // targets, which together with the heavy codex page gets the iOS web process killed.
+    if (window.matchMedia("(max-width: 767px), (pointer: coarse)").matches) return;
 
     const intro = !document.documentElement.classList.contains("fjd-intro-skip");
     let idle = 0;
