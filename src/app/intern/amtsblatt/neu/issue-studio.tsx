@@ -36,10 +36,20 @@ export function IssueStudio({
     if (state.at && state.error) toast.error("Nicht ausgefertigt", { description: state.error });
   }, [state]);
 
+  // Choosing "unehrenhaft" fills in the only reason that allows it, so the legal path is one click.
+  function choose(name: string, value: string) {
+    const next = { ...values, [name]: value };
+    if (name === "art" && value === "unehrenhaft" && template.dishonourableReason) next.grund = template.dishonourableReason;
+    setValues(next);
+  }
+
   const missing = template.fields.filter((field) => field.required && !values[field.name]?.trim()).length;
-  // Rules between fields (e.g. dishonourable only after a disciplinary decision) show up while filling in,
-  // so nobody finds out only after pressing the button.
+  // Rules between fields (e.g. dishonourable only after a disciplinary decision) are announced as a toast
+  // while filling in, and the button stays off until the combination is valid.
   const problem = template.check?.(values) ?? null;
+  useEffect(() => {
+    if (problem) toast.error("Nicht möglich", { description: problem });
+  }, [problem]);
 
   return (
     <div className={`grid items-start gap-8 lg:grid-cols-[minmax(0,25rem)_minmax(0,1fr)] ${certificateFonts}`}>
@@ -58,7 +68,7 @@ export function IssueStudio({
                   name={field.name}
                   required={field.required}
                   value={values[field.name] ?? ""}
-                  onChange={(event) => setValues({ ...values, [field.name]: event.target.value })}
+                  onChange={(event) => choose(field.name, event.target.value)}
                   className={input}
                 >
                   <option value="" disabled>
@@ -117,11 +127,6 @@ export function IssueStudio({
         </fieldset>
 
         <div className="border-t border-ink/10 pt-6">
-          {problem && (
-            <p role="alert" className="mb-4 rounded-2xl border border-accent/30 bg-accent/5 px-4 py-3 text-sm text-accent">
-              {problem}
-            </p>
-          )}
           <button
             type="submit"
             disabled={pending || problem !== null}

@@ -43,6 +43,8 @@ export type Template = {
   blocks: (fields: Record<string, string>) => Block[];
   // Rules between fields that single-field validation cannot express; returns an error message.
   check?: (values: Record<string, string>) => string | null;
+  // The one reason (option of "grund") that allows a dishonourable dismissal; chosen automatically.
+  dishonourableReason?: string;
 };
 
 const DATE_FORMAT = new Intl.DateTimeFormat("de-DE", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
@@ -120,6 +122,7 @@ const entlassungJm: Template = {
     { name: "art", label: "Art der Entlassung", type: "select", required: true, options: DISMISSAL_KINDS },
   ],
   sample: { name: "Marlene Hartenstein", wirksam: "2026-12-31", grund: "auf eigenen Wunsch", art: "ehrenhaft" },
+  dishonourableReason: "nach Amtsenthebung durch Senat und OGH",
   check: (values) =>
     values.art === "unehrenhaft" && values.grund !== "nach Amtsenthebung durch Senat und OGH"
       ? "Unehrenhaft entlassen wird der Justizminister nur nach einer Amtsenthebung durch Senat und OGH (§ 9 BeamtG)."
@@ -190,6 +193,7 @@ const entlassungFjd: Template = {
     { name: "art", label: "Art der Entlassung", type: "select", required: true, options: DISMISSAL_KINDS },
   ],
   sample: { name: "Jonas Brandt", amt: "Staatsanwalt", wirksam: "2026-12-31", grund: "auf eigenen Wunsch", art: "ehrenhaft" },
+  dishonourableReason: "nach Beschluss der Disziplinarkammer",
   check: (values) =>
     values.art === "unehrenhaft" && values.grund !== "nach Beschluss der Disziplinarkammer"
       ? "Unehrenhaft entlassen wird nur nach einem Beschluss der Disziplinarkammer (§ 9 BeamtG)."
