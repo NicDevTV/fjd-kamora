@@ -27,6 +27,23 @@ Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 | StA | Staatsanwaltschaft |
 | GStA | Generalstaatsanwalt |
 | AIR | Innere Revision |
+| MDT | Mobiles Datenterminal: das amtliche Aktensystem für Berichte, Weisungen und Anordnungen |
+| SWAT | Spezialeinheit des KPD (→ PolG 13) |
+| PIT | Manöver, das ein fliehendes Fahrzeug seitlich anstößt und zum Stehen bringt |
+
+### Begriffe
+
+| Begriff | Bedeutung |
+| --- | --- |
+| Amtsträger | Gouverneur, Senatsmitglieder, Minister, Richter und alle Beamten (→ BeamtG 1), im Dienst oder wegen ihres Amtes |
+| Angehörige | Partner, Eltern, Kinder, Geschwister und wer mit der Person im Spiel zusammenlebt |
+| Befangen | wer in eigener Sache oder der eines Angehörigen entscheidet oder an der Sache selbst beteiligt war |
+| Bürger | wer einen gültigen Ausweis Kamoras hat |
+| Amtsblatt | das amtliche Verkündungsblatt, vom FJD geführt (→ FJDS 12) |
+| Dienstältester | wer am längsten im selben Amt ist, gezählt ab dem Datum der Urkunde im Amtsblatt; bei Gleichstand entscheidet das Los |
+| Dienstvergehen | Verstoß gegen BeamtG 3 bis 5 oder 8 oder gegen eine rechtmäßige Weisung (→ BeamtG 6) |
+| Rechtskräftig | Urteil oder Strafbefehl, gegen den keine Frist mehr läuft oder über den der OGH entschieden hat (→ JO 11) |
+| Sperrzone | abgegrenztes Gebiet, das nur Berechtigte betreten (→ PolG 9) |
 
 ### Machtbalance des Justizministers
 
@@ -37,7 +54,7 @@ Ein Verweis wie (→ JO 5) zeigt auf die Norm, die eine Regel benutzt.
 | Weisungen an die StA | Im Einzelfall nur schriftlich in der Akte; nie zum eigenen Vorteil | JO 4 |
 | Verordnungen | Nur im Rahmen der Gesetze; der OGH kann sie aufheben | FJDS 6 |
 | Akten löschen | Begründung und Archivierung; der OGH prüft und kann wiederherstellen | FJDS 7 |
-| Stichentscheid in der Disziplinarkammer | Nie in eigener Sache oder bei FJD-Fällen | BeamtG 6 |
+| Stichentscheid in der Disziplinarkammer | Nur bei Gleichstand; nie in eigener Sache oder bei FJD-Fällen | BeamtG 6 |
 | Vorschläge für Richter, GStA, Gnade | Der Gouverneur entscheidet; Richter und GStA bestätigt der Senat; schlägt der JM binnen 7 Tagen keinen Richter vor, schlägt der Oberste Richter vor | KV 5 · JO 13 |
 | Waffenerlaubnisse erteilen | Ablehnung mit Begründung; der OGH prüft Beschwerden; die Freigabeliste setzt der Gouverneur | WaffG 3–4 |
 | Ernennungen im FJD | Staatssekretär nur mit dem Gouverneur, Leiter der Inneren Revision nur mit dem Senat; den GStA ernennt der Gouverneur | FJDS 11 |
@@ -102,7 +119,7 @@ Vom Volk gewählt (→ Art. 15).
 - **Mehrheiten:** Gesetze einfach, Verfassungsänderungen 2/3 und nur bei mindestens 5 besetzten Sitzen; nie bei Art. 14.
 - **Einbringen:** Justizgesetze (KStGB, JO, PolG, WaffG, BeamtG, FJDS) nur der JM, alle anderen auch jedes Senatsmitglied. Der Senat darf selbst einbringen: Gesetze über Immunität, Kontrolle oder Amtsenthebung des JM sowie jeden Entwurf, den der JM auf Senatsmehrheit binnen 7 Tagen nicht vorlegt.
 - **Beschluss:** Der Senat verabschiedet oder lehnt ab. Der JM darf in jeder Sitzung sprechen, stimmt nicht mit.
-- **Kontrolle:** Justizausschuss (→ FJDS 8), nie vom JM geleitet. Ohne Senat kontrolliert der OGH.
+- **Kontrolle:** Der Justizausschuss (→ FJDS 8) besteht aus mindestens 3 Senatsmitgliedern, die der Senat bestimmt, und wird nie vom JM geleitet. Ohne Senat kontrolliert der OGH.
 - **Amtsenthebung des JM:** Antrag 1/3, Beschluss 2/3, Bestätigung durch den OGH (beim Obersten Richter durch die übrigen OGH-Richter). Den Nachfolger ernennt der Sicherheitsrat.
 
 ### Art. 7 Justizminister
@@ -134,7 +151,7 @@ Der Gouverneur ruft ihn für bis zu 48 h aus, der Senat verlängert. Der JM darf
 - **Kontrolle:** Kontrollpunkte mit Ausweiskontrolle und Durchsuchung ohne Verdacht (→ PolG 5–6).
 - **Eingriffe:** Betriebe und Gebäude vorläufig schließen, Waffen und Fahrzeuge sicherstellen, in der Sperrzone Wohnungen ohne Beschluss durchsuchen (→ PolG 6).
 - **Haft:** Notstands-U-Haft bis 120 HE bei Terror, Geiselnahme und Mord (→ JO 10).
-- **Behörden:** Einsatzstab mit Weisungsrecht an KPD und SWAT, Bereitschafts- und Urlaubssperre für KPD und FJD, Vorrang für Schnellverfahren (→ JO 5).
+- **Behörden:** Einsatzstab, den der JM leitet und dem der Chief angehört, mit Weisungsrecht an KPD und SWAT, Bereitschafts- und Urlaubssperre für KPD und FJD, Vorrang für Schnellverfahren (→ JO 5).
 - **Verboten bleibt:** Strafhaft ohne Urteil; Aussetzung von Gerichten, Senat oder Immunität; Wahlverschiebung über 48 h; Sperren, die Stimmabgabe oder Wahlkampf behindern; Zensur, Durchsuchung oder Festnahme der Presse (→ Art. 2); dauerhafte Enteignung; Maßnahmen gegen Senatsmitglieder wegen ihrer Politik.
 - **Gegengewicht:** Ohne mündliche Zustimmung des Gouverneurs erlöschen alle Maßnahmen nach 2 h. Danach prüft der OGH jede Anordnung; Missbrauch ist Amtsmissbrauch (→ KStGB 47). Art. 3 und 4 gelten immer.
 
@@ -340,7 +357,7 @@ Klick auf eine Tat zeigt ihre Definition. HE = Hafteinheit (1 Min.), $ = Geldstr
 ### § 1 Gerichte
 
 - **Bezirksgericht:** erste Instanz, Einzelrichter.
-- **OGH:** Berufung, Verfassung, Immunität (→ ImmG 4), Amtsenthebung (→ KV 6), Aktenlöschung (→ FJDS 7), Wahlen (→ KV 15), Parteiverbote (→ KV 16). Er tagt mit 3 Richtern; notfalls entscheidet der Oberste Richter allein. Wo der Kodex alle 3 verlangt (→ KV 16, KStGB 9), wird bis dahin vertagt.
+- **OGH:** Berufung, Verfassung, Immunität (→ ImmG 4), Amtsenthebung (→ KV 6), Aktenlöschung (→ FJDS 7), Wahlen (→ KV 15), Parteiverbote (→ KV 16), Disziplin (→ BeamtG 6). Er tagt mit 3 Richtern; notfalls entscheidet der Oberste Richter allein. Den Vorsitz führt der Oberste Richter, ein vom Gouverneur dazu bestimmter OGH-Richter; fehlt er, führt ihn der dienstälteste OGH-Richter (→ KV 13). Wo der Kodex alle 3 verlangt (→ KV 16, KStGB 9), wird bis dahin vertagt.
 - **Ausschluss:** Wer in erster Instanz entschieden hat, wirkt in der Berufung nicht mit.
 
 ### § 2 Richter
@@ -349,7 +366,11 @@ Ernennung nach KV 5. Weisungsfrei (→ KV 8); wer befangen ist, tritt zurück.
 
 ### § 3 Anwälte
 
-Die Anwaltskammer am OGH lässt sie zu, nicht das FJD. Mandantengespräche werden nicht überwacht. Wer sich keinen Anwalt leisten kann, erhält auf Wunsch einen Pflichtverteidiger; ab 60 HE jeder Beschuldigte (→ PolG 7).
+Die Anwaltskammer am OGH lässt sie zu, nicht das FJD. Sie besteht aus den zugelassenen Anwälten und wählt ihren Vorsitz.
+
+- **Zulassung:** Wer sie beantragt und in den letzten 90 Tagen nicht wegen Taten der Nummernkreise 40 oder 80 verurteilt wurde, wird zugelassen. Die Kammer entscheidet binnen 7 Tagen, lehnt sie ab, begründet sie das, und der Bewerber kann Beschwerde zum OGH einlegen. Gibt es keine Kammer oder ist sie unbesetzt, lässt der OGH zu.
+- **Mandantengespräche** werden nicht überwacht.
+- **Pflichtverteidiger:** Wer sich keinen Anwalt leisten kann, erhält auf Wunsch einen; ab 60 HE jeder Beschuldigte (→ PolG 7). Ihn bestimmt die Kammer, ohne Kammer der Richter. Ist kein Anwalt erreichbar, wird vertagt (→ KV 13).
 
 ### § 4 Staatsanwaltschaft
 
@@ -361,7 +382,7 @@ Kette: Staatsanwalt → GStA → Staatssekretär → JM. Ist binnen 15 Min. niem
 
 ### § 6 Sonderermittler
 
-Der OGH setzt ihn binnen 24 h ein bei Verdacht gegen Angehörige des FJD, Staatssekretär, JM, GStA, Gouverneur oder KPD-Leitung. Bis dahin sichert das KPD die Beweise. Er ist weisungsfrei und berichtet an OGH und Senat.
+Der OGH setzt ihn binnen 24 h ein bei Verdacht gegen Angehörige des FJD, Staatssekretär, JM, GStA, Gouverneur oder KPD-Leitung. Bis dahin sichert das KPD die Beweise. Er gehört weder zum FJD noch zur KPD-Leitung; findet sich niemand, bestimmt der OGH einen Richter, der in diesem Fall nicht urteilt. Er ist weisungsfrei und berichtet an OGH und Senat.
 
 ### § 7 Hauptverfahren
 
@@ -379,7 +400,7 @@ Zulässig: Bodycam, Dashcam, Zeugen, Spuren, Dokumente, Geständnis. Unverwertba
 
 ### § 9 Beschlüsse
 
-Haft-, Durchsuchungs- und Überwachungsbeschlüsse erlassen Richter oder JM (vertreten durch den Staatssekretär, → KV 13).
+Haft-, Durchsuchungs- und Überwachungsbeschlüsse erlassen Richter oder JM (vertreten durch den Staatssekretär, → KV 13). Der Haftbeschluss heißt auch Haftbefehl.
 
 - **JM-Beschluss:** gilt sofort; ein Richter prüft binnen 24 h und kann ihn aufheben.
 - **Grenzen:** In eigener Sache und gegen Angehörige, Senatsmitglieder oder Immune (→ ImmG 2) erlässt der JM keine.
@@ -387,7 +408,10 @@ Haft-, Durchsuchungs- und Überwachungsbeschlüsse erlassen Richter oder JM (ver
 
 ### § 10 Gewahrsam
 
-Vernehmung binnen 30 Min. Vorläufige U-Haft bis 60 HE ordnen JM, Staatssekretär oder StA an; ein Richter verlängert bis höchstens 120 HE oder lässt frei. Danach kommt der Beschuldigte mit Vorladung frei. Kaution ist möglich. Gewahrsam wird auf die Strafe angerechnet.
+Vernehmung binnen 30 Min. Vorläufige U-Haft bis 60 HE ordnen JM, Staatssekretär oder StA an; ein Richter verlängert bis höchstens 120 HE oder lässt frei. Danach kommt der Beschuldigte mit Vorladung frei. Gewahrsam wird auf die Strafe angerechnet.
+
+- **Vorladung:** die schriftliche Aufforderung, zu einem genannten Termin bei StA oder Gericht zu erscheinen. Wer ohne Grund fernbleibt, kann per Haftbefehl geholt werden.
+- **Kaution:** Richter oder StA können sie gegen Freilassung verlangen, höchstens in Höhe der Geldstrafe der Tat; bei Kapitalverbrechen gibt es keine. Sie wird zurückgezahlt, wenn der Beschuldigte erscheint, und verfällt sonst.
 
 - **Ohne Richter:** Sicherungsgewahrsam bis 60 HE (→ KV 13, FJDS 10).
 - **Notstand:** Notstands-U-Haft bis 120 HE (→ KV 11).
@@ -395,7 +419,7 @@ Vernehmung binnen 30 Min. Vorläufige U-Haft bis 60 HE ordnen JM, Staatssekretä
 
 ### § 11 Rechtsmittel
 
-Einspruch binnen 24 h zum Bezirksgericht, Berufung binnen 48 h zum OGH. Der OGH entscheidet endgültig.
+Einspruch binnen 24 h zum Bezirksgericht, Berufung binnen 48 h zum OGH. Der OGH entscheidet endgültig. Rechtskräftig wird eine Entscheidung, sobald die Frist ungenutzt verstrichen ist oder der OGH entschieden hat.
 
 ### § 12 Öffentlichkeit
 
@@ -415,6 +439,11 @@ Polizeiliche Befugnisse (§§ 5–10) hat allein das KPD. FJD und StA leiten Erm
 ### § 2 Organisation
 
 Den Chief of Police ernennt der Gouverneur. Personal, Ränge und Dienstpläne liegen allein bei ihm.
+
+- **Rangfolge:** Anwärter, Officer, Sergeant, Lieutenant, Captain, Deputy Chief, Chief. „Ab Lieutenant“ meint Lieutenant und alle höheren Ränge. Benennt der Chief Ränge um, gilt der Rang an derselben Stelle.
+- **Supervisor:** der Sergeant oder höhere Beamte, der die Schicht führt; ist keiner im Dienst, der Ranghöchste im Dienst.
+- **Command Staff:** Captain, Deputy Chief und Chief.
+- **Einsatzleiter:** wer am Einsatzort die Leitung hat: der Supervisor, sonst der Ranghöchste vor Ort.
 
 ### § 3 FJD
 
@@ -472,7 +501,7 @@ PIT und Straßensperren nur mit Freigabe des Supervisors. Sperrzonen setzt der S
 
 ### § 10 Beschlagnahme
 
-Alles wird dokumentiert und kommt in die Asservatenkammer; Fahrzeuge werden abgeschleppt (→ KStGB 8).
+Alles wird dokumentiert und kommt in die Asservatenkammer, das Beweislager des KPD; Fahrzeuge werden abgeschleppt (→ KStGB 8).
 
 ### § 11 Dokumentation
 
@@ -530,11 +559,14 @@ Mitgliedschaft in kriminellen Gruppen ist verboten. Befangenheit und Geschenke �
 
 #### § 6 Disziplin
 
-Ermahnung → Verweis → Geldbuße → Suspendierung bis 7 Tage → Degradierung → Entlassung.
+Ermahnung → Verweis → Geldbuße → Suspendierung bis 7 Tage → Degradierung → Entlassung. Voraussetzung ist ein Dienstvergehen; die Maßnahme steht im Verhältnis zur Schwere. Vorher wird der Betroffene angehört (→ § 7).
 
-- **Bis Geldbuße:** entscheidet der Vorgesetzte.
-- **Darüber:** Disziplinarkammer aus einem OGH-Richter, einem Behördenvertreter und einem AIR-Vertreter. Der JM darf teilnehmen und sprechen; bei Gleichstand entscheidet seine Stimme. Geht es um ihn oder das FJD, nimmt er nicht teil, und der OGH-Richter entscheidet bei Gleichstand.
-- **Rechtsmittel:** zum OGH.
+- **Bis Geldbuße:** entscheidet der Vorgesetzte, schriftlich mit Begründung im MDT. Die Geldbuße beträgt höchstens $5.000.
+- **Darüber:** die Disziplinarkammer. Sie hat 3 Mitglieder: einen OGH-Richter (Vorsitz), einen Vertreter der Behörde des Betroffenen und einen Vertreter der AIR. Der Behördenvertreter ist weder Antragsteller noch Vorgesetzter des Betroffenen; bei Beamten des FJD ist es der Staatssekretär oder ein Amtsleiter.
+- **Verfahren:** Antrag stellen der Vorgesetzte, die Behördenleitung oder die AIR schriftlich im MDT mit Vorwurf und Beweisen. Der Oberste Richter bildet die Kammer binnen 48 h, sie entscheidet binnen 7 Tagen nach dem Antrag und nach Anhörung des Betroffenen. Der Beschluss ist begründet und kommt ins MDT.
+- **Abstimmung:** Mehrheit der Anwesenden. Der JM darf teilnehmen und sprechen, bei Gleichstand entscheidet seine Stimme. Geht es um ihn, das FJD oder Angehörige, nimmt er nicht teil, und die Stimme des OGH-Richters entscheidet.
+- **Personalmangel:** Die Kammer ist mit dem OGH-Richter und einem weiteren Mitglied beschlussfähig. Entsendet die Behörde binnen 48 h niemanden, tagt sie ohne. Ist die AIR unbesetzt, tritt ein Mitglied des Justizausschusses an ihre Stelle (→ KV 13). Ist kein OGH-Richter erreichbar, wird vertagt.
+- **Rechtsmittel:** binnen 48 h zum OGH (→ JO 11). Entlassung und Degradierung wirken erst nach Ablauf der Frist oder der Entscheidung des OGH, die Suspendierung sofort.
 
 #### § 7 Rechte
 
@@ -571,7 +603,7 @@ Einen laufenden Angriff unterbrechen (entwaffnen ohne Festnahme) · Beweise am T
 #### § 4 Aufhebung
 
 - **Antrag:** 1/3 des Senats, Sonderermittler oder GStA; gegen den JM nie aus dem FJD. Der OGH entscheidet binnen 24 h.
-- **Eilaufhebung** bei Mord, Geiselnahme, Terror oder Waffenhandel: Der Oberste Richter entscheidet allein binnen 30 Min. auf Antrag von Sonderermittler, Senatspräsident oder Chief; die Spruchkammer prüft nach.
+- **Eilaufhebung** bei Mord, Geiselnahme, Terror oder Waffenhandel: Der Oberste Richter entscheidet allein binnen 30 Min. auf Antrag von Sonderermittler, Senatspräsident oder Chief; die übrigen OGH-Richter prüfen binnen 24 h nach und können sie aufheben.
 - **Bis dahin:** Der OGH kann die Amtsgeschäfte ruhen lassen; beim JM übernimmt der Staatssekretär (→ FJDS 1).
 - **Oberster Richter betroffen:** Es entscheidet der dienstälteste OGH-Richter; der Betroffene wirkt nie mit.
 
@@ -648,7 +680,7 @@ Das FJD führt Akten und Strafregister; KPD und StA tragen ein.
 
 ### § 8 Rechenschaft
 
-Monatsbericht an den Justizausschuss mit Weisungen, Fällen, Beschwerden, Löschungen und Gnade (→ KV 6). Weisungs- und Löschregister sind für Senat und OGH jederzeit offen. Bei Befangenheit des JM übernimmt der Staatssekretär, bei der FJD-Leitung der Sonderermittler (→ JO 6).
+Monatsbericht an den Justizausschuss mit Weisungen, Fällen, Beschwerden, Löschungen und Gnade (→ KV 6). Weisungs- und Löschregister sind für Senat und OGH jederzeit offen. Das Weisungsregister listet jede schriftliche Weisung und jede Ermächtigung nach KStGB 9 mit Nummer, Aussteller, Empfänger, Datum und Begründung. Bei Befangenheit des JM übernimmt der Staatssekretär, bei der FJD-Leitung der Sonderermittler (→ JO 6).
 
 ### § 9 Amtsverlust
 
@@ -728,7 +760,7 @@ Wer eine Waffe besitzt oder führt, braucht eine Erlaubnis für genau diese Waff
 
 - **Führen:** Dienstwaffen offen, private Waffen verdeckt. Wer eine Waffe zieht oder auf einen Menschen richtet, ohne dass Notwehr (→ KStGB 4) oder Dienstzwang (→ PolG 8) vorliegt, verliert die Erlaubnis.
 - **Verbotszonen:** Gerichte, Senat, FJD, Wachen, Gefängnis, Wahllokale am Wahltag (→ KV 15) und jede Sperrzone mit Waffenverbot (→ KV 11, PolG 9). Dort gibt man Waffen am Eingang ab.
-- **Ausnahme:** KPD und Marshals im Dienst sowie der Einlassdienst, der die Waffen verwahrt (→ FJDS 10).
+- **Ausnahme:** KPD und Marshals im Dienst sowie wer am Eingang kontrolliert und die Waffen verwahrt: der Justizmarschalldienst (→ FJDS 10), an Wachen und Wahllokalen das KPD.
 
 ### § 6 Entzug
 
